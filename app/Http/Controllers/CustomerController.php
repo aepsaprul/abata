@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Menu;
+use App\Models\Customer;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 
-class MenuController extends Controller
+class CustomerController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,9 +14,9 @@ class MenuController extends Controller
      */
     public function index()
     {
-        $menus = Menu::get();
+        $customers = Customer::get();
 
-        return view('menu.index', ['menus' => $menus]);
+        return view('customer.index', ['customers' => $customers]);
     }
 
     /**
@@ -27,7 +26,7 @@ class MenuController extends Controller
      */
     public function create()
     {
-        return view('menu.create');
+        return view('customer.create');
     }
 
     /**
@@ -38,17 +37,12 @@ class MenuController extends Controller
      */
     public function store(Request $request)
     {
-			$validation = \Validator::make($request->all(), [
-				"title" => "required|max:50",
-				"link" => "required|max:100"
-			])->validate();
+        $customers = new Customer;
+        $customers->nama = $request->nama;
+        $customers->telepon = $request->telepon;
+        $customers->save();
 
-			$menus = new Menu;
-			$menus->title = $request->title;
-			$menus->link = $request->link;
-			$menus->save();
-
-			return redirect()->route('menu.create')->with('status', 'Menu berhasil ditambahkan !!!');
+        return redirect()->route('customer.index')->with('status', 'Data customer berhasil ditambah');
     }
 
     /**
@@ -70,9 +64,9 @@ class MenuController extends Controller
      */
     public function edit($id)
     {
-        $menu = Menu::findOrFail($id);
+        $customer = Customer::find($id);
         
-        return view('menu.edit', ['menu' => $menu]);
+        return view('customer.edit', ['customer' => $customer]);
     }
 
     /**
@@ -84,12 +78,12 @@ class MenuController extends Controller
      */
     public function update(Request $request, $id)
     {
-			$menu = Menu::find($id);
-			$menu->title = $request->title;
-			$menu->link = $request->link;
-			$menu->save();
+        $customer = Customer::find($id);
+        $customer->nama = $request->nama;
+        $customer->telepon = $request->telepon;
+        $customer->save();
 
-			return redirect()->route('menu.edit', [$menu->id])->with('status', 'Menu berhasil diubah !!!');
+        return redirect()->route('customer.index')->with('status', 'Data customer berhasil diperbaharui');
     }
 
     /**
@@ -101,13 +95,13 @@ class MenuController extends Controller
     public function destroy($id)
     {
         //
-		}
-		
-		public function delete(Request $request, $id)
-		{
-			$menu = Menu::find($id);
-			$menu->delete();
+    }
 
-			return redirect()->route('menu.index')->with('status', 'Menu berhasil dihapus !!!');
-		}
+    public function delete(Request $request, $id)
+    {
+			$customer = Customer::find($id);
+			$customer->delete();
+
+			return redirect()->route('customer.index')->with('status', 'Data customer berhasil dihapus');
+    }
 }

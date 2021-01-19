@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Menu;
+use App\Models\Jabatan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
-class MenuController extends Controller
+class JabatanController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,8 +18,9 @@ class MenuController extends Controller
     public function index()
     {
         $menus = Menu::get();
+        $jabatans = Jabatan::get();
 
-        return view('menu.index', ['menus' => $menus]);
+        return view('jabatan.index', ['jabatans' => $jabatans, 'menus' => $menus]);
     }
 
     /**
@@ -27,7 +30,7 @@ class MenuController extends Controller
      */
     public function create()
     {
-        return view('menu.create');
+        return view('jabatan.create');
     }
 
     /**
@@ -38,17 +41,16 @@ class MenuController extends Controller
      */
     public function store(Request $request)
     {
-			$validation = \Validator::make($request->all(), [
-				"title" => "required|max:50",
-				"link" => "required|max:100"
-			])->validate();
+        $validation = \Validator::make($request->all(), [
+                "nama" => "required|max:50"
+        ])->validate();
 
-			$menus = new Menu;
-			$menus->title = $request->title;
-			$menus->link = $request->link;
-			$menus->save();
+        $jabatans = new Jabatan;
+        $jabatans->nama = $request->nama;
+        $jabatans->created_by = Auth::user()->id;
+        $jabatans->save();
 
-			return redirect()->route('menu.create')->with('status', 'Menu berhasil ditambahkan !!!');
+        return redirect()->route('jabatan.create')->with('status', 'Jabatan berhasil disimpan');
     }
 
     /**
@@ -70,9 +72,9 @@ class MenuController extends Controller
      */
     public function edit($id)
     {
-        $menu = Menu::findOrFail($id);
-        
-        return view('menu.edit', ['menu' => $menu]);
+        $jabatan = Jabatan::find($id);
+
+        return view('jabatan.edit', ['jabatan' => $jabatan]);
     }
 
     /**
@@ -84,12 +86,12 @@ class MenuController extends Controller
      */
     public function update(Request $request, $id)
     {
-			$menu = Menu::find($id);
-			$menu->title = $request->title;
-			$menu->link = $request->link;
-			$menu->save();
+        $jabatan = Jabatan::find($id);
+        $jabatan->nama = $request->nama;
+        $jabatan->updated_by = Auth::user()->id;
+        $jabatan->save();
 
-			return redirect()->route('menu.edit', [$menu->id])->with('status', 'Menu berhasil diubah !!!');
+        return redirect()->route('jabatan.edit', [$jabatan->id])->with('status', 'Jabatan berhasil diubah');
     }
 
     /**
@@ -101,13 +103,17 @@ class MenuController extends Controller
     public function destroy($id)
     {
         //
-		}
-		
-		public function delete(Request $request, $id)
-		{
-			$menu = Menu::find($id);
-			$menu->delete();
+    }
 
-			return redirect()->route('menu.index')->with('status', 'Menu berhasil dihapus !!!');
-		}
+    public function delete(Request $request, $id)
+    {
+        $jabatan = Jabatan::find($id);
+
+        $jabatan->deleted_by = Auth::user()->id;
+        $jabatan->save();
+        
+        $jabatan->delete();
+
+        return redirect()->route('jabatan.index')->with('status', 'Jabatan berhasil dihapus');
+    }
 }

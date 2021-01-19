@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Menu;
+use App\Models\Cabang;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 
-class MenuController extends Controller
+class CabangController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,9 +14,9 @@ class MenuController extends Controller
      */
     public function index()
     {
-        $menus = Menu::get();
+			$cabangs = Cabang::get();
 
-        return view('menu.index', ['menus' => $menus]);
+			return view('cabang.index', ['cabangs' => $cabangs]);
     }
 
     /**
@@ -27,7 +26,7 @@ class MenuController extends Controller
      */
     public function create()
     {
-        return view('menu.create');
+			return view('cabang.create');
     }
 
     /**
@@ -38,17 +37,11 @@ class MenuController extends Controller
      */
     public function store(Request $request)
     {
-			$validation = \Validator::make($request->all(), [
-				"title" => "required|max:50",
-				"link" => "required|max:100"
-			])->validate();
+			$cabangs = new Cabang;
+			$cabangs->nama = $request->nama;
+			$cabangs->save();
 
-			$menus = new Menu;
-			$menus->title = $request->title;
-			$menus->link = $request->link;
-			$menus->save();
-
-			return redirect()->route('menu.create')->with('status', 'Menu berhasil ditambahkan !!!');
+			return redirect()->route('cabang.create')->with('status', 'Data cabang berhasil ditambah');
     }
 
     /**
@@ -70,9 +63,9 @@ class MenuController extends Controller
      */
     public function edit($id)
     {
-        $menu = Menu::findOrFail($id);
-        
-        return view('menu.edit', ['menu' => $menu]);
+			$cabang = Cabang::find($id);
+
+			return view('cabang.edit', ['cabang' => $cabang]);
     }
 
     /**
@@ -84,12 +77,11 @@ class MenuController extends Controller
      */
     public function update(Request $request, $id)
     {
-			$menu = Menu::find($id);
-			$menu->title = $request->title;
-			$menu->link = $request->link;
-			$menu->save();
+			$cabang = Cabang::find($id);
+			$cabang->nama = $request->nama;
+			$cabang->save();
 
-			return redirect()->route('menu.edit', [$menu->id])->with('status', 'Menu berhasil diubah !!!');
+			return redirect()->route('cabang.index')->with('status', 'Data cabang berhasil diperbaharui');
     }
 
     /**
@@ -100,14 +92,14 @@ class MenuController extends Controller
      */
     public function destroy($id)
     {
-        //
-		}
-		
-		public function delete(Request $request, $id)
-		{
-			$menu = Menu::find($id);
-			$menu->delete();
+        
+    }
 
-			return redirect()->route('menu.index')->with('status', 'Menu berhasil dihapus !!!');
-		}
+    public function delete(Request $request, $id)
+    {
+			$cabang = Cabang::find($id);
+			$cabang->delete();
+
+			return redirect()->route('cabang.index')->with('status', 'Data cabang berhasil dihapus');
+    }
 }

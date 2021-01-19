@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Menu;
+use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 
-class MenuController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,9 +14,9 @@ class MenuController extends Controller
      */
     public function index()
     {
-        $menus = Menu::get();
+        $users = User::get();
 
-        return view('menu.index', ['menus' => $menus]);
+        return view('user.index', ['users' => $users]);
     }
 
     /**
@@ -27,7 +26,7 @@ class MenuController extends Controller
      */
     public function create()
     {
-        return view('menu.create');
+        //
     }
 
     /**
@@ -38,17 +37,7 @@ class MenuController extends Controller
      */
     public function store(Request $request)
     {
-			$validation = \Validator::make($request->all(), [
-				"title" => "required|max:50",
-				"link" => "required|max:100"
-			])->validate();
-
-			$menus = new Menu;
-			$menus->title = $request->title;
-			$menus->link = $request->link;
-			$menus->save();
-
-			return redirect()->route('menu.create')->with('status', 'Menu berhasil ditambahkan !!!');
+        //
     }
 
     /**
@@ -70,9 +59,9 @@ class MenuController extends Controller
      */
     public function edit($id)
     {
-        $menu = Menu::findOrFail($id);
+        $user = User::find($id);
         
-        return view('menu.edit', ['menu' => $menu]);
+        return view('user.edit', ['user' => $user]);
     }
 
     /**
@@ -84,12 +73,12 @@ class MenuController extends Controller
      */
     public function update(Request $request, $id)
     {
-			$menu = Menu::find($id);
-			$menu->title = $request->title;
-			$menu->link = $request->link;
-			$menu->save();
+        $user = User::find($id);
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->save();
 
-			return redirect()->route('menu.edit', [$menu->id])->with('status', 'Menu berhasil diubah !!!');
+        return redirect()->route('user.index')->with('status', 'Data user berhasil diperbaharui');
     }
 
     /**
@@ -101,13 +90,10 @@ class MenuController extends Controller
     public function destroy($id)
     {
         //
-		}
-		
-		public function delete(Request $request, $id)
-		{
-			$menu = Menu::find($id);
-			$menu->delete();
+    }
 
-			return redirect()->route('menu.index')->with('status', 'Menu berhasil dihapus !!!');
-		}
+    public function delete(Request $request, $id)
+    {
+        
+    }
 }

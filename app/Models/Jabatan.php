@@ -6,13 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Menu extends Model
+class Jabatan extends Model
 {
-		use HasFactory;
-		use SoftDeletes;
+    use HasFactory;
+    use SoftDeletes;
 
     protected $fillable = [
-			'title',
-			'link'
-		];
+        'nama'
+    ];
 }
