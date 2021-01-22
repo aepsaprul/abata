@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Cabang;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CabangController extends Controller
 {
@@ -38,7 +39,8 @@ class CabangController extends Controller
     public function store(Request $request)
     {
 			$cabangs = new Cabang;
-			$cabangs->nama = $request->nama;
+            $cabangs->nama = $request->nama;
+            $cabangs->created_by = Auth::user()->id;
 			$cabangs->save();
 
 			return redirect()->route('cabang.create')->with('status', 'Data cabang berhasil ditambah');
@@ -78,7 +80,8 @@ class CabangController extends Controller
     public function update(Request $request, $id)
     {
 			$cabang = Cabang::find($id);
-			$cabang->nama = $request->nama;
+            $cabang->nama = $request->nama;
+            $cabang->updated_by = Auth::user()->id;
 			$cabang->save();
 
 			return redirect()->route('cabang.index')->with('status', 'Data cabang berhasil diperbaharui');
@@ -97,7 +100,11 @@ class CabangController extends Controller
 
     public function delete(Request $request, $id)
     {
-			$cabang = Cabang::find($id);
+            $cabang = Cabang::find($id);
+            
+            $cabang->deleted_by = Auth::user()->id;
+            $cabang->save();
+
 			$cabang->delete();
 
 			return redirect()->route('cabang.index')->with('status', 'Data cabang berhasil dihapus');

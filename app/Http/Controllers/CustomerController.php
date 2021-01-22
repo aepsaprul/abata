@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Customer;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CustomerController extends Controller
 {
@@ -40,6 +41,7 @@ class CustomerController extends Controller
         $customers = new Customer;
         $customers->nama = $request->nama;
         $customers->telepon = $request->telepon;
+        $customers->created_by = Auth::user()->id;
         $customers->save();
 
         return redirect()->route('customer.index')->with('status', 'Data customer berhasil ditambah');
@@ -81,6 +83,7 @@ class CustomerController extends Controller
         $customer = Customer::find($id);
         $customer->nama = $request->nama;
         $customer->telepon = $request->telepon;
+        $customer->updated_by = Auth::user()->id;
         $customer->save();
 
         return redirect()->route('customer.index')->with('status', 'Data customer berhasil diperbaharui');
@@ -99,7 +102,11 @@ class CustomerController extends Controller
 
     public function delete(Request $request, $id)
     {
-			$customer = Customer::find($id);
+            $customer = Customer::find($id);
+            
+            $customer->deleted_by = Auth::user()->id;
+            $customer->save();
+
 			$customer->delete();
 
 			return redirect()->route('customer.index')->with('status', 'Data customer berhasil dihapus');

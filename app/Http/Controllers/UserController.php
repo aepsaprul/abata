@@ -94,6 +94,9 @@ class UserController extends Controller
 
     public function delete(Request $request, $id)
     {
-        
+			$user = User::find($id);
+			$user->delete();
+
+			return redirect()->route('user.index')->with('status', 'Data user berhasil dihapus');
     }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Menu;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class MenuController extends Controller
@@ -45,7 +46,8 @@ class MenuController extends Controller
 
 			$menus = new Menu;
 			$menus->title = $request->title;
-			$menus->link = $request->link;
+            $menus->link = $request->link;
+            $menus->created_by = Auth::userr()->id;
 			$menus->save();
 
 			return redirect()->route('menu.create')->with('status', 'Menu berhasil ditambahkan !!!');
@@ -86,7 +88,8 @@ class MenuController extends Controller
     {
 			$menu = Menu::find($id);
 			$menu->title = $request->title;
-			$menu->link = $request->link;
+            $menu->link = $request->link;
+            $menu->updated_by = Auth::user()->id;
 			$menu->save();
 
 			return redirect()->route('menu.edit', [$menu->id])->with('status', 'Menu berhasil diubah !!!');
@@ -105,7 +108,11 @@ class MenuController extends Controller
 		
 		public function delete(Request $request, $id)
 		{
-			$menu = Menu::find($id);
+            $menu = Menu::find($id);
+            
+            $menu->deleted_by = Auth::user()->id;
+            $menu->save();
+
 			$menu->delete();
 
 			return redirect()->route('menu.index')->with('status', 'Menu berhasil dihapus !!!');
