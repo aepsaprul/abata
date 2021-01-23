@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CabangController;
+use App\Http\Controllers\AntrianController;
 use App\Http\Controllers\JabatanController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\KaryawanController;
@@ -45,4 +46,10 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::resource('user', UserController::class);
     Route::get('user/{id}/delete', [UserController::class, 'delete'])->name('user.delete');
+
+    // cabang
+    Route::get('antrian/customer', [AntrianController::class, 'customer'])->name('antrian.customer');
+    Route::get('antrian/cs', [AntrianController::class, 'cs'])->name('antrian.cs');
+    Route::get('antrian/desainer', [AntrianController::class, 'desainer'])->name('antrian.desainer');
+    Route::get('antrian/display', [AntrianController::class, 'display'])->name('antrian.display');
 });

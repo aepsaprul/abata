@@ -45,12 +45,6 @@
       <li class="nav-item">
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
-      <li class="nav-item d-none d-sm-inline-block">
-        <a href="index3.html" class="nav-link">Home</a>
-      </li>
-      <li class="nav-item d-none d-sm-inline-block">
-        <a href="#" class="nav-link">Contact</a>
-      </li>
     </ul>
 
     <!-- Right navbar links -->
@@ -103,7 +97,7 @@
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-          <img src="{{ asset('assets/dist/img/user2-160x160.jpg') }}" class="img-circle elevation-2" alt="User Image">
+          <img src="{{ asset('../storage/app/public/' . Auth::user()->foto) }}" class="img-circle elevation-2" alt="User Image" style="width: 40px; height: 40px;">
         </div>
         <div class="info">
           <a href="#" class="d-block">{{ Auth::user()->name }}</a>
@@ -113,17 +107,105 @@
       <!-- Sidebar Menu -->
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-          <li class="nav-header">Administrator</li>
-          {{-- @foreach ($menus as $menu)
+
+          @if (Auth::user()->roles == "administrator")
+          
+          <li class="nav-header">Master</li>
           <li class="nav-item">
-            <a href="{{ url($menu->link) }}" class="nav-link">
+            <a href="{{ url('/cabang') }}" class="nav-link">
               <i class="nav-icon fas fa-copy"></i>
               <p>
-                {{ $menu->title }}
+                Cabang
               </p>
             </a>
           </li>
-          @endforeach --}}
+          <li class="nav-item">
+            <a href="{{ url('/customer') }}" class="nav-link">
+              <i class="nav-icon fas fa-copy"></i>
+              <p>
+                Customer
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ url('/jabatan') }}" class="nav-link">
+              <i class="nav-icon fas fa-copy"></i>
+              <p>
+                Jabatan
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ url('/karyawan') }}" class="nav-link">
+              <i class="nav-icon fas fa-copy"></i>
+              <p>
+                Karyawan
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ url('/menu') }}" class="nav-link">
+              <i class="nav-icon fas fa-copy"></i>
+              <p>
+                Menu
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ url('/user') }}" class="nav-link">
+              <i class="nav-icon fas fa-copy"></i>
+              <p>
+                User
+              </p>
+            </a>
+          </li>
+
+          <li class="nav-header">Antrian</li>
+          <li class="nav-item">
+            <a href="{{ url('/antrian/customer') }}" class="nav-link">
+              <i class="nav-icon fas fa-copy"></i>
+              <p>
+                Customer
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ url('/antrian/cs') }}" class="nav-link">
+              <i class="nav-icon fas fa-copy"></i>
+              <p>
+                CS
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ url('/antrian/desainer') }}" class="nav-link">
+              <i class="nav-icon fas fa-copy"></i>
+              <p>
+                Desainer
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ url('/antrian/display') }}" class="nav-link">
+              <i class="nav-icon fas fa-copy"></i>
+              <p>
+                Display
+              </p>
+            </a>
+          </li>
+          
+          @else
+
+          <li class="nav-item">
+            <a href="{{ url('/cabang') }}" class="nav-link">
+              <i class="nav-icon fas fa-copy"></i>
+              <p>
+                Ambil Antrian
+              </p>
+            </a>
+          </li>
+
+          @endif
           <li class="nav-item">
             <a href="{{ route('logout') }}" class="nav-link" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
               <i class="nav-icon fas fa-copy"></i>
