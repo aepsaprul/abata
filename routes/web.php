@@ -48,8 +48,12 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('user/{id}/delete', [UserController::class, 'delete'])->name('user.delete');
 
     // cabang
-    Route::get('antrian/customer', [AntrianController::class, 'customer'])->name('antrian.customer');
     Route::get('antrian/cs', [AntrianController::class, 'cs'])->name('antrian.cs');
     Route::get('antrian/desainer', [AntrianController::class, 'desainer'])->name('antrian.desainer');
-    Route::get('antrian/display', [AntrianController::class, 'display'])->name('antrian.display');
 });
+
+Route::get('antrian/customer', [AntrianController::class, 'customer'])->name('antrian.customer');
+Route::post('antrian/customer/store', [AntrianController::class, 'customerStore'])->name('antrian.customer.store');
+Route::get('antrian/customer/nomor', [AntrianController::class, 'customerNomor'])->name('antrian.customer.nomor');
+
+Route::get('antrian/display', [AntrianController::class, 'display'])->name('antrian.display');

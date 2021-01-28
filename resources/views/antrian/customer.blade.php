@@ -1,78 +1,141 @@
-@extends('layouts.app')
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Abata</title>
+  <!-- Tell the browser to be responsive to screen width -->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- CSRF Token -->
+	<meta name="csrf-token" content="{{ csrf_token() }}">
 
-@section('style')
-
-<style>
-	.layer-1 {
-		margin-top: 30px;
-		margin-bottom: 30px;
-		height: 450px;
-	}
-</style>
-
-@endsection
-
-@section('content')
-	
-<!-- Content Wrapper. Contains page content -->
-<div class="content-wrapper">
-	<!-- Content Header (Page header) -->
-	<section class="content-header">
-		<div class="container-fluid">
-			<div class="row mb-2">
-				
-			</div>
-		</div><!-- /.container-fluid -->
-	</section>
-
-	<section class="content">
-		<div class="container-fluid">
-			<div class="row">
-				<div class="col-12">
-					<div class="card">
-						<div class="container layer-1">
-							<table style="height: 100%; width: 100%;">
-								<tbody>
-									<tr>
-										<td class="align-middle text-center">
-											<div class="row">
-												<div class="col-md-4"></div>
-												<div class="col-md-4">
-													<a href="#" class="btn btn-primary btn-block pl-5 pr-5 pt-4 pb-4 font-weight-bold">DESAIN SIAP</a>
-												</div>
-												<div class="col-md-4"></div>
-											</div>
-											<hr>
-											<div class="row">
-												<div class="col-md-4"></div>
-												<div class="col-md-4">
-													<a href="#" class="btn btn-info btn-block pl-5 pr-5 pt-4 pb-4 font-weight-bold">DESAIN BARU</a>
-												</div>
-												<div class="col-md-4"></div>
-											</div>
-										</td>
-									</tr>
-								</tbody>
-							</table>
-							</div>
-						</div>
-
-						
-						<!-- /.card-body -->
-					</div>
-					<!-- /.card -->
-				</div>
-				<!-- /.col -->
-			</div>
-			<!-- /.row -->
-		</div>
-		<!-- /.container-fluid -->
-	</section>
+  <!-- Theme style -->
+  <link rel="stylesheet" href="{{ asset('assets/dist/css/adminlte.min.css') }}">
+</head>
+<body class="hold-transition login-page">
+<div class="login-box">
+  <div class="login-logo">
+    <img src="{{ asset('assets/dist/img/logo-bg-blue.png') }}" alt="">
+  </div>
+	<div class="social-auth-links text-center mb-3">
+		<button class="btn-siap btn btn-block btn-primary pt-3 pb-3 pr-5 pl-5" style="font-size: 2em; font-weight: bold;">
+			DESAIN SIAP
+		</button>
+		<button class="btn-baru btn btn-block btn-info pt-3 pb-3 pr-5 pl-5" style="font-size: 2em; font-weight: bold;">
+			DESAIN BARU
+		</button>
+	</div>
+	<div class="nomor-antrian">
+		<p style="text-align: center; text-transform: uppercase;">Nomor Antrian</p>
+		<p style="text-align: center;" class="nomor"></p>
+	</div>
 </div>
-<!-- /.content-wrapper -->
 
-@endsection
+{{-- modal --}}
+<div class="modal fade" id="modal-desain">
+	<div class="modal-dialog" style="margin-top: 150px;">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+					<!-- /.card-header -->
+					<!-- form start -->
+					<form role="form" class="form-modal">
+							<div class="form-group">
+								<label for="nama">Nama</label>
+								<input type="text" class="form-control" id="nama" required placeholder="Masukkan nama">
+							</div>
+							<div class="form-group">
+								<label for="telepon">Nomor HP</label>
+								<input type="tel" class="form-control" id="telepon" required placeholder="Masukkan nomor HP">
+							</div>
+						<div class="card-footer">
+							<button type="submit" class="btn btn-primary btn-block btn-cetak-siap">Cetak</button>
+						</div>
+					</form>
+			</div>
+		</div>
+		<!-- /.modal-content -->
+	</div>
+	<!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
 
-@section('script')
+<!-- jQuery -->
+<script src="{{ asset('assets/plugins/jquery/jquery.min.js') }}"></script>
+<!-- Bootstrap 4 -->
+<script src="{{ asset('assets/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+<!-- AdminLTE App -->
+<script src="{{ asset('assets/dist/js/adminlte.min.js') }}"></script>
 
-@endsection
+<script>
+	$(document).ready(function() {
+		var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+		var btnVal;
+
+		$('.nomor-antrian').hide();
+
+		nomorAntrian();
+
+		function nomorAntrian() {
+			$.ajax({
+				url: '{{ URL::route('antrian.customer.nomor') }}',
+				type: 'GET',
+				data: {
+					_token: CSRF_TOKEN
+				},
+				success: function(response) {
+					var jumlahQuery = response.nomors.length;
+					$('.nomor-antrian .nomor').append(jumlahQuery + 1);
+				}
+			});
+		}
+
+		$('.btn-siap').on('click', function() {
+			$('#modal-desain').modal('show');
+			btnVal = 1;
+			console.log(btnVal);
+		});
+
+		$('.btn-baru').on('click', function() {
+			$('#modal-desain').modal('show');
+			btnVal = 2;
+			console.log(btnVal);
+		});
+
+		$('.form-modal').on('submit', function(e) {
+			e.preventDefault();
+
+			$('.modal').hide();
+			$('.social-auth-links').hide();
+			$('.login-logo').hide();
+			$('.nomor-antrian').show();
+
+			window.print();
+
+			var btnFile = btnVal;
+			var nama = $('#nama').val();
+			var telepon = $('#telepon').val();
+
+			$.ajax({
+				url: '{{ URL::route('antrian.customer.store') }}',
+				type: 'POST',
+				data: {
+					_token: CSRF_TOKEN,
+					btnfile: btnFile,
+					nama: nama,
+					telepon: telepon
+				},
+				success: function(response) {
+					location.reload();
+				}
+			});
+		});
+	});
+</script>
+
+</body>
+</html>
