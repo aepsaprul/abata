@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>AdminLTE 3 | Log in</title>
+  <title>Abata</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -65,7 +65,7 @@
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-12">
-						<div class="container layer-1">
+						<div class="layer-1">
 							<div class="row">
 								<div class="col-md-12">
 									<div class="row">

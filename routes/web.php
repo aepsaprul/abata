@@ -1,5 +1,6 @@
 <?php
 
+use App\Events\CustomerCs;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\UserController;
@@ -49,11 +50,14 @@ Route::group(['middleware' => 'auth'], function () {
 
     // cabang
     Route::get('antrian/cs', [AntrianController::class, 'cs'])->name('antrian.cs');
+    Route::get('antrian/cs/nomor', [AntrianController::class, 'csNomor'])->name('antrian.cs.nomor');
+
     Route::get('antrian/desainer', [AntrianController::class, 'desainer'])->name('antrian.desainer');
 });
 
 Route::get('antrian/customer', [AntrianController::class, 'customer'])->name('antrian.customer');
 Route::post('antrian/customer/store', [AntrianController::class, 'customerStore'])->name('antrian.customer.store');
 Route::get('antrian/customer/nomor', [AntrianController::class, 'customerNomor'])->name('antrian.customer.nomor');
+Route::post('antrian/customer/sender', [AntrianController::class, 'customerSender'])->name('antrian.customer.sender');
 
 Route::get('antrian/display', [AntrianController::class, 'display'])->name('antrian.display');

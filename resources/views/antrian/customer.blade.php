@@ -19,15 +19,18 @@
   </div>
 	<div class="social-auth-links text-center mb-3">
 		<button class="btn-siap btn btn-block btn-primary pt-3 pb-3 pr-5 pl-5" style="font-size: 2em; font-weight: bold;">
-			DESAIN SIAP
+			SIAP CETAK
 		</button>
-		<button class="btn-baru btn btn-block btn-info pt-3 pb-3 pr-5 pl-5" style="font-size: 2em; font-weight: bold;">
-			DESAIN BARU
+		<button class="btn-desain btn btn-block btn-primary pt-3 pb-3 pr-5 pl-5" style="font-size: 2em; font-weight: bold;">
+			DESAIN / EDIT
+		</button>
+		<button class="btn-konsultasi btn btn-block btn-primary pt-3 pb-3 pr-5 pl-5" style="font-size: 2em; font-weight: bold;">
+			KONSULTASI
 		</button>
 	</div>
 	<div class="nomor-antrian">
 		<p style="text-align: center; text-transform: uppercase;">Nomor Antrian</p>
-		<p style="text-align: center;" class="nomor"></p>
+		<p style="text-align: center;" class="nomor">{{ $nomors->nomor_antrian + 1 }}</p>
 	</div>
 </div>
 
@@ -44,14 +47,14 @@
 					<!-- /.card-header -->
 					<!-- form start -->
 					<form role="form" class="form-modal">
-							<div class="form-group">
-								<label for="nama">Nama</label>
-								<input type="text" class="form-control" id="nama" required placeholder="Masukkan nama">
-							</div>
-							<div class="form-group">
-								<label for="telepon">Nomor HP</label>
-								<input type="tel" class="form-control" id="telepon" required placeholder="Masukkan nomor HP">
-							</div>
+						<div class="form-group">
+							<label for="nama">Nama</label>
+							<input type="text" class="form-control" id="nama" required placeholder="Masukkan nama">
+						</div>
+						<div class="form-group">
+							<label for="telepon">Nomor HP</label>
+							<input type="tel" class="form-control" id="telepon" required placeholder="Masukkan nomor HP">
+						</div>
 						<div class="card-footer">
 							<button type="submit" class="btn btn-primary btn-block btn-cetak-siap">Cetak</button>
 						</div>
@@ -75,10 +78,11 @@
 	$(document).ready(function() {
 		var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
 		var btnVal;
+		var no = $('.nomor').text();
 
 		$('.nomor-antrian').hide();
 
-		nomorAntrian();
+		// nomorAntrian();
 
 		function nomorAntrian() {
 			$.ajax({
@@ -97,13 +101,16 @@
 		$('.btn-siap').on('click', function() {
 			$('#modal-desain').modal('show');
 			btnVal = 1;
-			console.log(btnVal);
 		});
 
-		$('.btn-baru').on('click', function() {
+		$('.btn-desain').on('click', function() {
 			$('#modal-desain').modal('show');
 			btnVal = 2;
-			console.log(btnVal);
+		});
+
+		$('.btn-konsultasi').on('click', function() {
+			$('#modal-desain').modal('show');
+			btnVal = 3;
 		});
 
 		$('.form-modal').on('submit', function(e) {
@@ -114,7 +121,7 @@
 			$('.login-logo').hide();
 			$('.nomor-antrian').show();
 
-			window.print();
+			// window.print();
 
 			var btnFile = btnVal;
 			var nama = $('#nama').val();
@@ -131,6 +138,27 @@
 				},
 				success: function(response) {
 					location.reload();
+				}
+			});
+		});
+
+		$('.form-modal').on('submit', function(e) {
+			var btnFile = btnVal;
+			var nama = $('#nama').val();
+			var telepon = $('#telepon').val();
+
+			$.ajax({
+				url: '{{ URL::route('antrian.customer.sender') }}',
+				type: 'POST',
+				data: {
+					_token: CSRF_TOKEN,
+					nomor: no,
+					customer_filter_id: btnFile,
+					nama: nama,
+					telepon: telepon
+				},
+				success: function(response) {
+					location.load();
 				}
 			});
 		});
