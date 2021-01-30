@@ -66,6 +66,28 @@ class AntrianController extends Controller
       
     }
 
+    public function customerForm(Request $request, $id)
+    {
+      $nomors = AntrianNomor::orderBy('id', 'desc')->first();
+      
+      return view('antrian.customerForm', ['customer_filter_id' => $id, 'nomors' => $nomors]);
+    }
+
+    public function customerSiapCetak(Request $request)
+    {
+
+    }
+
+    public function customerDesain(Request $request)
+    {
+
+    }
+
+    public function customerKonsultasi(Request $request)
+    {
+
+    }
+
     public function cs()
     {
         return view('antrian.cs');

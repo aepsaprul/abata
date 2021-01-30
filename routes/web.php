@@ -59,5 +59,6 @@ Route::get('antrian/customer', [AntrianController::class, 'customer'])->name('an
 Route::post('antrian/customer/store', [AntrianController::class, 'customerStore'])->name('antrian.customer.store');
 Route::get('antrian/customer/nomor', [AntrianController::class, 'customerNomor'])->name('antrian.customer.nomor');
 Route::post('antrian/customer/sender', [AntrianController::class, 'customerSender'])->name('antrian.customer.sender');
+Route::get('antrian/customer/{id}/form', [AntrianController::class, 'customerForm'])->name('antrian.customer.form');
 
 Route::get('antrian/display', [AntrianController::class, 'display'])->name('antrian.display');
