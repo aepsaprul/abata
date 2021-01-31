@@ -4,40 +4,54 @@ namespace App\Http\Controllers;
 
 use App\Models\Customer;
 use App\Events\CustomerCs;
-use App\Models\AntrianNomor;
 use Illuminate\Http\Request;
+use App\Events\CustomerDesain;
+use App\Models\AntrianNomorCs;
 use App\Models\AntrianNomorSave;
+use App\Models\AntrianNomorCsSave;
+use App\Models\AntrianNomorDesain;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use App\Models\AntrianNomorDesainSave;
 
 class AntrianController extends Controller
 {
     public function customer()
     {
-      $nomors  = AntrianNomor::orderBy('id', 'desc')->first();
-      return view('antrian.customer', ['nomors' => $nomors]);
+      return view('antrian.customer');
     }
     public function customerStore(Request $request)
     {
-      $countAntrianNomors = DB::table('antrian_nomors')->count();
-
       $customers = new Customer;
       $customers->nama = $request->nama;
       $customers->telepon = $request->telepon;
       $customers->save();
 
-      $antrianNomors = new AntrianNomor;
-      $antrianNomors->nomor_antrian = $countAntrianNomors + 1;
+      if ($request->customer_filter_id == '3') {
+
+        $antrianNomors = new AntrianNomorCs;
+        
+        $antrianNomorSaves = new AntrianNomorCsSave;
+
+      } else {
+
+        $antrianNomors = new AntrianNomorDesain;
+        
+        $antrianNomorSaves = new AntrianNomorDesainSave;
+
+      }
+
+      
+      $antrianNomors->nomor_antrian = $request->nomor_antrian;
       $antrianNomors->nama = $request->nama;
       $antrianNomors->telepon = $request->telepon;
-      $antrianNomors->customer_filter_id = $request->btnfile;
+      $antrianNomors->customer_filter_id = $request->customer_filter_id;
       $antrianNomors->save();
       
-      $antrianNomorSaves = new AntrianNomorSave;
-      $antrianNomorSaves->nomor_antrian = $countAntrianNomors + 1;
+      $antrianNomorSaves->nomor_antrian = $request->nomor_antrian;
       $antrianNomorSaves->nama = $request->nama;
       $antrianNomorSaves->telepon = $request->telepon;
-      $antrianNomorSaves->customer_filter_id = $request->btnfile;
+      $antrianNomorSaves->customer_filter_id = $request->customer_filter_id;
       $antrianNomorSaves->save();
 
       return response()->json([
@@ -56,19 +70,25 @@ class AntrianController extends Controller
 
     public function customerSender(Request $request)
     {
-      $nomor = $request->nomor;
+      $nomor_antrian = $request->nomor_antrian;
       $nama = $request->nama;
       $telepon = $request->telepon;
       $customer_filter_id = $request->customer_filter_id;
 
-      event(new CustomerCs($nomor,$nama,$telepon,$customer_filter_id));
-
-      
+      if ($customer_filter_id == '3') {
+        event(new CustomerCs($nomor_antrian,$nama,$telepon,$customer_filter_id));
+      } else {
+        event(new CustomerDesain($nomor_antrian,$nama,$telepon,$customer_filter_id));
+      }      
     }
 
     public function customerForm(Request $request, $id)
     {
-      $nomors = AntrianNomor::orderBy('id', 'desc')->first();
+      if ($id == '3') {
+        $nomors = AntrianNomorCs::orderBy('id', 'desc')->first();
+      } else {
+        $nomors = AntrianNomorDesain::orderBy('id', 'desc')->first();
+      }
       
       return view('antrian.customerForm', ['customer_filter_id' => $id, 'nomors' => $nomors]);
     }
@@ -94,7 +114,7 @@ class AntrianController extends Controller
     }
     public function csNomor(Request $request)
     {
-      $nomors = AntrianNomor::get();
+      $nomors = AntrianNomorCs::get();
 
       return response()->json([
           'success' => 'Success',
@@ -105,6 +125,15 @@ class AntrianController extends Controller
     public function desainer()
     {
       return view('antrian.desainer');
+    }
+    public function desainerNomor()
+    {
+      $nomors = AntrianNomorDesain::get();
+
+      return response()->json([
+          'success' => 'Success',
+          'data' => $nomors
+      ]);
     }
 
     public function display()

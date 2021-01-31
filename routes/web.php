@@ -53,6 +53,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('antrian/cs/nomor', [AntrianController::class, 'csNomor'])->name('antrian.cs.nomor');
 
     Route::get('antrian/desainer', [AntrianController::class, 'desainer'])->name('antrian.desainer');
+    Route::get('antrian/desainer/nomor', [AntrianController::class, 'desainerNomor'])->name('antrian.desainer.nomor');
 });
 
 Route::get('antrian/customer', [AntrianController::class, 'customer'])->name('antrian.customer');

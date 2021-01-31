@@ -22,7 +22,10 @@
 			<form role="form" class="form-customer">
 				<div class="card-body">
 					<div class="form-group">
-						<input type="hidden" class="form-control" id="customer_filter_id" value="{{ $customer_filter_id }}" disabled>
+						<input type="text" class="form-control" id="customer_filter_id" value="{{ $customer_filter_id }}" disabled>
+					</div>
+					<div class="form-group">
+						<input type="text" class="form-control" id="nomor_antrian" value="@if (is_null($nomors)){{ 0 + 1 }}@else{{ $nomors->nomor_antrian + 1 }}@endif" disabled>
 					</div>
 					<div class="form-group">
 						<input type="text" class="form-control" id="nama" required placeholder="Masukkan nama">
@@ -39,7 +42,13 @@
 	</div>
 	<div class="nomor-antrian">
 		<p style="text-align: center; text-transform: uppercase;">Nomor Antrian</p>
-		<p style="text-align: center;" class="nomor">{{ $nomors->nomor_antrian + 1 }}</p>
+		<p style="text-align: center;" class="nomor">
+			@if (is_null($nomors))
+				{{ 0 + 1 }}
+			@else
+				{{ $nomors->nomor_antrian + 1 }}
+			@endif
+		</p>
 	</div>
 </div>
 
@@ -53,8 +62,7 @@
 <script>
 	$(document).ready(function() {
 		var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
-		var btnVal;
-		var no = $('.nomor').text();
+		var btnVal = $('#customer_filter_id').val();
 
 		$('.nomor-antrian').hide();
 
@@ -84,7 +92,8 @@
 
 			// window.print();
 
-			var btnFile = btnVal;
+			var nomor_antrian = $('#nomor_antrian').val();
+			var customer_filter_id = btnVal;
 			var nama = $('#nama').val();
 			var telepon = $('#telepon').val();
 
@@ -93,7 +102,8 @@
 				type: 'POST',
 				data: {
 					_token: CSRF_TOKEN,
-					btnfile: btnFile,
+					customer_filter_id: customer_filter_id,
+					nomor_antrian: nomor_antrian,
 					nama: nama,
 					telepon: telepon
 				},
@@ -103,8 +113,9 @@
 			});
 		});
 
-		$('.form-modal').on('submit', function(e) {
-			var btnFile = btnVal;
+		$('.form-customer').on('submit', function(e) {
+			var nomor_antrian = $('#nomor_antrian').val();
+			var customer_filter_id = btnVal;
 			var nama = $('#nama').val();
 			var telepon = $('#telepon').val();
 
@@ -113,13 +124,10 @@
 				type: 'POST',
 				data: {
 					_token: CSRF_TOKEN,
-					nomor: no,
-					customer_filter_id: btnFile,
+					nomor_antrian: nomor_antrian,
+					customer_filter_id: customer_filter_id,
 					nama: nama,
 					telepon: telepon
-				},
-				success: function(response) {
-					location.load();
 				}
 			});
 		});

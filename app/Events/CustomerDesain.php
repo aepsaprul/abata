@@ -10,7 +10,7 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class CustomerCs implements ShouldBroadcast
+class CustomerDesain implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
@@ -39,11 +39,11 @@ class CustomerCs implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return ['customer-cs'];
+        return ['customer-desain'];
     }
 
     public function broadcastAs()
     {
-        return 'customer-cs-event';
+        return 'customer-desain-event';
     }
 }

@@ -27,10 +27,10 @@
 				"<div class=\"col-md-1\">" +
 					"<div class=\"nomor\">" +
 						"<p class=\"nomor-title\">Antrian</p>" +
-						"<p class=\"nomor-antrian\">" + data.nomor + "</p>" +
+						"<p class=\"nomor-antrian\">" + data.nomor_antrian + "</p>" +
 						"<p class=\"nomor-nama\">" + data.nama + "</p>" +
 						"<p class=\"nomor-filter\">" + data.customer_filter_id + "</p>" +
-						"<button>Panggil</button>" +
+						"<button class=\"btn btn-primary btn-block\">Panggil</button>" +
 					"</div>" +
 				"</div>";
 		
