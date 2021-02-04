@@ -17,12 +17,12 @@
 		<div class="container-fluid">
 			<div class="row mb-2">
 				<div class="col-sm-6">
-					<h1>Data Karyawan</h1>
+					<h1>Data Desainer</h1>
 				</div>
 				<div class="col-sm-6">
 					<ol class="breadcrumb float-sm-right">
 						<li class="breadcrumb-item"><a href="#">Home</a></li>
-						<li class="breadcrumb-item active">Karyawan</li>
+						<li class="breadcrumb-item active">Desainer</li>
 					</ol>
 				</div>
 			</div>
@@ -40,7 +40,7 @@
 					@endif
 					<div class="card">
 						<div class="card-header">
-							<h3 class="card-title"><a href="{{ route('karyawan.create') }}" class="btn btn-primary"><i class="fa fa-plus"></i></a></h3>
+							<h3 class="card-title"><a href="{{ route('desainer.create') }}" class="btn btn-primary"><i class="fa fa-plus"></i></a></h3>
 						</div>
 						<!-- /.card-header -->
 						<div class="card-body">
@@ -48,24 +48,20 @@
 								<thead>
 								<tr>
 									<th>No</th>
+									<th>Title</th>
 									<th>Nama</th>
-									<th>Telepon</th>
-									<th>Email</th>
-									<th>Jabatan</th>
 									<th>#</th>
 								</tr>
 								</thead>
 								<tbody>
-									@foreach ($karyawans as $key => $karyawan)
+									@foreach ($desainers as $key => $desainer)
 										
 										<tr>
 											<td>{{ $key + 1 }}</td>
-											<td>{{ $karyawan->nama_lengkap }}</td>
-											<td>{{ $karyawan->telepon }}</td>
-											<td>{{ $karyawan->email }}</td>
-											<td>{{ $karyawan->jabatan->nama }}</td>
+											<td>Desainer {{ $desainer->title }}</td>
+											<td>{{ $desainer->karyawan ? $desainer->karyawan->nama_lengkap : '-' }}</td>
 											<td class="text-center">
-												<a href="{{ route('karyawan.edit', [$karyawan->id]) }}" class="btn btn-primary"><i class="fa fa-pencil-alt"></i></a> | <a href="{{ route('karyawan.delete', [$karyawan->id]) }}" class="btn btn-danger" onclick="return confirm('Yakin akan dihapus?')"><i class="fa fa-trash"></i></a>
+												<a href="{{ route('desainer.edit', [$desainer->id]) }}" class="btn btn-primary"><i class="fa fa-pencil-alt"></i></a> | <a href="{{ route('desainer.delete', [$desainer->id]) }}" class="btn btn-danger" onclick="return confirm('Yakin akan dihapus?')"><i class="fa fa-trash"></i></a>
 											</td>
 										</tr>
 									

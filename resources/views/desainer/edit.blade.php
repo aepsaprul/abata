@@ -9,7 +9,7 @@
 		<div class="container-fluid">
 			<div class="row mb-2">
 				<div class="col-sm-6">
-					<h1>Ubah Cabang</h1>
+					<h1>Ubah Desainer</h1>
 				</div>
 			</div>
 		</div><!-- /.container-fluid -->
@@ -29,20 +29,37 @@
 					<!-- general form elements -->
 					<div class="card card-primary">
 						<div class="card-header">
-							<h3 class="card-title"><i class="fa fa-arrow-left"></i> <a href="{{ url('/cabang') }}">BACK</a></h3>
+							<h3 class="card-title"><i class="fa fa-arrow-left"></i> <a href="{{ url('/desainer') }}">BACK</a></h3>
 						</div>
 						<!-- /.card-header -->
 						<!-- form start -->
-						<form role="form" action="{{ route('cabang.update', [$cabang->id]) }}" method="POST">
+						<form role="form" action="{{ route('desainer.update', [$desainer->id]) }}" method="POST">
 							@method('PUT')
 							@csrf
 							<div class="card-body">
 								<div class="form-group">
-									<label for="nama">Nama Cabang</label>
-									<input type="text" name="nama" class="form-control @error('nama') is-invalid @enderror" id="nama" placeholder="Masukkan nama" required value="{{ $cabang->nama }}">
+									<label for="title">Title</label>
+									<input type="text" name="title" class="form-control @error('title') is-invalid @enderror" id="title" placeholder="Masukkan title" required value="{{ $desainer->title }}">
 								</div>
 
-								@error('nama')
+								@error('title')
+									<span class="invalid-feedback" role="alert">
+										<strong>{{ $message }}</strong>
+									</span>
+								@enderror
+								<div class="form-group">
+									<label for="karyawan_id">karyawan_id</label>
+									<select name="karyawan_id" id="karyawan_id" class="form-control">
+										<option value="">-- Pilih Karyawan--</option>
+										@foreach ($karyawans as $karyawan)
+											<option value="{{ $karyawan->id }}"
+												{{ $karyawan->id == $desainer->karyawan_id ? 'selected' : ' ' }}
+												>{{ $karyawan->nama_lengkap }}</option>
+										@endforeach
+									</select>
+								</div>
+
+								@error('karyawan_id')
 									<span class="invalid-feedback" role="alert">
 										<strong>{{ $message }}</strong>
 									</span>

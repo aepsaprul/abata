@@ -29,13 +29,13 @@
 					<!-- general form elements -->
 					<div class="card card-primary">
 						<div class="card-header">
-							<h3 class="card-title">Ubah Data Jabatan</h3>
+							<h3 class="card-title"><i class="fa fa-arrow-left"></i> <a href="{{ url('/jabatan') }}">BACK</a></h3>
 						</div>
 						<!-- /.card-header -->
 						<!-- form start -->
 						<form role="form" action="{{ route('jabatan.update', [$jabatan->id]) }}" method="POST">
-							@method('PUT')
 							@csrf
+							@method('PATCH')
 							<div class="card-body">
 								<div class="form-group">
 									<label for="nama">Nama Jabatan</label>

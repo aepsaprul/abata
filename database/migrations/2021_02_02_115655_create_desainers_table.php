@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAntrianNomorCsSavesTable extends Migration
+class CreateDesainersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,10 @@ class CreateAntrianNomorCsSavesTable extends Migration
      */
     public function up()
     {
-        Schema::create('antrian_nomor_cs_saves', function (Blueprint $table) {
+        Schema::create('desainers', function (Blueprint $table) {
             $table->id();
-            $table->integer('nomor_antrian')->nullable;
-            $table->string('nama', 30)->nullable;
-            $table->string('telepon', 15)->nullable;
-            $table->integer('customer_filter_id')->nullable;
+            $table->string('title', 30)->nullable;
+            $table->integer('karyawan_id')->nullable;
             $table->timestamps();
         });
     }
@@ -30,6 +28,6 @@ class CreateAntrianNomorCsSavesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('antrian_nomor_cs_saves');
+        Schema::dropIfExists('desainers');
     }
 }

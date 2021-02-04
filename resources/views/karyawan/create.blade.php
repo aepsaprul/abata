@@ -29,7 +29,7 @@
 					<!-- general form elements -->
 					<div class="card card-primary">
 						<div class="card-header">
-							<h3 class="card-title">Tambah Data Karyawan</h3>
+							<h3 class="card-title"><i class="fa fa-arrow-left"></i> <a href="{{ url('/karyawan') }}">BACK</a></h3>
 						</div>
 						<!-- /.card-header -->
 						<!-- form start -->
@@ -82,14 +82,12 @@
 								
 								<div class="form-group">
 									<label for="jabatan_id">Jabatan</label>
-									<input type="text" name="jabatan_id" class="form-control @error('jabatan_id') is-invalid @enderror" id="jabatan_id" placeholder="Masukkan jabatan" required autofocus value="{{ old('jabatan_id') }}">
+									<select name="jabatan_id" id="jabatan_id" class="form-control">
+										@foreach ($jabatans as $jabatan)
+											<option value="{{ $jabatan->id }}">{{ $jabatan->nama }}</option>
+										@endforeach
+									</select>
 								</div>
-
-								@error('jabatan_id')
-									<span class="invalid-feedback" role="alert">
-										<strong>{{ $message }}</strong>
-									</span>
-								@enderror
 								
 								<div class="form-group">
 									<label for="foto">Foto</label>

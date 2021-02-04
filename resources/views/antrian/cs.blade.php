@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Abata</title>
+  <title>Abata CS</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -22,23 +22,27 @@
 	
 		var channel = pusher.subscribe('customer-cs');
 		channel.bind('customer-cs-event', function(data) {
-			// alert(JSON.stringify(data));
+			
 			var queryNomorAntrian = "" +
-				"<div class=\"col-md-1\">" +
+				"<div class=\"col-md-2\">" +
 					"<div class=\"nomor\">" +
 						"<p class=\"nomor-title\">Antrian</p>" +
 						"<p class=\"nomor-antrian\">" + data.nomor_antrian + "</p>" +
 						"<p class=\"nomor-nama\">" + data.nama + "</p>" +
-						"<p class=\"nomor-filter\">" + data.customer_filter_id + "</p>" +
-						"<button class=\"btn btn-primary btn-block\">Panggil</button>" +
+						// "<p class=\"nomor-filter\">" + data.customer_filter_id + "</p>";
+						"<a href=\"cs/" + data.nomor_antrian + "/panggil\" class=\"btn btn-primary btn-block\">Panggil</a>" +
 					"</div>" +
 				"</div>";
 		
 			$('.data-nomor').append(queryNomorAntrian);
+
 		});
 	</script>
 	
 	<style>
+		body {
+			font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+		}
 		.layer-1 {
 			margin-top: 30px;
 			margin-bottom: 30px;
@@ -52,7 +56,6 @@
 	
 		.desain-title {
 			font-size: 1.5em;
-			font-family: sans-serif;
 			font-weight: bold;
 			text-align: center;
 			text-transform: uppercase;
@@ -61,7 +64,6 @@
 	
 		.desain-nomor {
 			font-size: 2em;
-			font-family: sans-serif;
 			font-weight: bold;
 			text-align: center;
 			color: #fff;
@@ -75,7 +77,6 @@
 
 		.nomor .nomor-title {
 			font-size: 1em;
-			font-family: sans-serif;
 			font-weight: bold;
 			text-align: center;
 			text-transform: uppercase;
@@ -84,14 +85,12 @@
 
 		.nomor .nomor-antrian {
 			font-size: 2em;
-			font-family: sans-serif;
 			font-weight: bold;
 			text-align: center;
 		}
 
 		.nomor .nomor-nama, .nomor .nomor-filter {
 			font-size: 0.8em;
-			font-family: sans-serif;
 			font-weight: bold;
 			text-align: center;
 			text-transform: uppercase;
@@ -103,6 +102,9 @@
 		.data-nomor p {
 			margin: 0;
 			padding: 0;
+		}
+		.data-nomor .nomor-nama {
+			height: 30px;
 		}
 	</style>
 </head>
@@ -192,14 +194,22 @@
 				success: function(response) {
 					$.each(response.data, function(i, value) {
 						var queryNomorAntrian = "" +
-							"<div class=\"col-md-1\">" +
+							"<div class=\"col-md-2\">" +
 								"<div class=\"nomor\">" +
 									"<p class=\"nomor-title\">Antrian</p>" +
 									"<p class=\"nomor-antrian\">" + value.nomor_antrian + "</p>" +
-									"<p class=\"nomor-nama\">" + value.nama + "</p>" +
-									"<p class=\"nomor-filter\">" + value.customer_filter_id + "</p>" +
-									"<button class=\"btn btn-primary btn-block\">Panggil</button>" +
-								"</div>" +
+									"<p class=\"nomor-nama\">" + value.nama + "</p>";
+									// "<p class=\"nomor-filter\">" + value.customer_filter_id + "</p>";
+									if (value.status == 0) {
+										queryNomorAntrian += "<a href=\"cs/" + value.nomor_antrian + "/panggil\" class=\"btn btn-primary btn-block\">Panggil</a>";
+									}
+									if (value.status == 1) {
+										queryNomorAntrian += "<a href=\"cs/" + value.nomor_antrian + "/mulai\" class=\"btn btn-info btn-block\">Mulai</a>";
+									}
+									if (value.status == 2) {
+										queryNomorAntrian += "<a href=\"cs/" + value.nomor_antrian + "/selesai\" class=\"btn btn-success btn-block\">Selesai</a>";
+									}
+									queryNomorAntrian += "</div>";
 							"</div>";
 					
 						$('.data-nomor').append(queryNomorAntrian);
@@ -207,6 +217,7 @@
 				}
 			});
 		}
+
 	});
 </script>
 

@@ -2,20 +2,23 @@
 
 namespace App\Models;
 
+use App\Models\Karyawan;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Jabatan extends Model
+class Desainer extends Model
 {
     use HasFactory;
     use SoftDeletes;
 
     protected $fillable = [
-        'nama'
+        'title',
+        'karyawan_id'
     ];
 
-    public function Karyawan() {
-        return $this->belongsTo(Karyawan::class, 'id');
+    public function karyawan()
+    {
+        return $this->belongsTo(Karyawan::class);
     }
 }

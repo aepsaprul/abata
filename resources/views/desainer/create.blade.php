@@ -9,7 +9,7 @@
 		<div class="container-fluid">
 			<div class="row mb-2">
 				<div class="col-sm-6">
-					<h1>Ubah Cabang</h1>
+					<h1>Tambah Desainer</h1>
 				</div>
 			</div>
 		</div><!-- /.container-fluid -->
@@ -29,20 +29,19 @@
 					<!-- general form elements -->
 					<div class="card card-primary">
 						<div class="card-header">
-							<h3 class="card-title"><i class="fa fa-arrow-left"></i> <a href="{{ url('/cabang') }}">BACK</a></h3>
+							<h3 class="card-title"><i class="fa fa-arrow-left"></i> <a href="{{ url('/desainer') }}">BACK</a></h3>
 						</div>
 						<!-- /.card-header -->
 						<!-- form start -->
-						<form role="form" action="{{ route('cabang.update', [$cabang->id]) }}" method="POST">
-							@method('PUT')
+						<form role="form" action="{{ route('desainer.store') }}" method="POST">
 							@csrf
 							<div class="card-body">
 								<div class="form-group">
-									<label for="nama">Nama Cabang</label>
-									<input type="text" name="nama" class="form-control @error('nama') is-invalid @enderror" id="nama" placeholder="Masukkan nama" required value="{{ $cabang->nama }}">
+									<label for="title">Title</label>
+									<input type="text" name="title" class="form-control @error('title') is-invalid @enderror" id="title" placeholder="Masukkan hanya nomor saja" required autofocus value="{{ old('title') }}">
 								</div>
 
-								@error('nama')
+								@error('title')
 									<span class="invalid-feedback" role="alert">
 										<strong>{{ $message }}</strong>
 									</span>

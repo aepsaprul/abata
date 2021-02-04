@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Menu;
+use App\Models\Desainer;
+use App\Models\Karyawan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
-class MenuController extends Controller
+class DesainerController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,9 +17,10 @@ class MenuController extends Controller
      */
     public function index()
     {
-        $menus = Menu::get();
+        $desainers = Desainer::with('karyawan')
+            ->get();
 
-        return view('menu.index', ['menus' => $menus]);
+        return view('desainer.index', ['desainers' => $desainers]);
     }
 
     /**
@@ -28,7 +30,7 @@ class MenuController extends Controller
      */
     public function create()
     {
-        return view('menu.create');
+        return view('desainer.create');
     }
 
     /**
@@ -39,18 +41,15 @@ class MenuController extends Controller
      */
     public function store(Request $request)
     {
-			$validation = \Validator::make($request->all(), [
-				"title" => "required|max:50",
-				"link" => "required|max:100"
-			])->validate();
+        $validation = \Validator::make($request->all(), [
+            "title" => "required|max:50"
+        ])->validate();
 
-			$menus = new Menu;
-			$menus->title = $request->title;
-            $menus->link = $request->link;
-            $menus->created_by = Auth::user()->id;
-			$menus->save();
+        $desainers = new Desainer;
+        $desainers->title = $request->title;
+        $desainers->save();
 
-			return redirect()->route('menu.create')->with('status', 'Menu berhasil ditambahkan !!!');
+        return redirect()->route('desainer.create')->with('status', 'Data desainer berhasil ditambah');
     }
 
     /**
@@ -72,9 +71,10 @@ class MenuController extends Controller
      */
     public function edit($id)
     {
-        $menu = Menu::findOrFail($id);
+        $desainer = Desainer::find($id);
+        $karyawans = Karyawan::where('jabatan_id', '5')->get();
         
-        return view('menu.edit', ['menu' => $menu]);
+        return view('desainer.edit', ['desainer' => $desainer, 'karyawans' => $karyawans]);
     }
 
     /**
@@ -86,13 +86,12 @@ class MenuController extends Controller
      */
     public function update(Request $request, $id)
     {
-			$menu = Menu::find($id);
-			$menu->title = $request->title;
-            $menu->link = $request->link;
-            $menu->updated_by = Auth::user()->id;
-			$menu->save();
+        $desainer = Desainer::find($id);
+        $desainer->title = $request->title;
+        $desainer->karyawan_id = $request->karyawan_id;
+        $desainer->save();
 
-			return redirect()->route('menu.edit', [$menu->id])->with('status', 'Menu berhasil diubah !!!');
+        return redirect()->route('desainer.edit', [$desainer->id])->with('status', 'Data desainer berhasil diperbaharui');
     }
 
     /**
@@ -104,17 +103,17 @@ class MenuController extends Controller
     public function destroy($id)
     {
         //
-		}
-		
-		public function delete(Request $request, $id)
-		{
-            $menu = Menu::find($id);
-            
-            $menu->deleted_by = Auth::user()->id;
-            $menu->save();
+    }
 
-			$menu->delete();
+    public function delete(Request $request, $id)
+    {
+        $desainer = Desainer::find($id);
 
-			return redirect()->route('menu.index')->with('status', 'Menu berhasil dihapus !!!');
-		}
+        $desainer->deleted_by = Auth::user()->id;
+        $desainer->save();
+
+        $desainer->delete();
+
+        return redirect()->route('desainer.index')->with('status', 'Data desainer berhasil dihapus');
+    }
 }

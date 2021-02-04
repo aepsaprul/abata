@@ -14,6 +14,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- CSRF Token -->
   <meta name="csrf-token" content="{{ csrf_token() }}">
+  <link rel="shortcut icon" href="{{ asset('assets/dist/img/logo-daun.png') }}" type="image/x-icon">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="{{ asset('assets/plugins/fontawesome-free/css/all.min.css') }}">
   <!-- Ionicons -->
@@ -32,8 +33,6 @@
   <link rel="stylesheet" href="{{ asset('assets/plugins/daterangepicker/daterangepicker.css') }}">
   <!-- summernote -->
   <link rel="stylesheet" href="{{ asset('assets/plugins/summernote/summernote-bs4.css') }}">
-  <!-- Google Font: Source Sans Pro -->
-  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 
   @yield('style')
 </head>
@@ -57,26 +56,6 @@
           <i class="far fa-bell"></i>
           <span class="badge badge-warning navbar-badge">15</span>
         </a>
-        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-          <span class="dropdown-item dropdown-header">15 Notifications</span>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
-            <i class="fas fa-envelope mr-2"></i> 4 new messages
-            <span class="float-right text-muted text-sm">3 mins</span>
-          </a>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
-            <i class="fas fa-users mr-2"></i> 8 friend requests
-            <span class="float-right text-muted text-sm">12 hours</span>
-          </a>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
-            <i class="fas fa-file mr-2"></i> 3 new reports
-            <span class="float-right text-muted text-sm">2 days</span>
-          </a>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
-        </div>
       </li>
       <li class="nav-item">
         <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
@@ -126,6 +105,14 @@
               <i class="nav-icon fas fa-copy"></i>
               <p>
                 Customer
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ url('/desainer') }}" class="nav-link">
+              <i class="nav-icon fas fa-copy"></i>
+              <p>
+                Desainer
               </p>
             </a>
           </li>
@@ -198,14 +185,126 @@
           
           @else
 
-          <li class="nav-item">
-            <a href="{{ url('/cabang') }}" class="nav-link">
-              <i class="nav-icon fas fa-copy"></i>
-              <p>
-                Ambil Antrian
-              </p>
-            </a>
-          </li>
+          @if (in_array("8", json_decode(Auth::user()->load('karyawan.jabatan')->karyawan->jabatan->menu_akses)))
+            <li class="nav-item">
+              <a href="{{ url('/cabang') }}" class="nav-link">
+                <i class="nav-icon fas fa-copy"></i>
+                <p>
+                  Cabang
+                </p>
+              </a>
+            </li>
+          @endif
+          
+          @if (in_array("1", json_decode(Auth::user()->load('karyawan.jabatan')->karyawan->jabatan->menu_akses)))
+            <li class="nav-item">
+              <a href="{{ url('/customer') }}" class="nav-link">
+                <i class="nav-icon fas fa-copy"></i>
+                <p>
+                  Customer
+                </p>
+              </a>
+            </li>
+          @endif
+          
+          @if (in_array("16", json_decode(Auth::user()->load('karyawan.jabatan')->karyawan->jabatan->menu_akses)))
+            <li class="nav-item">
+              <a href="{{ url('/desainer') }}" class="nav-link">
+                <i class="nav-icon fas fa-copy"></i>
+                <p>
+                  Desainer
+                </p>
+              </a>
+            </li>
+          @endif
+
+          @if (in_array("7", json_decode(Auth::user()->load('karyawan.jabatan')->karyawan->jabatan->menu_akses)))
+            <li class="nav-item">
+              <a href="{{ url('/jabatan') }}" class="nav-link">
+                <i class="nav-icon fas fa-copy"></i>
+                <p>
+                  Jabatan
+                </p>
+              </a>
+            </li>              
+          @endif
+
+          @if (in_array("5", json_decode(Auth::user()->load('karyawan.jabatan')->karyawan->jabatan->menu_akses)))
+            <li class="nav-item">
+              <a href="{{ url('/karyawan') }}" class="nav-link">
+                <i class="nav-icon fas fa-copy"></i>
+                <p>
+                  Karyawan
+                </p>
+              </a>
+            </li>              
+          @endif
+
+          @if (in_array("18", json_decode(Auth::user()->load('karyawan.jabatan')->karyawan->jabatan->menu_akses)))
+            <li class="nav-item">
+              <a href="{{ url('/menu') }}" class="nav-link">
+                <i class="nav-icon fas fa-copy"></i>
+                <p>
+                  Menu
+                </p>
+              </a>
+            </li>              
+          @endif
+
+          @if (in_array("6", json_decode(Auth::user()->load('karyawan.jabatan')->karyawan->jabatan->menu_akses)))
+            <li class="nav-item">
+              <a href="{{ url('/user') }}" class="nav-link">
+                <i class="nav-icon fas fa-copy"></i>
+                <p>
+                  User
+                </p>
+              </a>
+            </li>              
+          @endif
+
+          @if (in_array("19", json_decode(Auth::user()->load('karyawan.jabatan')->karyawan->jabatan->menu_akses)))
+            <li class="nav-item">
+              <a href="{{ url('/antrian/customer') }}" class="nav-link">
+                <i class="nav-icon fas fa-copy"></i>
+                <p>
+                  Customer
+                </p>
+              </a>
+            </li>              
+          @endif
+
+          @if (in_array("15", json_decode(Auth::user()->load('karyawan.jabatan')->karyawan->jabatan->menu_akses)))
+            <li class="nav-item">
+              <a href="{{ url('/antrian/cs') }}" class="nav-link">
+                <i class="nav-icon fas fa-copy"></i>
+                <p>
+                  CS
+                </p>
+              </a>
+            </li>              
+          @endif
+
+          @if (in_array("20", json_decode(Auth::user()->load('karyawan.jabatan')->karyawan->jabatan->menu_akses)))
+            <li class="nav-item">
+              <a href="{{ url('/antrian/desainer') }}" class="nav-link">
+                <i class="nav-icon fas fa-copy"></i>
+                <p>
+                  Desainer
+                </p>
+              </a>
+            </li>              
+          @endif
+
+          @if (in_array("1", json_decode(Auth::user()->load('karyawan.jabatan')->karyawan->jabatan->menu_akses)))
+            <li class="nav-item">
+              <a href="{{ url('/antrian/display') }}" class="nav-link">
+                <i class="nav-icon fas fa-copy"></i>
+                <p>
+                  Display
+                </p>
+              </a>
+            </li>              
+          @endif
 
           @endif
           <li class="nav-item">

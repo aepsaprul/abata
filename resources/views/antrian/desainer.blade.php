@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Abata</title>
+  <title>Abata Desainer</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -22,15 +22,19 @@
 	
 		var channel = pusher.subscribe('customer-desain');
 		channel.bind('customer-desain-event', function(data) {
-			// alert(JSON.stringify(data));
+			if (data.customer_filter_id == 1) {
+				var title_filter = "File Siap";
+			} else {
+				var title_filter = "Desain / Edit";
+			}
 			var queryNomorAntrian = "" +
 				"<div class=\"col-md-1\">" +
 					"<div class=\"nomor\">" +
 						"<p class=\"nomor-title\">Antrian</p>" +
 						"<p class=\"nomor-antrian\">" + data.nomor_antrian + "</p>" +
 						"<p class=\"nomor-nama\">" + data.nama + "</p>" +
-						"<p class=\"nomor-filter\">" + data.customer_filter_id + "</p>" +
-						"<button class=\"btn btn-primary btn-block\">Panggil</button>" +
+						"<p class=\"nomor-filter\">" + title_filter + "</p>" +
+						"<a href=\"desainer/" + data.nomor_antrian + "/panggil\" class=\"btn btn-primary btn-block\">Panggil</a>" +
 					"</div>" +
 				"</div>";
 		
@@ -39,8 +43,13 @@
 	</script>
 	
 	<style>
+		body {
+			font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+		}
+		h3 {
+			text-align: center;
+		}
 		.layer-1 {
-			margin-top: 30px;
 			margin-bottom: 30px;
 		}
 	
@@ -61,7 +70,6 @@
 	
 		.desain-nomor {
 			font-size: 2em;
-			font-family: sans-serif;
 			font-weight: bold;
 			text-align: center;
 			color: #fff;
@@ -75,7 +83,6 @@
 
 		.nomor .nomor-title {
 			font-size: 1em;
-			font-family: sans-serif;
 			font-weight: bold;
 			text-align: center;
 			text-transform: uppercase;
@@ -84,14 +91,12 @@
 
 		.nomor .nomor-antrian {
 			font-size: 2em;
-			font-family: sans-serif;
 			font-weight: bold;
 			text-align: center;
 		}
 
 		.nomor .nomor-nama, .nomor .nomor-filter {
 			font-size: 0.8em;
-			font-family: sans-serif;
 			font-weight: bold;
 			text-align: center;
 			text-transform: uppercase;
@@ -103,7 +108,6 @@
 	
 		.antrian-title {
 			font-size: 1em;
-			font-family: sans-serif;
 			font-weight: bold;
 			text-align: center;
 			text-transform: uppercase;
@@ -111,7 +115,6 @@
 	
 		.antrian-nomor {
 			font-size: 8em;
-			font-family: sans-serif;
 			font-weight: bold;
 			text-align: center;
 			text-transform: uppercase;
@@ -124,57 +127,19 @@
 			margin: 0;
 			padding: 0;
 		}
+		.data-nomor .nomor-nama {
+			height: 50px;
+		}
 	</style>
 </head>
 <body class="hold-transition">	
 	<section class="content">
 		<div class="container-fluid">
+			<h3>HALAMAN DESAINER</h3>
+			<hr>
 			<div class="row">
 				<div class="col-12">
 						<div class="layer-1">
-							<div class="row">
-								<div class="col-md-12">
-									<div class="row">
-										<div class="col">
-											<div class="desain">
-												<p class="desain-title">Desain 1</p>
-												<p class="desain-nomor">4</p>
-											</div>
-										</div>
-										<div class="col">
-											<div class="desain">
-												<p class="desain-title">Desain 1</p>
-												<p class="desain-nomor">4</p>
-											</div>
-										</div>
-										<div class="col">
-											<div class="desain">
-												<p class="desain-title">Desain 1</p>
-												<p class="desain-nomor">4</p>
-											</div>
-										</div>
-										<div class="col">
-											<div class="desain">
-												<p class="desain-title">Desain 1</p>
-												<p class="desain-nomor">4</p>
-											</div>
-										</div>
-										<div class="col">
-											<div class="desain">
-												<p class="desain-title">Desain 1</p>
-												<p class="desain-nomor">4</p>
-											</div>
-										</div>
-										<div class="col">
-											<div class="desain">
-												<p class="desain-title">Desain 1</p>
-												<p class="desain-nomor">4</p>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<hr>
 							<div class="row data-nomor">
 								
 							</div>
@@ -212,15 +177,28 @@
 				},
 				success: function(response) {
 					$.each(response.data, function(i, value) {
+						
+						if (value.customer_filter_id == 1) {
+							var title_filter = "Siap Cetak";
+						} else if (value.customer_filter_id == 4) {
+							var title_filter = "Desain";
+						} else if (value.customer_filter_id == 5) {
+							var title_filter = "Edit";
+						} else {
+							var title_filter = "<a href=\"desainer/" + value.nomor_antrian + "/desain\">Desain</a> / <a href=\"desainer/" + value.nomor_antrian + "/edit\">Edit</a>";
+						}
+
 						var queryNomorAntrian = "" +
 							"<div class=\"col-md-1\">" +
 								"<div class=\"nomor\">" +
 									"<p class=\"nomor-title\">Antrian</p>" +
 									"<p class=\"nomor-antrian\">" + value.nomor_antrian + "</p>" +
 									"<p class=\"nomor-nama\">" + value.nama + "</p>" +
-									"<p class=\"nomor-filter\">" + value.customer_filter_id + "</p>" +
-									"<button class=\"btn btn-primary btn-block\">Panggil</button>" +
-								"</div>" +
+									"<p class=\"nomor-filter\">" + title_filter + "</p>";
+									if(value.status == 0){
+										queryNomorAntrian += "<a href=\"desainer/" + value.nomor_antrian + "/panggil\" class=\"btn btn-primary btn-block\">Panggil</a>";
+									}									
+									queryNomorAntrian += "</div>";
 							"</div>";
 					
 						$('.data-nomor').append(queryNomorAntrian);

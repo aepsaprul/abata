@@ -8,6 +8,7 @@ use App\Http\Controllers\CabangController;
 use App\Http\Controllers\AntrianController;
 use App\Http\Controllers\JabatanController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\DesainerController;
 use App\Http\Controllers\KaryawanController;
 
 /*
@@ -36,8 +37,13 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('cabang', CabangController::class);
     Route::get('cabang/{id}/delete', [CabangController::class, 'delete'])->name('cabang.delete');
 
+    Route::resource('desainer', DesainerController::class);
+    Route::get('desainer/{id}/delete', [DesainerController::class, 'delete'])->name('desainer.delete');
+
     Route::resource('jabatan', JabatanController::class);
     Route::get('jabatan/{id}/delete', [JabatanController::class, 'delete'])->name('jabatan.delete');
+    Route::get('jabatan/{id}/akses', [JabatanController::class, 'akses'])->name('jabatan.akses');
+    Route::put('jabatan/{id}/akses/simpan', [JabatanController::class, 'aksesSimpan'])->name('jabatan.akses.simpan');
 
     Route::resource('karyawan', KaryawanController::class);
     Route::get('karyawan/{id}/delete', [KaryawanController::class, 'delete'])->name('karyawan.delete');
@@ -51,9 +57,17 @@ Route::group(['middleware' => 'auth'], function () {
     // cabang
     Route::get('antrian/cs', [AntrianController::class, 'cs'])->name('antrian.cs');
     Route::get('antrian/cs/nomor', [AntrianController::class, 'csNomor'])->name('antrian.cs.nomor');
+    Route::get('antrian/cs/{nomor}/panggil', [AntrianController::class, 'csPanggil'])->name('antrian.cs.panggil');
+    Route::get('antrian/cs/{nomor}/mulai', [AntrianController::class, 'csMulai'])->name('antrian.cs.mulai');
+    Route::get('antrian/cs/{nomor}/selesai', [AntrianController::class, 'csSelesai'])->name('antrian.cs.selesai');
 
     Route::get('antrian/desainer', [AntrianController::class, 'desainer'])->name('antrian.desainer');
     Route::get('antrian/desainer/nomor', [AntrianController::class, 'desainerNomor'])->name('antrian.desainer.nomor');
+    Route::get('antrian/desainer/{nomor}/panggil', [AntrianController::class, 'desainerPanggil'])->name('antrian.desainer.panggil');
+    Route::get('antrian/desainer/{nomor}/desain', [AntrianController::class, 'desainerUpdateDesain'])->name('antrian.desainer.updatedesain');
+    Route::get('antrian/desainer/{nomor}/edit', [AntrianController::class, 'desainerUpdateEdit'])->name('antrian.desainer.updateedit');
+    Route::get('antrian/desainer/{nomor}/mulai', [AntrianController::class, 'desainerMulai'])->name('antrian.desainer.mulai');
+    Route::get('antrian/desainer/{nomor}/selesai', [AntrianController::class, 'desainerSelesai'])->name('antrian.desainer.selesai');
 });
 
 Route::get('antrian/customer', [AntrianController::class, 'customer'])->name('antrian.customer');

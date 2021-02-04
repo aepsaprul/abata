@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Menu;
 use App\Models\User;
+use App\Models\Jabatan;
 use App\Models\Karyawan;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -21,9 +22,10 @@ class KaryawanController extends Controller
      */
     public function index()
     {
-			$karyawans = Karyawan::get();
+        $karyawans = Karyawan::with('jabatan')
+            ->get();
 
-			return view('karyawan.index', ['karyawans' => $karyawans]);
+        return view('karyawan.index', ['karyawans' => $karyawans]);
     }
 
     /**
@@ -33,7 +35,9 @@ class KaryawanController extends Controller
      */
     public function create()
     {
-        return view('karyawan.create');
+        $jabatans = Jabatan::get();
+
+        return view('karyawan.create', ['jabatans' => $jabatans]);
     }
 
     /**
@@ -45,8 +49,8 @@ class KaryawanController extends Controller
     public function store(Request $request)
     {
 			$validation = \Validator::make($request->all(), [
-					"nama_lengkap" => "required",
-					"telepon" => "required"
+                "nama_lengkap" => "required",
+                "telepon" => "required"
 			])->validate();
 			
 			$karyawans = new Karyawan;
@@ -68,11 +72,11 @@ class KaryawanController extends Controller
 			$user->name = $request->nama_lengkap;
 			$user->email = $request->email;
 			$user->password = \Hash::make('abataprinting');
-			$user->roles = "guest";
+			$user->karyawan_id = $karyawans->id;
 
 			if($request->file('foto')) {
-					$file = $request->file('foto')->store('foto', 'public');
-					$user->foto = $file;
+                $file = $request->file('foto')->store('foto', 'public');
+                $user->foto = $file;
 			}
 
 			$user->save();
@@ -99,9 +103,10 @@ class KaryawanController extends Controller
      */
     public function edit($id)
     {
-			$karyawan = Karyawan::findOrFail($id);
+            $karyawan = Karyawan::findOrFail($id);
+            $jabatans = Jabatan::get();
 			
-			return view('karyawan.edit', ['karyawan' => $karyawan]);
+			return view('karyawan.edit', ['karyawan' => $karyawan, 'jabatans' => $jabatans]);
     }
 
     /**
@@ -122,11 +127,11 @@ class KaryawanController extends Controller
 			$karyawan->updated_by = Auth::user()->id;
 
 			if($request->file('foto')) {
-					if($karyawan->foto && file_exists(storage_path('app/public/' . $karyawan->foto))) {
-							\Storage::delete('public/' . $karyawan->foto);
-					}
-					$file = $request->file('foto')->store('avatar', 'public');
-					$karyawan->foto = $file;
+                if($karyawan->foto && file_exists(storage_path('app/public/' . $karyawan->foto))) {
+                    \Storage::delete('public/' . $karyawan->foto);
+                }
+                $file = $request->file('foto')->store('avatar', 'public');
+                $karyawan->foto = $file;
 			}
 
 			$karyawan->save();

@@ -16,6 +16,8 @@
 
   <title>{{ config('app.name', 'Abata Printing') }}</title>
 
+  <link rel="shortcut icon" href="{{ asset('assets/dist/img/logo-daun.png') }}" type="image/x-icon">
+
   <!-- Font Awesome -->
   <link rel="stylesheet" href="{{ asset('assets/plugins/fontawesome-free/css/all.min.css') }}">
   <!-- Ionicons -->

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Abata</title>
+  <title>Abata Form Customer</title>
   <!-- Tell the browser to be responsive to screen width -->
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<!-- CSRF Token -->
@@ -42,7 +42,7 @@
 	</div>
 	<div class="nomor-antrian">
 		<p style="text-align: center; text-transform: uppercase;">Nomor Antrian</p>
-		<p style="text-align: center;" class="nomor">
+		<p style="text-align: center;" class="nomor">C
 			@if (is_null($nomors))
 				{{ 0 + 1 }}
 			@else
@@ -108,7 +108,8 @@
 					telepon: telepon
 				},
 				success: function(response) {
-					location.reload();
+					var url = "http://localhost/github/abata/public/antrian/customer";    
+					$(location).attr('href',url);
 				}
 			});
 		});

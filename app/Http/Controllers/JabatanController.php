@@ -116,4 +116,21 @@ class JabatanController extends Controller
 
         return redirect()->route('jabatan.index')->with('status', 'Jabatan berhasil dihapus');
     }
+
+    public function akses(Request $request, $id)
+    {
+        $jabatan = Jabatan::find($id);
+        $menus = Menu::get();
+
+        return view('jabatan.akses', ['jabatan' => $jabatan, 'menus' => $menus]);
+    }
+
+    public function aksesSimpan(Request $request, $id)
+    {
+        $save_menu_akses = Jabatan::find($id);
+        $save_menu_akses->menu_akses = json_encode($request->menu);
+        $save_menu_akses->save();
+
+        return redirect()->route('jabatan.akses', [$save_menu_akses->id]);
+    }
 }
