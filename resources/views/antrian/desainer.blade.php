@@ -136,6 +136,14 @@
 	<section class="content">
 		<div class="container-fluid">
 			<h3>HALAMAN DESAINER</h3>
+			<p style="text-align: center;">
+				{{-- {{dd($status_desainer->desainer->status)}} --}}
+				@if ($status_desainer->desainer->status == "off")
+					<a href="{{ url('antrian/desainer/' . $status_desainer->desainer->id . '/on') }}" class="btn btn-danger">Komputer OFF</a>
+				@else
+					<a href="{{ url('antrian/desainer/' . $status_desainer->desainer->id . '/off') }}" class="btn btn-success">Komputer ON</a>
+				@endif
+			</p>
 			<hr>
 			<div class="row">
 				<div class="col-12">
@@ -195,9 +203,15 @@
 									"<p class=\"nomor-antrian\">" + value.nomor_antrian + "</p>" +
 									"<p class=\"nomor-nama\">" + value.nama + "</p>" +
 									"<p class=\"nomor-filter\">" + title_filter + "</p>";
-									if(value.status == 0){
+									if (value.status == 0) {
 										queryNomorAntrian += "<a href=\"desainer/" + value.nomor_antrian + "/panggil\" class=\"btn btn-primary btn-block\">Panggil</a>";
-									}									
+									}
+									if (value.status == 1) {
+										queryNomorAntrian += "<a href=\"desainer/" + value.nomor_antrian + "/mulai\" class=\"btn btn-info btn-block\">Mulai</a>";
+									}
+									if (value.status == 2) {
+										queryNomorAntrian += "<a href=\"desainer/" + value.nomor_antrian + "/selesai\" class=\"btn btn-success btn-block\">Selesai</a>";
+									}								
 									queryNomorAntrian += "</div>";
 							"</div>";
 					

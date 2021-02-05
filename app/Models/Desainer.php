@@ -14,7 +14,8 @@ class Desainer extends Model
 
     protected $fillable = [
         'title',
-        'karyawan_id'
+        'karyawan_id',
+        'status'
     ];
 
     public function karyawan()

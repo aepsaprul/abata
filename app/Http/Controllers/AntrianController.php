@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Carbon\Carbon;
 use App\Models\Customer;
+use App\Models\Desainer;
 use App\Models\Karyawan;
 use App\Events\CsDisplay;
 use App\Events\CustomerCs;
@@ -16,10 +17,12 @@ use App\Models\AntrianNomorCs;
 use App\Events\CsSelesaiDisplay;
 use App\Models\AntrianNomorSave;
 use App\Events\CustomerCsDisplay;
+use App\Events\DesainMulaiDisplay;
 use App\Models\AntrianNomorCsSave;
 use App\Models\AntrianNomorDesain;
 use App\Models\AntrianNomorSimpan;
 use Illuminate\Support\Facades\DB;
+use App\Events\DesainSelesaiDisplay;
 use Illuminate\Support\Facades\Auth;
 use App\Events\CustomerDesainDisplay;
 use App\Models\AntrianNomorDesainSave;
@@ -164,19 +167,44 @@ class AntrianController extends Controller
 
     public function desainer()
     {
-      return view('antrian.desainer');
+      $status_desainer = Karyawan::where('id', Auth::user()->karyawan_id)->with('desainer')->first();
+      return view('antrian.desainer', ['status_desainer' => $status_desainer]);
     }
-    public function desainerOn()
+    public function desainerOn(Request $request, $id)
     {
-      $id = Auth::user()->karyawan_id;
-      $karyawan = Karyawan::where('id', $id)->with('desainer')->first();
-      $status = $karyawan->desainer->title;
+      $idk = Auth::user()->karyawan_id;
+      $karyawan = Karyawan::where('id', $idk)->with('desainer')->first();
+      $desain_nomor = $karyawan->desainer->title;
+      $status = "on";
       
-      event(new DesainStatus($status));
+      event(new DesainStatus($desain_nomor, $status));
+
+      $desainer = Desainer::find($id);
+      $desainer->status = "on";
+      $desainer->save();
+
+      $status_desainer = Karyawan::where('id', Auth::user()->karyawan_id)->with('desainer')->first();
+      return redirect()->route('antrian.desainer', ['status_desainer' => $status_desainer]);
+    }
+    public function desainerOff(Request $request, $id)
+    {
+      $idk = Auth::user()->karyawan_id;
+      $karyawan = Karyawan::where('id', $idk)->with('desainer')->first();
+      $desain_nomor = $karyawan->desainer->title;
+      $status = "off";
+      
+      event(new DesainStatus($desain_nomor, $status));
+
+      $desainer = Desainer::find($id);
+      $desainer->status = "off";
+      $desainer->save();
+
+      $status_desainer = Karyawan::where('id', Auth::user()->karyawan_id)->with('desainer')->first();
+      return redirect()->route('antrian.desainer', ['status_desainer' => $status_desainer]);
     }
     public function desainerNomor()
     {
-      $nomors = AntrianNomorDesain::get();
+      $nomors = AntrianNomorDesain::where('status', '!=', '3')->get();
 
       return response()->json([
           'success' => 'Success',
@@ -193,7 +221,8 @@ class AntrianController extends Controller
 
       event(new DesainDisplay($antrian_nomor));
 
-      return redirect()->route('antrian.desainer');
+      $status_desainer = Karyawan::where('id', Auth::user()->karyawan_id)->with('desainer')->first();
+      return redirect()->route('antrian.desainer', ['status_desainer' => $status_desainer]);
     }
     public function desainerUpdateDesain($nomor)
     {
@@ -205,7 +234,8 @@ class AntrianController extends Controller
       $antrianNomorSimpan->customer_filter_id = 4;
       $antrianNomorSimpan->save();
 
-      return redirect()->route('antrian.desainer');
+      $status_desainer = Karyawan::where('id', Auth::user()->karyawan_id)->with('desainer')->first();
+      return redirect()->route('antrian.desainer', ['status_desainer' => $status_desainer]);
     }
     public function desainerUpdateEdit($nomor)
     {
@@ -217,7 +247,46 @@ class AntrianController extends Controller
       $antrianNomorSimpan->customer_filter_id = 5;
       $antrianNomorSimpan->save();
 
-      return redirect()->route('antrian.desainer');
+      $status_desainer = Karyawan::where('id', Auth::user()->karyawan_id)->with('desainer')->first();
+      return redirect()->route('antrian.desainer', ['status_desainer' => $status_desainer]);
+    }
+    public function desainerMulai($nomor)
+    {
+      $antrianNomor = AntrianNomorSimpan::where('nomor_antrian', $nomor)->where('jabatan', 'desainer')->update(['mulai' => Carbon::now()]);
+
+      $antrianNomor = AntrianNomorDesain::where('nomor_antrian', $nomor)->first();
+      $antrianNomor->status = 2;
+      $antrianNomor->save();
+
+      $idk = Auth::user()->karyawan_id;
+      $karyawan = Karyawan::where('id', $idk)->with('desainer')->first();
+      $desain_nomor = $karyawan->desainer->title;
+
+      $antrian_nomor = $nomor;
+
+      event(new DesainMulaiDisplay($desain_nomor,$antrian_nomor));
+
+      $status_desainer = Karyawan::where('id', Auth::user()->karyawan_id)->with('desainer')->first();
+      return redirect()->route('antrian.desainer', ['status_desainer' => $status_desainer]);
+    }
+    public function desainerSelesai($nomor)
+    {
+      $antrianNomor = AntrianNomorSimpan::where('nomor_antrian', $nomor)->where('jabatan', 'desainer')->update(['selesai' => Carbon::now()]);
+
+      $antrianNomor = AntrianNomorDesain::where('nomor_antrian', $nomor)->first();
+      $antrianNomor->status = 3;
+      $antrianNomor->save();
+
+      $idk = Auth::user()->karyawan_id;
+      $karyawan = Karyawan::where('id', $idk)->with('desainer')->first();
+      $desain_nomor = $karyawan->desainer->title;
+
+      $keterangan = "free";
+
+      event(new DesainSelesaiDisplay($desain_nomor,$keterangan));
+
+      $status_desainer = Karyawan::where('id', Auth::user()->karyawan_id)->with('desainer')->first();
+      return redirect()->route('antrian.desainer', ['status_desainer' => $status_desainer]);
     }
 
     public function display()

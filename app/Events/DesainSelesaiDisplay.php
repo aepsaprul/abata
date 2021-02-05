@@ -10,22 +10,22 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class DesainStatus implements ShouldBroadcast
+class DesainSelesaiDisplay implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     public $desain_nomor;
-    public $status;
+    public $keterangan;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct($desain_nomor,$status)
+    public function __construct($desain_nomor, $keterangan)
     {
         $this->desain_nomor = $desain_nomor;
-        $this->status = $status;
+        $this->keterangan = $keterangan;
     }
 
     /**
@@ -35,11 +35,11 @@ class DesainStatus implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return ['desain-status'];
+        return ['desain-selesai-display'];
     }
 
     public function broadcastAs()
     {
-        return 'desain-status-event';
+        return 'desain-selesai-display-event';
     }
 }

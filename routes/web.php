@@ -62,6 +62,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('antrian/cs/{nomor}/selesai', [AntrianController::class, 'csSelesai'])->name('antrian.cs.selesai');
 
     Route::get('antrian/desainer', [AntrianController::class, 'desainer'])->name('antrian.desainer');
+    Route::get('antrian/desainer/{id}/on', [AntrianController::class, 'desainerOn'])->name('antrian.desainer.on');
+    Route::get('antrian/desainer/{id}/off', [AntrianController::class, 'desainerOff'])->name('antrian.desainer.off');
     Route::get('antrian/desainer/nomor', [AntrianController::class, 'desainerNomor'])->name('antrian.desainer.nomor');
     Route::get('antrian/desainer/{nomor}/panggil', [AntrianController::class, 'desainerPanggil'])->name('antrian.desainer.panggil');
     Route::get('antrian/desainer/{nomor}/desain', [AntrianController::class, 'desainerUpdateDesain'])->name('antrian.desainer.updatedesain');

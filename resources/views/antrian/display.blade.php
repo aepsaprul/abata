@@ -89,28 +89,143 @@ scratch. This page gets rid of all links and provides the needed markup only.
 		
 			$('.antrian_desain').append(queryNomorAntrian);
 			
-		});		
+		});
+		// update ketika desainer klik mulai 
+		var desain_mulai_display = pusher.subscribe('desain-mulai-display');
+		desain_mulai_display.bind('desain-mulai-display-event', function(data) {
+
+			if (data.desain_nomor == 1) {
+				$('.desain .number-satu').empty();			
+				var queryNomorAntrian = "D " + data.antrian_nomor;		
+				$('.desain .number-satu').append(queryNomorAntrian);
+			}
+			if (data.desain_nomor == 2) {
+				$('.desain .number-dua').empty();			
+				var queryNomorAntrian = "D " + data.antrian_nomor;		
+				$('.desain .number-dua').append(queryNomorAntrian);
+			}
+			// if (data.desain_nomor == 3) {
+			// 	if (data.status == "on") {
+			// 		$(".desain .header-desain-satu").css("background-color", "#5cb85c");
+			// 	} else {
+			// 		$(".desain .header-desain-satu").css("background-color", "#fbdd23");
+			// 	}
+			// }
+			// if (data.desain_nomor == 4) {
+			// 	if (data.status == "on") {
+			// 		$(".desain .header-desain-satu").css("background-color", "#5cb85c");
+			// 	} else {
+			// 		$(".desain .header-desain-satu").css("background-color", "#fbdd23");
+			// 	}
+			// }
+			// if (data.desain_nomor == 5) {
+			// 	if (data.status == "on") {
+			// 		$(".desain .header-desain-satu").css("background-color", "#5cb85c");
+			// 	} else {
+			// 		$(".desain .header-desain-satu").css("background-color", "#fbdd23");
+			// 	}
+			// }
+			// if (data.desain_nomor == 6) {
+			// 	if (data.status == "on") {
+			// 		$(".desain .header-desain-satu").css("background-color", "#5cb85c");
+			// 	} else {
+			// 		$(".desain .header-desain-satu").css("background-color", "#fbdd23");
+			// 	}
+			// }
+			
+		});
+		// update ketika desainer klik selesai 
+		var desain_selesai_display = pusher.subscribe('desain-selesai-display');
+		desain_selesai_display.bind('desain-selesai-display-event', function(data) {
+
+			
+			// if (data.desain_nomor == 1) {
+			// 	$('.desain .desain-satu').empty();			
+			// 	var keterangan = data.keterangan;		
+			// 	$('.desain .desain-satu').append(keterangan);
+			// }
+			// if (data.desain_nomor == 2) {
+			// 	if (data.status == "on") {
+			// 		$(".desain .header-desain-satu").css("background-color", "#5cb85c");
+			// 	} else {
+			// 		$(".desain .header-desain-satu").css("background-color", "#fbdd23");
+			// 	}
+			// }
+			// if (data.desain_nomor == 3) {
+			// 	if (data.status == "on") {
+			// 		$(".desain .header-desain-satu").css("background-color", "#5cb85c");
+			// 	} else {
+			// 		$(".desain .header-desain-satu").css("background-color", "#fbdd23");
+			// 	}
+			// }
+			// if (data.desain_nomor == 4) {
+			// 	if (data.status == "on") {
+			// 		$(".desain .header-desain-satu").css("background-color", "#5cb85c");
+			// 	} else {
+			// 		$(".desain .header-desain-satu").css("background-color", "#fbdd23");
+			// 	}
+			// }
+			// if (data.desain_nomor == 5) {
+			// 	if (data.status == "on") {
+			// 		$(".desain .header-desain-satu").css("background-color", "#5cb85c");
+			// 	} else {
+			// 		$(".desain .header-desain-satu").css("background-color", "#fbdd23");
+			// 	}
+			// }
+			// if (data.desain_nomor == 6) {
+			// 	if (data.status == "on") {
+			// 		$(".desain .header-desain-satu").css("background-color", "#5cb85c");
+			// 	} else {
+			// 		$(".desain .header-desain-satu").css("background-color", "#fbdd23");
+			// 	}
+			// }
+			
+		});	
 
 		var desain_status = pusher.subscribe('desain-status');
 		desain_status.bind('desain-status-event', function(data) {
 
-			if (data.status == 1) {
-				$(".desain .header-desain-satu").css("background-color", "#5cb85c");
+			if (data.desain_nomor == 1) {
+				if (data.status == "on") {
+					$(".desain .header-desain-satu").css("background-color", "#7CFC00");
+				} else {
+					$(".desain .header-desain-satu").css("background-color", "#fbdd23");
+				}
 			}
-			if (data.status == 2) {
-				$(".desain .header-desain-dua").css("background-color", "#5cb85c");
+			if (data.desain_nomor == 2) {
+				if (data.status == "on") {
+					$(".desain .header-desain-dua").css("background-color", "#7CFC00");
+				} else {
+					$(".desain .header-desain-dua").css("background-color", "#fbdd23");
+				}
 			}
-			if (data.status == 3) {
-				$(".desain .header-desain-tiga").css("background-color", "#5cb85c");
+			if (data.desain_nomor == 3) {
+				if (data.status == "on") {
+					$(".desain .header-desain-satu").css("background-color", "#7CFC00");
+				} else {
+					$(".desain .header-desain-satu").css("background-color", "#fbdd23");
+				}
 			}
-			if (data.status == 4) {
-				$(".desain .header-desain-empat").css("background-color", "#5cb85c");
+			if (data.desain_nomor == 4) {
+				if (data.status == "on") {
+					$(".desain .header-desain-satu").css("background-color", "#7CFC00");
+				} else {
+					$(".desain .header-desain-satu").css("background-color", "#fbdd23");
+				}
 			}
-			if (data.status == 5) {
-				$(".desain .header-desain-lima").css("background-color", "#5cb85c");
+			if (data.desain_nomor == 5) {
+				if (data.status == "on") {
+					$(".desain .header-desain-satu").css("background-color", "#7CFC00");
+				} else {
+					$(".desain .header-desain-satu").css("background-color", "#fbdd23");
+				}
 			}
-			if (data.status == 6) {
-				$(".desain .header-desain-enam").css("background-color", "#5cb85c");
+			if (data.desain_nomor == 6) {
+				if (data.status == "on") {
+					$(".desain .header-desain-satu").css("background-color", "#7CFC00");
+				} else {
+					$(".desain .header-desain-satu").css("background-color", "#fbdd23");
+				}
 			}
 			
 		});
@@ -148,8 +263,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
 			margin: 0;
 			text-transform: uppercase;
 			font-weight: bold;
+			color: black;
 		}
-		.desain .card-body .number {
+		.desain .card-body .number-satu,
+		.desain .card-body .number-dua,
+		.desain .card-body .number-tiga,
+		.desain .card-body .number-empat,
+		.desain .card-body .number-lima,
+		.desain .card-body .number-enam {
 			font-size: 3em;
 			font-family: 'arial';
 			font-weight: bold;
@@ -215,7 +336,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <h5 class="title desain-satu">Desain 1</h5>
               </div>
               <div class="card-body">
-                <p class="number">-</p>
+                <p class="number-satu">-</p>
 							</div>
             </div>
 					</div>
@@ -225,7 +346,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <h5 class="title desain-dua">Desain 2</h5>
               </div>
               <div class="card-body">
-                <p class="number">-</p>
+                <p class="number-dua">-</p>
 							</div>
             </div>
 					</div>
@@ -235,7 +356,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <h5 class="title desain-tiga">Desain 3</h5>
               </div>
               <div class="card-body">
-                <p class="number">-</p>
+                <p class="number-tiga">-</p>
 							</div>
             </div>
 					</div>
@@ -245,7 +366,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <h5 class="title desain-empat">Desain 4</h5>
               </div>
               <div class="card-body">
-                <p class="number">-</p>
+                <p class="number-empat">-</p>
 							</div>
             </div>
 					</div>
@@ -255,7 +376,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <h5 class="title desain-lima">Desain 5</h5>
               </div>
               <div class="card-body">
-                <p class="number">-</p>
+                <p class="number-lima">-</p>
 							</div>
             </div>
 					</div>
@@ -265,7 +386,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <h5 class="title desain-enam">Desain 6</h5>
               </div>
               <div class="card-body">
-                <p class="number">-</p>
+                <p class="number-enam">-</p>
 							</div>
             </div>
 					</div>

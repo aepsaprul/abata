@@ -10,18 +10,22 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class DesainMulaiDisplay
+class DesainMulaiDisplay implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
+
+    public $desain_nomor;
+    public $antrian_nomor;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($desain_nomor, $antrian_nomor)
     {
-        //
+        $this->desain_nomor = $desain_nomor;
+        $this->antrian_nomor = $antrian_nomor;
     }
 
     /**
@@ -31,6 +35,11 @@ class DesainMulaiDisplay
      */
     public function broadcastOn()
     {
-        return new PrivateChannel('channel-name');
+        return ['desain-mulai-display'];
+    }
+
+    public function broadcastAs()
+    {
+        return 'desain-mulai-display-event';
     }
 }
