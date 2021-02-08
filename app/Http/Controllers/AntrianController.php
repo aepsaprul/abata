@@ -146,7 +146,7 @@ class AntrianController extends Controller
 
       $antrian_nomor = $nomor;
 
-      event(new CsMulaiDisplay($antrian_nomor));
+      // event(new CsMulaiDisplay($antrian_nomor));
 
       return redirect()->route('antrian.cs');
     }
@@ -160,7 +160,7 @@ class AntrianController extends Controller
 
       $keterangan = "free";
 
-      event(new CsSelesaiDisplay($keterangan));
+      // event(new CsSelesaiDisplay($keterangan));
 
       return redirect()->route('antrian.cs');
     }

@@ -104,81 +104,52 @@ scratch. This page gets rid of all links and provides the needed markup only.
 				var queryNomorAntrian = "D " + data.antrian_nomor;		
 				$('.desain .number-dua').append(queryNomorAntrian);
 			}
-			// if (data.desain_nomor == 3) {
-			// 	if (data.status == "on") {
-			// 		$(".desain .header-desain-satu").css("background-color", "#5cb85c");
-			// 	} else {
-			// 		$(".desain .header-desain-satu").css("background-color", "#fbdd23");
-			// 	}
-			// }
-			// if (data.desain_nomor == 4) {
-			// 	if (data.status == "on") {
-			// 		$(".desain .header-desain-satu").css("background-color", "#5cb85c");
-			// 	} else {
-			// 		$(".desain .header-desain-satu").css("background-color", "#fbdd23");
-			// 	}
-			// }
-			// if (data.desain_nomor == 5) {
-			// 	if (data.status == "on") {
-			// 		$(".desain .header-desain-satu").css("background-color", "#5cb85c");
-			// 	} else {
-			// 		$(".desain .header-desain-satu").css("background-color", "#fbdd23");
-			// 	}
-			// }
-			// if (data.desain_nomor == 6) {
-			// 	if (data.status == "on") {
-			// 		$(".desain .header-desain-satu").css("background-color", "#5cb85c");
-			// 	} else {
-			// 		$(".desain .header-desain-satu").css("background-color", "#fbdd23");
-			// 	}
-			// }
+			if (data.desain_nomor == 3) {
+				$('.desain .number-tiga').empty();			
+				var queryNomorAntrian = "D " + data.antrian_nomor;		
+				$('.desain .number-tiga').append(queryNomorAntrian);
+			}
+			if (data.desain_nomor == 4) {
+				$('.desain .number-empat').empty();			
+				var queryNomorAntrian = "D " + data.antrian_nomor;		
+				$('.desain .number-empat').append(queryNomorAntrian);
+			}
 			
 		});
 		// update ketika desainer klik selesai 
 		var desain_selesai_display = pusher.subscribe('desain-selesai-display');
 		desain_selesai_display.bind('desain-selesai-display-event', function(data) {
 
-			
-			// if (data.desain_nomor == 1) {
-			// 	$('.desain .desain-satu').empty();			
-			// 	var keterangan = data.keterangan;		
-			// 	$('.desain .desain-satu').append(keterangan);
-			// }
-			// if (data.desain_nomor == 2) {
-			// 	if (data.status == "on") {
-			// 		$(".desain .header-desain-satu").css("background-color", "#5cb85c");
-			// 	} else {
-			// 		$(".desain .header-desain-satu").css("background-color", "#fbdd23");
-			// 	}
-			// }
-			// if (data.desain_nomor == 3) {
-			// 	if (data.status == "on") {
-			// 		$(".desain .header-desain-satu").css("background-color", "#5cb85c");
-			// 	} else {
-			// 		$(".desain .header-desain-satu").css("background-color", "#fbdd23");
-			// 	}
-			// }
-			// if (data.desain_nomor == 4) {
-			// 	if (data.status == "on") {
-			// 		$(".desain .header-desain-satu").css("background-color", "#5cb85c");
-			// 	} else {
-			// 		$(".desain .header-desain-satu").css("background-color", "#fbdd23");
-			// 	}
-			// }
-			// if (data.desain_nomor == 5) {
-			// 	if (data.status == "on") {
-			// 		$(".desain .header-desain-satu").css("background-color", "#5cb85c");
-			// 	} else {
-			// 		$(".desain .header-desain-satu").css("background-color", "#fbdd23");
-			// 	}
-			// }
-			// if (data.desain_nomor == 6) {
-			// 	if (data.status == "on") {
-			// 		$(".desain .header-desain-satu").css("background-color", "#5cb85c");
-			// 	} else {
-			// 		$(".desain .header-desain-satu").css("background-color", "#fbdd23");
-			// 	}
-			// }
+			if (data.desain_nomor == 1) {
+				$('.desain .number-satu').empty();			
+				var keterangan = data.keterangan;		
+				$('.desain .number-satu').append(keterangan);
+			}
+			if (data.desain_nomor == 2) {
+				$('.desain .number-dua').empty();			
+				var keterangan = data.keterangan;		
+				$('.desain .number-dua').append(keterangan);
+			}
+			if (data.desain_nomor == 3) {
+				$('.desain .number-tiga').empty();			
+				var keterangan = data.keterangan;		
+				$('.desain .number-tiga').append(keterangan);
+			}
+			if (data.desain_nomor == 4) {
+				$('.desain .number-empat').empty();			
+				var keterangan = data.keterangan;		
+				$('.desain .number-empat').append(keterangan);
+			}
+			if (data.desain_nomor == 5) {
+				$('.desain .number-lima').empty();			
+				var keterangan = data.keterangan;		
+				$('.desain .number-lima').append(keterangan);
+			}
+			if (data.desain_nomor == 6) {
+				$('.desain .number-enam').empty();			
+				var keterangan = data.keterangan;		
+				$('.desain .number-enam').append(keterangan);
+			}
 			
 		});	
 
@@ -201,30 +172,30 @@ scratch. This page gets rid of all links and provides the needed markup only.
 			}
 			if (data.desain_nomor == 3) {
 				if (data.status == "on") {
-					$(".desain .header-desain-satu").css("background-color", "#7CFC00");
+					$(".desain .header-desain-tiga").css("background-color", "#7CFC00");
 				} else {
-					$(".desain .header-desain-satu").css("background-color", "#fbdd23");
+					$(".desain .header-desain-tiga").css("background-color", "#fbdd23");
 				}
 			}
 			if (data.desain_nomor == 4) {
 				if (data.status == "on") {
-					$(".desain .header-desain-satu").css("background-color", "#7CFC00");
+					$(".desain .header-desain-empat").css("background-color", "#7CFC00");
 				} else {
-					$(".desain .header-desain-satu").css("background-color", "#fbdd23");
+					$(".desain .header-desain-empat").css("background-color", "#fbdd23");
 				}
 			}
 			if (data.desain_nomor == 5) {
 				if (data.status == "on") {
-					$(".desain .header-desain-satu").css("background-color", "#7CFC00");
+					$(".desain .header-desain-lima").css("background-color", "#7CFC00");
 				} else {
-					$(".desain .header-desain-satu").css("background-color", "#fbdd23");
+					$(".desain .header-desain-lima").css("background-color", "#fbdd23");
 				}
 			}
 			if (data.desain_nomor == 6) {
 				if (data.status == "on") {
-					$(".desain .header-desain-satu").css("background-color", "#7CFC00");
+					$(".desain .header-desain-enam").css("background-color", "#7CFC00");
 				} else {
-					$(".desain .header-desain-satu").css("background-color", "#fbdd23");
+					$(".desain .header-desain-enam").css("background-color", "#fbdd23");
 				}
 			}
 			
@@ -282,7 +253,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <div class="wrapper">
 
   <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
+  <div class="content-wrapper" style="background-color: darkblue;">
     <!-- Content Header (Page header) -->
     <div class="content-header">
       <div class="container">

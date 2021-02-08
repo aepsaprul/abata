@@ -48,6 +48,7 @@
 		}
 		h3 {
 			text-align: center;
+			text-transform: uppercase;
 		}
 		.layer-1 {
 			margin-bottom: 30px;
@@ -135,7 +136,7 @@
 <body class="hold-transition">	
 	<section class="content">
 		<div class="container-fluid">
-			<h3>HALAMAN DESAINER</h3>
+			<h3>HALAMAN DESAINER {{ $status_desainer->nama_lengkap }}</h3>
 			<p style="text-align: center;">
 				{{-- {{dd($status_desainer->desainer->status)}} --}}
 				@if ($status_desainer->desainer->status == "off")

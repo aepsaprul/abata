@@ -22,10 +22,10 @@
 			<form role="form" class="form-customer">
 				<div class="card-body">
 					<div class="form-group">
-						<input type="text" class="form-control" id="customer_filter_id" value="{{ $customer_filter_id }}" disabled>
+						<input type="hidden" class="form-control" id="customer_filter_id" value="{{ $customer_filter_id }}" disabled>
 					</div>
 					<div class="form-group">
-						<input type="text" class="form-control" id="nomor_antrian" value="@if (is_null($nomors)){{ 0 + 1 }}@else{{ $nomors->nomor_antrian + 1 }}@endif" disabled>
+						<input type="hidden" class="form-control" id="nomor_antrian" value="@if (is_null($nomors)){{ 0 + 1 }}@else{{ $nomors->nomor_antrian + 1 }}@endif" disabled>
 					</div>
 					<div class="form-group">
 						<input type="text" class="form-control" id="nama" required placeholder="Masukkan nama">
