@@ -33,6 +33,15 @@ class AntrianController extends Controller
     {
       return view('antrian.customer');
     }
+    public function customerData(Request $request)
+    {
+      $customers = Customer::where('telepon', 'like', '%' . $request->value . '%')->limit(5)->get();
+
+      return response()->json([
+        'success' => 'berhasil ambil data',
+        'customers' => $customers
+      ]);
+    }
     public function customerStore(Request $request)
     {
       $customers = new Customer;

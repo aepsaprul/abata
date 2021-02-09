@@ -73,6 +73,7 @@ Route::group(['middleware' => 'auth'], function () {
 });
 
 Route::get('antrian/customer', [AntrianController::class, 'customer'])->name('antrian.customer');
+Route::post('antrian/customer/data', [AntrianController::class, 'customerData'])->name('antrian.customer.data');
 Route::post('antrian/customer/store', [AntrianController::class, 'customerStore'])->name('antrian.customer.store');
 Route::get('antrian/customer/nomor', [AntrianController::class, 'customerNomor'])->name('antrian.customer.nomor');
 Route::post('antrian/customer/sender', [AntrianController::class, 'customerSender'])->name('antrian.customer.sender');

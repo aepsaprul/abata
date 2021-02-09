@@ -11,6 +11,28 @@
 
   <!-- Theme style -->
   <link rel="stylesheet" href="{{ asset('assets/dist/css/adminlte.min.css') }}">
+
+	<style>
+		.telepon .telepon-data {
+			display: none;
+			list-style: none;
+			padding: 0;
+			text-align: left;
+			position: absolute;
+			background-color: aliceblue;
+		}
+		.telepon .telepon-data li {
+			padding-right: 10px;
+			padding-left: 10px;
+			margin-bottom: 10px;
+		}
+
+		.btn-data-customer {
+			border: none;
+			background-color: aliceblue;
+		}
+		
+	</style>
 </head>
 <body class="hold-transition login-page">
 <div class="login-box">
@@ -28,10 +50,15 @@
 						<input type="hidden" class="form-control" id="nomor_antrian" value="@if (is_null($nomors)){{ 0 + 1 }}@else{{ $nomors->nomor_antrian + 1 }}@endif" disabled>
 					</div>
 					<div class="form-group">
-						<input type="text" class="form-control" id="nama" required placeholder="Masukkan nama">
+						<input type="text" class="form-control" id="telepon" autocomplete="off" required placeholder="Masukkan nomor telepon">
+						<div class="telepon">
+							<ul class="telepon-data">
+								{{-- data  --}}
+							</ul>
+						</div>
 					</div>
 					<div class="form-group">
-						<input type="text" class="form-control" id="telepon" required placeholder="Masukkan nomor telepon">
+						<input type="text" class="form-control" id="nama" required placeholder="Masukkan nama">
 					</div>
 					<div class="form-group">
 						<button type="submit" class="btn btn-primary btn-block">Cetak</button>
@@ -81,6 +108,35 @@
 				}
 			});
 		}
+
+		$("#telepon").on("keyup", function() {
+			$('.telepon .telepon-data').empty();
+			var value = $(this).val();
+			$.ajax({
+				url: '{{ URL::route('antrian.customer.data') }}',
+				type: 'POST',
+				data: {
+					_token: CSRF_TOKEN,
+					value: value
+				},
+				success: function(response) {
+					$.each(response.customers, function (i, value) {
+						var data_customers = "<li><button class=\"btn-data-customer\" data-value=\"" + value.telepon + " " + value.nama + "\">" + value.telepon + " | " + value.nama + "</button></li>";
+						$('.telepon .telepon-data').append(data_customers);
+					});
+					$('.telepon .telepon-data').css('display', 'block');
+				}
+			});
+		});
+
+		$('.telepon').on('click', '.btn-data-customer', function (e) {
+			e.preventDefault();
+			var a = $(this).attr('data-value');
+			var b = a.split(" ");
+			$("#telepon").val(b[0]);
+			$("#nama").val(b[1]);
+			$('.telepon .telepon-data').css('display', 'none');
+		});
 
 		$('.form-customer').on('submit', function(e) {
 			e.preventDefault();
