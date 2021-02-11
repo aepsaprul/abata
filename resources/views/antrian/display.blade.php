@@ -238,7 +238,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <div class="wrapper">
 
   <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper" style="background-color: darkblue;">
+  <div class="content-wrapper" style="background-color: #176BB3;">
     <!-- Content Header (Page header) -->
     <div class="content-header">
       <div class="container">
