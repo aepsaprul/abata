@@ -185,6 +185,13 @@
           
           @else
 
+          {{-- @if (in_array("8", json_decode(Auth::user()->load('karyawan.cabang')->karyawan->jabatan->menu_akses)))
+              
+          @endif --}}
+          {{-- @foreach (json_decode(Auth::user()->load('karyawan.jabatan')->karyawan->jabatan->menu_akses) as $key => $item)
+              {{ $item }}
+          @endforeach --}}
+
           @if (in_array("8", json_decode(Auth::user()->load('karyawan.jabatan')->karyawan->jabatan->menu_akses)))
             <li class="nav-item">
               <a href="{{ url('/cabang') }}" class="nav-link">

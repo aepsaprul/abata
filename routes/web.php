@@ -10,6 +10,7 @@ use App\Http\Controllers\JabatanController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DesainerController;
 use App\Http\Controllers\KaryawanController;
+use App\Http\Controllers\SitumpurController;
 
 /*
 |--------------------------------------------------------------------------
@@ -55,6 +56,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('user/{id}/delete', [UserController::class, 'delete'])->name('user.delete');
 
     // cabang
+
+    // situmpur
+    Route::get('situmpur/cs', [SitumpurController::class, 'cs'])->name('situmpur.cs');
+
     Route::get('antrian/cs', [AntrianController::class, 'cs'])->name('antrian.cs');
     Route::get('antrian/cs/nomor', [AntrianController::class, 'csNomor'])->name('antrian.cs.nomor');
     Route::get('antrian/cs/{nomor}/panggil', [AntrianController::class, 'csPanggil'])->name('antrian.cs.panggil');

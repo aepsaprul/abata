@@ -51,10 +51,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
 		cs_display.bind('cs-display-event', function(data) {
 
 			$('.antrian_cs').empty();
+			$('.number-cs').empty();
 			
-			var queryNomorAntrian = data.antrian_nomor;
+			var queryNomorAntrian = "C " + data.antrian_nomor;
 		
 			$('.antrian_cs').append(queryNomorAntrian);
+			$('.number-cs').append(queryNomorAntrian);
 			
 		});
 		// update ketika cs klik mulai 
@@ -145,11 +147,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
 				var keterangan = data.keterangan;		
 				$('.desain .number-lima').append(keterangan);
 			}
-			if (data.desain_nomor == 6) {
-				$('.desain .number-enam').empty();			
-				var keterangan = data.keterangan;		
-				$('.desain .number-enam').append(keterangan);
-			}
 			
 		});	
 
@@ -191,13 +188,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
 					$(".desain .header-desain-lima").css("background-color", "#fbdd23");
 				}
 			}
-			if (data.desain_nomor == 6) {
-				if (data.status == "on") {
-					$(".desain .header-desain-enam").css("background-color", "#7CFC00");
-				} else {
-					$(".desain .header-desain-enam").css("background-color", "#fbdd23");
-				}
-			}
 			
 		});
 	</script>
@@ -236,12 +226,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 			font-weight: bold;
 			color: black;
 		}
-		.desain .card-body .number-satu,
-		.desain .card-body .number-dua,
-		.desain .card-body .number-tiga,
-		.desain .card-body .number-empat,
-		.desain .card-body .number-lima,
-		.desain .card-body .number-enam {
+		.desain .card-body p {
 			font-size: 3em;
 			font-family: 'arial';
 			font-weight: bold;
@@ -278,7 +263,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <h5 class="title">Nomor Antrian</h5>
               </div>
               <div class="card-body">
-                <p class="number antrian_cs_selesai">C <span class="antrian_cs">0</span></p>
+                <p class="number antrian_cs_selesai"><span class="antrian_cs">C 0</span></p>
 							</div>
 							<div class="card-footer">
 								<h5 class="title">Total Antrian <span class="antrian_total_cs">0</span></h5>
@@ -290,7 +275,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <h5 class="title">Nomor Antrian</h5>
               </div>
               <div class="card-body">
-                <p class="number">D <span class="antrian_desain">0</span></p>
+                <p class="number"><span class="antrian_desain">D 0</span></p>
 							</div>
 							<div class="card-footer">
 								<h5 class="title">Total Antrian <span class="antrian_total_desain">0</span></h5>
@@ -301,6 +286,16 @@ scratch. This page gets rid of all links and provides the needed markup only.
         </div>
 				<!-- /.row -->
 				<div class="row desain">
+					<div class="col-lg-2">
+						<div class="card" style="height: 200px;">
+              <div class="card-header header-cs">
+                <h5 class="title cs">CS</h5>
+              </div>
+              <div class="card-body">
+                <p class="number-cs">-</p>
+							</div>
+            </div>
+					</div>
 					<div class="col-lg-2">
 						<div class="card" style="height: 200px;">
               <div class="card-header header-desain-satu">
@@ -348,16 +343,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </div>
               <div class="card-body">
                 <p class="number-lima">-</p>
-							</div>
-            </div>
-					</div>
-					<div class="col-lg-2">
-						<div class="card" style="height: 200px;">
-              <div class="card-header header-desain-enam">
-                <h5 class="title desain-enam">Desain 6</h5>
-              </div>
-              <div class="card-body">
-                <p class="number-enam">-</p>
 							</div>
             </div>
 					</div>
