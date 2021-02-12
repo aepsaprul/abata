@@ -89,113 +89,116 @@
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
 
+          {{-- administrator  --}}
           @if (Auth::user()->roles == "administrator")
           
-          <li class="nav-header bg-secondary">Master</li>
-          <li class="nav-item">
-            <a href="{{ url('/cabang') }}" class="nav-link">
-              <i class="nav-icon fas fa-copy"></i>
-              <p>
-                Cabang
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="{{ url('/customer') }}" class="nav-link">
-              <i class="nav-icon fas fa-copy"></i>
-              <p>
-                Customer
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="{{ url('/jabatan') }}" class="nav-link">
-              <i class="nav-icon fas fa-copy"></i>
-              <p>
-                Jabatan
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="{{ url('/karyawan') }}" class="nav-link">
-              <i class="nav-icon fas fa-copy"></i>
-              <p>
-                Karyawan
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="{{ url('/menu') }}" class="nav-link">
-              <i class="nav-icon fas fa-copy"></i>
-              <p>
-                Menu
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="{{ url('/user') }}" class="nav-link">
-              <i class="nav-icon fas fa-copy"></i>
-              <p>
-                User
-              </p>
-            </a>
-          </li>
+            <li class="nav-header bg-secondary">Master</li>
+            <li class="nav-item">
+              <a href="{{ url('/cabang') }}" class="nav-link">
+                <i class="nav-icon fas fa-copy"></i>
+                <p>
+                  Cabang
+                </p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="{{ url('/customer') }}" class="nav-link">
+                <i class="nav-icon fas fa-copy"></i>
+                <p>
+                  Customer
+                </p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="{{ url('/jabatan') }}" class="nav-link">
+                <i class="nav-icon fas fa-copy"></i>
+                <p>
+                  Jabatan
+                </p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="{{ url('/karyawan') }}" class="nav-link">
+                <i class="nav-icon fas fa-copy"></i>
+                <p>
+                  Karyawan
+                </p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="{{ url('/menu') }}" class="nav-link">
+                <i class="nav-icon fas fa-copy"></i>
+                <p>
+                  Menu
+                </p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="{{ url('/user') }}" class="nav-link">
+                <i class="nav-icon fas fa-copy"></i>
+                <p>
+                  User
+                </p>
+              </a>
+            </li>
 
-          <li class="nav-header p-2 bg-secondary">Situmpur</li>
-          <li class="nav-header p-2">Master</li>
-          <li class="nav-item">
-            <a href="{{ url('/antrian/customer') }}" class="nav-link">
-              <i class="nav-icon fas fa-copy"></i>
-              <p>
-                Customer
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="{{ url('/desainer') }}" class="nav-link">
-              <i class="nav-icon fas fa-copy"></i>
-              <p>
-                Desain
-              </p>
-            </a>
-          </li>
-          <li class="nav-header p-2">Antrian</li>
-          <li class="nav-item">
-            <a href="{{ url('/antrian/customer') }}" class="nav-link">
-              <i class="nav-icon fas fa-copy"></i>
-              <p>
-                Customer
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="{{ url('/antrian/cs') }}" class="nav-link">
-              <i class="nav-icon fas fa-copy"></i>
-              <p>
-                CS
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="{{ url('/antrian/desainer') }}" class="nav-link">
-              <i class="nav-icon fas fa-copy"></i>
-              <p>
-                Desain
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="{{ url('/antrian/display') }}" class="nav-link">
-              <i class="nav-icon fas fa-copy"></i>
-              <p>
-                Display
-              </p>
-            </a>
-          </li>
+            <li class="nav-header p-2 bg-secondary">Situmpur</li>
+            <li class="nav-header p-2">Master</li>
+            <li class="nav-item">
+              <a href="{{ url('/antrian/customer') }}" class="nav-link">
+                <i class="nav-icon fas fa-copy"></i>
+                <p>
+                  Customer
+                </p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="{{ url('/desainer') }}" class="nav-link">
+                <i class="nav-icon fas fa-copy"></i>
+                <p>
+                  Desain
+                </p>
+              </a>
+            </li>
+            <li class="nav-header p-2">Antrian</li>
+            <li class="nav-item">
+              <a href="{{ url('/antrian/customer') }}" class="nav-link">
+                <i class="nav-icon fas fa-copy"></i>
+                <p>
+                  Customer
+                </p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="{{ url('/antrian/cs') }}" class="nav-link">
+                <i class="nav-icon fas fa-copy"></i>
+                <p>
+                  CS
+                </p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="{{ url('/antrian/desainer') }}" class="nav-link">
+                <i class="nav-icon fas fa-copy"></i>
+                <p>
+                  Desain
+                </p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="{{ url('/antrian/display') }}" class="nav-link">
+                <i class="nav-icon fas fa-copy"></i>
+                <p>
+                  Display
+                </p>
+              </a>
+            </li>
           
           @else
 
-            @if (Auth::user()->load('karyawan.cabang')->karyawan->jabatan->id == '2')
+            {{-- guest  --}}
+
+            @if (Auth::user()->roles == "guest")
                 
               @if (in_array("8", json_decode(Auth::user()->load('karyawan.jabatan')->karyawan->jabatan->menu_akses)))
                 <li class="nav-item">
@@ -274,48 +277,72 @@
                 </li>              
               @endif
 
-              @if (in_array("19", json_decode(Auth::user()->load('karyawan.jabatan')->karyawan->jabatan->menu_akses)))
-                <li class="nav-item">
-                  <a href="{{ url('/antrian/customer') }}" class="nav-link">
-                    <i class="nav-icon fas fa-copy"></i>
-                    <p>
-                      Customer
-                    </p>
-                  </a>
-                </li>              
-              @endif
+              @if (Auth::user()->load('karyawan.cabang')->karyawan->cabang->id == '2')
 
-              @if (in_array("15", json_decode(Auth::user()->load('karyawan.jabatan')->karyawan->jabatan->menu_akses)))
-                <li class="nav-item">
-                  <a href="{{ url('/antrian/cs') }}" class="nav-link">
-                    <i class="nav-icon fas fa-copy"></i>
-                    <p>
-                      CS
-                    </p>
-                  </a>
-                </li>              
-              @endif
-
-              @if (in_array("20", json_decode(Auth::user()->load('karyawan.jabatan')->karyawan->jabatan->menu_akses)))
-                <li class="nav-item">
-                  <a href="{{ url('/antrian/desainer') }}" class="nav-link">
-                    <i class="nav-icon fas fa-copy"></i>
-                    <p>
-                      Desainer
-                    </p>
-                  </a>
-                </li>              
-              @endif
-
-              @if (in_array("1", json_decode(Auth::user()->load('karyawan.jabatan')->karyawan->jabatan->menu_akses)))
-                <li class="nav-item">
-                  <a href="{{ url('/antrian/display') }}" class="nav-link">
-                    <i class="nav-icon fas fa-copy"></i>
-                    <p>
-                      Display
-                    </p>
-                  </a>
-                </li>              
+                @if (in_array("19", json_decode(Auth::user()->load('karyawan.jabatan')->karyawan->jabatan->menu_akses)))
+                  <li class="nav-header p-2 bg-secondary">Situmpur</li>
+                  <li class="nav-header p-2">Master</li>
+                  <li class="nav-item">
+                    <a href="{{ url('/antrian/customer') }}" class="nav-link">
+                      <i class="nav-icon fas fa-copy"></i>
+                      <p>
+                        Customer
+                      </p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="{{ url('/desainer') }}" class="nav-link">
+                      <i class="nav-icon fas fa-copy"></i>
+                      <p>
+                        Desain
+                      </p>
+                    </a>
+                  </li>
+                @endif
+                
+                @if (in_array("19", json_decode(Auth::user()->load('karyawan.jabatan')->karyawan->jabatan->menu_akses)))
+                  <li class="nav-item">
+                    <a href="{{ url('/antrian/customer') }}" class="nav-link">
+                      <i class="nav-icon fas fa-copy"></i>
+                      <p>
+                        Customer
+                      </p>
+                    </a>
+                  </li>              
+                @endif
+  
+                @if (in_array("15", json_decode(Auth::user()->load('karyawan.jabatan')->karyawan->jabatan->menu_akses)))
+                  <li class="nav-item">
+                    <a href="{{ url('/antrian/cs') }}" class="nav-link">
+                      <i class="nav-icon fas fa-copy"></i>
+                      <p>
+                        CS
+                      </p>
+                    </a>
+                  </li>              
+                @endif
+  
+                @if (in_array("20", json_decode(Auth::user()->load('karyawan.jabatan')->karyawan->jabatan->menu_akses)))
+                  <li class="nav-item">
+                    <a href="{{ url('/antrian/desainer') }}" class="nav-link">
+                      <i class="nav-icon fas fa-copy"></i>
+                      <p>
+                        Desainer
+                      </p>
+                    </a>
+                  </li>              
+                @endif
+  
+                @if (in_array("1", json_decode(Auth::user()->load('karyawan.jabatan')->karyawan->jabatan->menu_akses)))
+                  <li class="nav-item">
+                    <a href="{{ url('/antrian/display') }}" class="nav-link">
+                      <i class="nav-icon fas fa-copy"></i>
+                      <p>
+                        Display
+                      </p>
+                    </a>
+                  </li>              
+                @endif
               @endif
 
             @endif
