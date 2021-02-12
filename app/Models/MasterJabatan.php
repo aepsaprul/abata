@@ -2,10 +2,23 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\MasterKaryawan;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class MasterJabatan extends Model
 {
     use HasFactory;
+    use SoftDeletes;
+
+    protected $fillable = [
+        'nama_cabang',
+        'menu_akses'
+    ];
+
+    public function masterKaryawan()
+    {
+        return $this->hasMany(MasterKaryawan::class, 'jabatan_id');
+    }
 }

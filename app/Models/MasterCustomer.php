@@ -2,10 +2,30 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\MasterCabang;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class MasterCustomer extends Model
 {
     use HasFactory;
+    use SoftDeletes;
+
+    protected $fillable = [
+        'nama_customer',
+        'telepon',
+        'email',
+        'alamat',
+        'nomor_ktp',
+        'tanggal_lahir',
+        'segmen',
+        'member',
+        'jenis',
+        'cabang_id'
+    ];
+    
+    public function masterCabang() {
+        return $this->belongsTo(MasterCabang::class, 'cabang_id');
+    }
 }
