@@ -91,7 +91,7 @@
 
           @if (Auth::user()->roles == "administrator")
           
-          <li class="nav-header">Master</li>
+          <li class="nav-header bg-secondary">Master</li>
           <li class="nav-item">
             <a href="{{ url('/cabang') }}" class="nav-link">
               <i class="nav-icon fas fa-copy"></i>
@@ -105,14 +105,6 @@
               <i class="nav-icon fas fa-copy"></i>
               <p>
                 Customer
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="{{ url('/desainer') }}" class="nav-link">
-              <i class="nav-icon fas fa-copy"></i>
-              <p>
-                Desainer
               </p>
             </a>
           </li>
@@ -149,7 +141,25 @@
             </a>
           </li>
 
-          <li class="nav-header">Antrian</li>
+          <li class="nav-header p-2 bg-secondary">Situmpur</li>
+          <li class="nav-header p-2">Master</li>
+          <li class="nav-item">
+            <a href="{{ url('/antrian/customer') }}" class="nav-link">
+              <i class="nav-icon fas fa-copy"></i>
+              <p>
+                Customer
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ url('/desainer') }}" class="nav-link">
+              <i class="nav-icon fas fa-copy"></i>
+              <p>
+                Desain
+              </p>
+            </a>
+          </li>
+          <li class="nav-header p-2">Antrian</li>
           <li class="nav-item">
             <a href="{{ url('/antrian/customer') }}" class="nav-link">
               <i class="nav-icon fas fa-copy"></i>
@@ -170,7 +180,7 @@
             <a href="{{ url('/antrian/desainer') }}" class="nav-link">
               <i class="nav-icon fas fa-copy"></i>
               <p>
-                Desainer
+                Desain
               </p>
             </a>
           </li>
@@ -185,135 +195,133 @@
           
           @else
 
-          {{-- @if (in_array("8", json_decode(Auth::user()->load('karyawan.cabang')->karyawan->jabatan->menu_akses)))
+            @if (Auth::user()->load('karyawan.cabang')->karyawan->jabatan->id == '2')
+                
+              @if (in_array("8", json_decode(Auth::user()->load('karyawan.jabatan')->karyawan->jabatan->menu_akses)))
+                <li class="nav-item">
+                  <a href="{{ url('/cabang') }}" class="nav-link">
+                    <i class="nav-icon fas fa-copy"></i>
+                    <p>
+                      Cabang
+                    </p>
+                  </a>
+                </li>
+              @endif
               
-          @endif --}}
-          {{-- @foreach (json_decode(Auth::user()->load('karyawan.jabatan')->karyawan->jabatan->menu_akses) as $key => $item)
-              {{ $item }}
-          @endforeach --}}
+              @if (in_array("1", json_decode(Auth::user()->load('karyawan.jabatan')->karyawan->jabatan->menu_akses)))
+                <li class="nav-item">
+                  <a href="{{ url('/customer') }}" class="nav-link">
+                    <i class="nav-icon fas fa-copy"></i>
+                    <p>
+                      Customer
+                    </p>
+                  </a>
+                </li>
+              @endif
+              
+              @if (in_array("16", json_decode(Auth::user()->load('karyawan.jabatan')->karyawan->jabatan->menu_akses)))
+                <li class="nav-item">
+                  <a href="{{ url('/desainer') }}" class="nav-link">
+                    <i class="nav-icon fas fa-copy"></i>
+                    <p>
+                      Desainer
+                    </p>
+                  </a>
+                </li>
+              @endif
 
-          @if (in_array("8", json_decode(Auth::user()->load('karyawan.jabatan')->karyawan->jabatan->menu_akses)))
-            <li class="nav-item">
-              <a href="{{ url('/cabang') }}" class="nav-link">
-                <i class="nav-icon fas fa-copy"></i>
-                <p>
-                  Cabang
-                </p>
-              </a>
-            </li>
+              @if (in_array("7", json_decode(Auth::user()->load('karyawan.jabatan')->karyawan->jabatan->menu_akses)))
+                <li class="nav-item">
+                  <a href="{{ url('/jabatan') }}" class="nav-link">
+                    <i class="nav-icon fas fa-copy"></i>
+                    <p>
+                      Jabatan
+                    </p>
+                  </a>
+                </li>              
+              @endif
+
+              @if (in_array("5", json_decode(Auth::user()->load('karyawan.jabatan')->karyawan->jabatan->menu_akses)))
+                <li class="nav-item">
+                  <a href="{{ url('/karyawan') }}" class="nav-link">
+                    <i class="nav-icon fas fa-copy"></i>
+                    <p>
+                      Karyawan
+                    </p>
+                  </a>
+                </li>              
+              @endif
+
+              @if (in_array("18", json_decode(Auth::user()->load('karyawan.jabatan')->karyawan->jabatan->menu_akses)))
+                <li class="nav-item">
+                  <a href="{{ url('/menu') }}" class="nav-link">
+                    <i class="nav-icon fas fa-copy"></i>
+                    <p>
+                      Menu
+                    </p>
+                  </a>
+                </li>              
+              @endif
+
+              @if (in_array("6", json_decode(Auth::user()->load('karyawan.jabatan')->karyawan->jabatan->menu_akses)))
+                <li class="nav-item">
+                  <a href="{{ url('/user') }}" class="nav-link">
+                    <i class="nav-icon fas fa-copy"></i>
+                    <p>
+                      User
+                    </p>
+                  </a>
+                </li>              
+              @endif
+
+              @if (in_array("19", json_decode(Auth::user()->load('karyawan.jabatan')->karyawan->jabatan->menu_akses)))
+                <li class="nav-item">
+                  <a href="{{ url('/antrian/customer') }}" class="nav-link">
+                    <i class="nav-icon fas fa-copy"></i>
+                    <p>
+                      Customer
+                    </p>
+                  </a>
+                </li>              
+              @endif
+
+              @if (in_array("15", json_decode(Auth::user()->load('karyawan.jabatan')->karyawan->jabatan->menu_akses)))
+                <li class="nav-item">
+                  <a href="{{ url('/antrian/cs') }}" class="nav-link">
+                    <i class="nav-icon fas fa-copy"></i>
+                    <p>
+                      CS
+                    </p>
+                  </a>
+                </li>              
+              @endif
+
+              @if (in_array("20", json_decode(Auth::user()->load('karyawan.jabatan')->karyawan->jabatan->menu_akses)))
+                <li class="nav-item">
+                  <a href="{{ url('/antrian/desainer') }}" class="nav-link">
+                    <i class="nav-icon fas fa-copy"></i>
+                    <p>
+                      Desainer
+                    </p>
+                  </a>
+                </li>              
+              @endif
+
+              @if (in_array("1", json_decode(Auth::user()->load('karyawan.jabatan')->karyawan->jabatan->menu_akses)))
+                <li class="nav-item">
+                  <a href="{{ url('/antrian/display') }}" class="nav-link">
+                    <i class="nav-icon fas fa-copy"></i>
+                    <p>
+                      Display
+                    </p>
+                  </a>
+                </li>              
+              @endif
+
+            @endif
+
           @endif
           
-          @if (in_array("1", json_decode(Auth::user()->load('karyawan.jabatan')->karyawan->jabatan->menu_akses)))
-            <li class="nav-item">
-              <a href="{{ url('/customer') }}" class="nav-link">
-                <i class="nav-icon fas fa-copy"></i>
-                <p>
-                  Customer
-                </p>
-              </a>
-            </li>
-          @endif
-          
-          @if (in_array("16", json_decode(Auth::user()->load('karyawan.jabatan')->karyawan->jabatan->menu_akses)))
-            <li class="nav-item">
-              <a href="{{ url('/desainer') }}" class="nav-link">
-                <i class="nav-icon fas fa-copy"></i>
-                <p>
-                  Desainer
-                </p>
-              </a>
-            </li>
-          @endif
-
-          @if (in_array("7", json_decode(Auth::user()->load('karyawan.jabatan')->karyawan->jabatan->menu_akses)))
-            <li class="nav-item">
-              <a href="{{ url('/jabatan') }}" class="nav-link">
-                <i class="nav-icon fas fa-copy"></i>
-                <p>
-                  Jabatan
-                </p>
-              </a>
-            </li>              
-          @endif
-
-          @if (in_array("5", json_decode(Auth::user()->load('karyawan.jabatan')->karyawan->jabatan->menu_akses)))
-            <li class="nav-item">
-              <a href="{{ url('/karyawan') }}" class="nav-link">
-                <i class="nav-icon fas fa-copy"></i>
-                <p>
-                  Karyawan
-                </p>
-              </a>
-            </li>              
-          @endif
-
-          @if (in_array("18", json_decode(Auth::user()->load('karyawan.jabatan')->karyawan->jabatan->menu_akses)))
-            <li class="nav-item">
-              <a href="{{ url('/menu') }}" class="nav-link">
-                <i class="nav-icon fas fa-copy"></i>
-                <p>
-                  Menu
-                </p>
-              </a>
-            </li>              
-          @endif
-
-          @if (in_array("6", json_decode(Auth::user()->load('karyawan.jabatan')->karyawan->jabatan->menu_akses)))
-            <li class="nav-item">
-              <a href="{{ url('/user') }}" class="nav-link">
-                <i class="nav-icon fas fa-copy"></i>
-                <p>
-                  User
-                </p>
-              </a>
-            </li>              
-          @endif
-
-          @if (in_array("19", json_decode(Auth::user()->load('karyawan.jabatan')->karyawan->jabatan->menu_akses)))
-            <li class="nav-item">
-              <a href="{{ url('/antrian/customer') }}" class="nav-link">
-                <i class="nav-icon fas fa-copy"></i>
-                <p>
-                  Customer
-                </p>
-              </a>
-            </li>              
-          @endif
-
-          @if (in_array("15", json_decode(Auth::user()->load('karyawan.jabatan')->karyawan->jabatan->menu_akses)))
-            <li class="nav-item">
-              <a href="{{ url('/antrian/cs') }}" class="nav-link">
-                <i class="nav-icon fas fa-copy"></i>
-                <p>
-                  CS
-                </p>
-              </a>
-            </li>              
-          @endif
-
-          @if (in_array("20", json_decode(Auth::user()->load('karyawan.jabatan')->karyawan->jabatan->menu_akses)))
-            <li class="nav-item">
-              <a href="{{ url('/antrian/desainer') }}" class="nav-link">
-                <i class="nav-icon fas fa-copy"></i>
-                <p>
-                  Desainer
-                </p>
-              </a>
-            </li>              
-          @endif
-
-          @if (in_array("1", json_decode(Auth::user()->load('karyawan.jabatan')->karyawan->jabatan->menu_akses)))
-            <li class="nav-item">
-              <a href="{{ url('/antrian/display') }}" class="nav-link">
-                <i class="nav-icon fas fa-copy"></i>
-                <p>
-                  Display
-                </p>
-              </a>
-            </li>              
-          @endif
-
-          @endif
           <li class="nav-item">
             <a href="{{ route('logout') }}" class="nav-link" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
               <i class="nav-icon fas fa-copy"></i>

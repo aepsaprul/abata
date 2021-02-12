@@ -58,7 +58,7 @@
 										
 										<tr>
 											<td>{{ $key + 1 }}</td>
-											<td>Desainer {{ $desainer->title }}</td>
+											<td>Desain {{ $desainer->title }}</td>
 											<td>{{ $desainer->karyawan ? $desainer->karyawan->nama_lengkap : '-' }}</td>
 											<td class="text-center">
 												<a href="{{ route('desainer.edit', [$desainer->id]) }}" class="btn btn-primary"><i class="fa fa-pencil-alt"></i></a> | <a href="{{ route('desainer.delete', [$desainer->id]) }}" class="btn btn-danger" onclick="return confirm('Yakin akan dihapus?')"><i class="fa fa-trash"></i></a>
