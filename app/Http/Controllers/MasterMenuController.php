@@ -39,12 +39,12 @@ class MasterMenuController extends Controller
     public function store(Request $request)
     {
         $menus = new MasterMenu;
-        $menus->title = $request->title;
+        $menus->nama_menu = $request->nama_menu;
         $menus->link = $request->link;
         $menus->created_by = Auth::user()->id;
         $menus->save();
 
-        return redirect()->route('master.menu.create')->with('status', 'Menu berhasil ditambahkan ');
+        return redirect()->route('menu.create')->with('status', 'Menu berhasil ditambahkan ');
     }
 
     /**
@@ -81,12 +81,12 @@ class MasterMenuController extends Controller
     public function update(Request $request, $id)
     {
         $menu = MasterMenu::find($id);
-        $menu->title = $request->title;
+        $menu->nama_menu = $request->nama_menu;
         $menu->link = $request->link;
         $menu->updated_by = Auth::user()->id;
         $menu->save();
 
-        return redirect()->route('master.menu.edit', [$menu->id])->with('status', 'Menu berhasil diubah');
+        return redirect()->route('menu.edit', [$menu->id])->with('status', 'Menu berhasil diubah');
     }
 
     /**

@@ -18,7 +18,7 @@ class MasterJabatanController extends Controller
     {
         $jabatans = MasterJabatan::get();
 
-        return view('master.jabatan.index', ['jabatans' => $jabatans, 'menus' => $menus]);
+        return view('master.jabatan.index', ['jabatans' => $jabatans]);
     }
 
     /**
@@ -40,11 +40,11 @@ class MasterJabatanController extends Controller
     public function store(Request $request)
     {
         $jabatans = new MasterJabatan;
-        $jabatans->nama = $request->nama;
+        $jabatans->nama_jabatan = $request->nama_jabatan;
         $jabatans->created_by = Auth::user()->id;
         $jabatans->save();
 
-        return redirect()->route('master.jabatan.create')->with('status', 'Jabatan berhasil disimpan');
+        return redirect()->route('jabatan.create')->with('status', 'Jabatan berhasil disimpan');
     }
 
     /**
@@ -81,11 +81,11 @@ class MasterJabatanController extends Controller
     public function update(Request $request, $id)
     {
         $jabatan = MasterJabatan::find($id);
-        $jabatan->nama = $request->nama;
+        $jabatan->nama_jabatan = $request->nama_jabatan;
         $jabatan->updated_by = Auth::user()->id;
         $jabatan->save();
 
-        return redirect()->route('master.jabatan.edit', [$jabatan->id])->with('status', 'Jabatan berhasil diubah');
+        return redirect()->route('jabatan.edit', [$jabatan->id])->with('status', 'Jabatan berhasil diubah');
     }
 
     /**
@@ -108,7 +108,7 @@ class MasterJabatanController extends Controller
         
         $jabatan->delete();
 
-        return redirect()->route('master.jabatan.index')->with('status', 'Jabatan berhasil dihapus');
+        return redirect()->route('jabatan.index')->with('status', 'Jabatan berhasil dihapus');
     }
 
     public function akses(Request $request, $id)
@@ -125,6 +125,6 @@ class MasterJabatanController extends Controller
         $save_menu_akses->menu_akses = json_encode($request->menu);
         $save_menu_akses->save();
 
-        return redirect()->route('master.jabatan.akses', [$save_menu_akses->id]);
+        return redirect()->route('jabatan.akses', [$save_menu_akses->id]);
     }
 }

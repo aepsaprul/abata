@@ -15,17 +15,17 @@ class MasterCustomer extends Model
     protected $fillable = [
         'nama_customer',
         'telepon',
-        'email',
-        'alamat',
-        'nomor_ktp',
-        'tanggal_lahir',
-        'segmen',
-        'member',
-        'jenis',
-        'cabang_id'
+        // 'email',
+        // 'alamat',
+        // 'nomor_ktp',
+        // 'tanggal_lahir',
+        // 'segmen',
+        // 'member',
+        // 'jenis',
+        'master_cabang_id'
     ];
     
     public function masterCabang() {
-        return $this->belongsTo(MasterCabang::class, 'cabang_id');
+        return $this->belongsTo(MasterCabang::class);
     }
 }

@@ -37,11 +37,11 @@
 							@csrf
 							<div class="card-body">
 								<div class="form-group">
-									<label for="title">Title</label>
-									<input type="text" name="title" class="form-control @error('title') is-invalid @enderror" id="title" placeholder="Masukkan title" required autofocus value="{{ old('title') }}">
+									<label for="nama_menu">Nama Menu</label>
+									<input type="text" name="nama_menu" class="form-control @error('nama_menu') is-invalid @enderror" id="nama_menu" placeholder="Masukkan nama menu" required autofocus value="{{ old('nama_menu') }}">
 								</div>
 
-								@error('title')
+								@error('nama_menu')
 									<span class="invalid-feedback" role="alert">
 										<strong>{{ $message }}</strong>
 									</span>

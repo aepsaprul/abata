@@ -6,6 +6,12 @@
 <link rel="stylesheet" href="{{ asset('assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
 
+<style>
+	table thead tr th {
+		text-align: center;
+	}
+</style>
+
 @endsection
 
 @section('content')
@@ -57,7 +63,7 @@
 										
 										<tr>
 											<td>{{ $key + 1 }}</td>
-											<td>{{ $jabatan->nama }}</td>
+											<td>{{ $jabatan->nama_jabatan }}</td>
 											<td class="text-center">
 												<a href="{{ route('jabatan.edit', [$jabatan->id]) }}" class="btn btn-primary"><i class="fa fa-pencil-alt"></i></a> | <a href="{{ route('jabatan.delete', [$jabatan->id]) }}" class="btn btn-danger" onclick="return confirm('Yakin akan dihapus?')"><i class="fa fa-trash"></i></a> | <a href="{{ route('jabatan.akses', [$jabatan->id]) }}" class="btn btn-info"><i class="fa fa-key"></i></a>
 											</td>

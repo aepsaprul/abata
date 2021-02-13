@@ -63,7 +63,7 @@
 										
 										<tr>
 											<td>{{ $key + 1 }}</td>
-											<td>{{ $cabang->nama }}</td>
+											<td>{{ $cabang->nama_cabang }}</td>
 											<td class="text-center">
 												<a href="{{ route('cabang.edit', [$cabang->id]) }}" class="btn btn-primary"><i class="fa fa-pencil-alt"></i></a> | <a href="{{ route('cabang.delete', [$cabang->id]) }}" class="btn btn-danger" onclick="return confirm('Yakin akan dihapus?')"><i class="fa fa-trash"></i></a>
 											</td>

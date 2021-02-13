@@ -20,7 +20,7 @@ class MasterKaryawanController extends Controller
      */
     public function index()
     {
-        $karyawans = MasterKaryawan::with('jabatan')->get();
+        $karyawans = MasterKaryawan::with('masterJabatan')->get();
 
         return view('master.karyawan.index', ['karyawans' => $karyawans]);
     }
@@ -35,7 +35,7 @@ class MasterKaryawanController extends Controller
         $cabangs = MasterCabang::get();
         $jabatans = MasterJabatan::get();
 
-        return view('karyawan.create', ['cabangs' => $cabangs, 'jabatans' => $jabatans]);
+        return view('master.karyawan.create', ['cabangs' => $cabangs, 'jabatans' => $jabatans]);
     }
 
     /**
@@ -48,10 +48,11 @@ class MasterKaryawanController extends Controller
     {
         $karyawans = new MasterKaryawan;
         $karyawans->nama_lengkap = $request->nama_lengkap;
-        $karyawans->alamat = $request->alamat;
+        $karyawans->nama_panggilan = $request->nama_panggilan;
         $karyawans->email = $request->email;
         $karyawans->telepon = $request->telepon;
-        $karyawans->jabatan_id = $request->jabatan_id;
+        $karyawans->master_cabang_id = $request->master_cabang_id;
+        $karyawans->master_jabatan_id = $request->master_jabatan_id;
         $karyawans->created_by = Auth::user()->id;
         
         if($request->file('foto')) {
@@ -74,7 +75,7 @@ class MasterKaryawanController extends Controller
 
         $user->save();
         
-        return redirect()->route('master.karyawan.create')->with('status', 'Data karyawan berhasil ditambahkan');
+        return redirect()->route('karyawan.create')->with('status', 'Data karyawan berhasil ditambahkan');
     }
 
     /**
@@ -114,10 +115,10 @@ class MasterKaryawanController extends Controller
     {
         $karyawan = MasterKaryawan::find($id);
         $karyawan->nama_lengkap = $request->nama_lengkap;
-        $karyawan->alamat = $request->alamat;
         $karyawan->email = $request->email;
         $karyawan->telepon = $request->telepon;
-        $karyawan->jabatan_id = $request->jabatan_id;
+        $karyawan->master_cabang_id = $request->master_cabang_id;
+        $karyawan->master_jabatan_id = $request->master_jabatan_id;
         $karyawan->updated_by = Auth::user()->id;
 
         if($request->file('foto')) {
@@ -130,7 +131,7 @@ class MasterKaryawanController extends Controller
 
         $karyawan->save();
 
-        return redirect()->route('master.karyawan.index')->with('status', 'Data karyawan berhasil diubah');
+        return redirect()->route('karyawan.index')->with('status', 'Data karyawan berhasil diubah');
     }
 
     /**
@@ -152,6 +153,6 @@ class MasterKaryawanController extends Controller
 
         $karyawan->delete();
 
-        return redirect()->route('master.karyawan.index')->with('status', 'Data karyawan berhasil dihapus');
+        return redirect()->route('karyawan.index')->with('status', 'Data karyawan berhasil dihapus');
     }
 }

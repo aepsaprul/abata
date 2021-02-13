@@ -97,7 +97,7 @@
 
 		function nomorAntrian() {
 			$.ajax({
-				url: '{{ URL::route('antrian.customer.nomor') }}',
+				url: '{{ URL::route('situmpur.antrian.customer.nomor') }}',
 				type: 'GET',
 				data: {
 					_token: CSRF_TOKEN
@@ -113,7 +113,7 @@
 			$('.telepon .telepon-data').empty();
 			var value = $(this).val();
 			$.ajax({
-				url: '{{ URL::route('antrian.customer.data') }}',
+				url: '{{ URL::route('situmpur.antrian.customer.search') }}',
 				type: 'POST',
 				data: {
 					_token: CSRF_TOKEN,
@@ -121,7 +121,7 @@
 				},
 				success: function(response) {
 					$.each(response.customers, function (i, value) {
-						var data_customers = "<li><button class=\"btn-data-customer\" data-value=\"" + value.telepon + " " + value.nama + "\">" + value.telepon + " | " + value.nama + "</button></li>";
+						var data_customers = "<li><button class=\"btn-data-customer\" data-value=\"" + value.telepon + " " + value.nama_customer + "\">" + value.telepon + " | " + value.nama_customer + "</button></li>";
 						$('.telepon .telepon-data').append(data_customers);
 					});
 					$('.telepon .telepon-data').css('display', 'block');
@@ -154,40 +154,41 @@
 			var telepon = $('#telepon').val();
 
 			$.ajax({
-				url: '{{ URL::route('antrian.customer.store') }}',
+				url: '{{ URL::route('situmpur.antrian.customer.store') }}',
 				type: 'POST',
 				data: {
 					_token: CSRF_TOKEN,
 					customer_filter_id: customer_filter_id,
 					nomor_antrian: nomor_antrian,
-					nama: nama,
+					nama_customer: nama,
 					telepon: telepon
 				},
 				success: function(response) {
-					var url = "http://localhost/github/abata/public/antrian/customer";    
-					$(location).attr('href',url);
+					// var url = "http://localhost/github/abata/public/situmpur/antrian/customer";    
+					// $(location).attr('href',url);
+					console.log(response.data);
 				}
 			});
 		});
 
-		$('.form-customer').on('submit', function(e) {
-			var nomor_antrian = $('#nomor_antrian').val();
-			var customer_filter_id = btnVal;
-			var nama = $('#nama').val();
-			var telepon = $('#telepon').val();
+		// $('.form-customer').on('submit', function(e) {
+		// 	var nomor_antrian = $('#nomor_antrian').val();
+		// 	var customer_filter_id = btnVal;
+		// 	var nama = $('#nama').val();
+		// 	var telepon = $('#telepon').val();
 
-			$.ajax({
-				url: '{{ URL::route('antrian.customer.sender') }}',
-				type: 'POST',
-				data: {
-					_token: CSRF_TOKEN,
-					nomor_antrian: nomor_antrian,
-					customer_filter_id: customer_filter_id,
-					nama: nama,
-					telepon: telepon
-				}
-			});
-		});
+		// 	$.ajax({
+		// 		url: '{{ URL::route('situmpur.antrian.customer.sender') }}',
+		// 		type: 'POST',
+		// 		data: {
+		// 			_token: CSRF_TOKEN,
+		// 			nomor_antrian: nomor_antrian,
+		// 			customer_filter_id: customer_filter_id,
+		// 			nama_customer: nama,
+		// 			telepon: telepon
+		// 		}
+		// 	});
+		// });
 	});
 </script>
 

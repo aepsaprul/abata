@@ -2,15 +2,14 @@
 
 use App\Events\CustomerCs;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\MenuController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\CabangController;
 use App\Http\Controllers\AntrianController;
-use App\Http\Controllers\JabatanController;
-use App\Http\Controllers\CustomerController;
-use App\Http\Controllers\DesainerController;
-use App\Http\Controllers\KaryawanController;
 use App\Http\Controllers\SitumpurController;
+use App\Http\Controllers\MasterMenuController;
+use App\Http\Controllers\MasterCabangController;
+use App\Http\Controllers\MasterJabatanController;
+use App\Http\Controllers\MasterCustomerController;
+use App\Http\Controllers\MasterKaryawanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,56 +31,59 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::group(['middleware' => 'auth'], function () {
-    Route::resource('customer', CustomerController::class);
-    Route::get('customer/{id}/delete', [CustomerController::class, 'delete'])->name('customer.delete');
+    Route::resource('customer', MasterCustomerController::class);
+    Route::get('customer/{id}/delete', [MasterCustomerController::class, 'delete'])->name('customer.delete');
 
-    Route::resource('cabang', CabangController::class);
-    Route::get('cabang/{id}/delete', [CabangController::class, 'delete'])->name('cabang.delete');
+    Route::resource('cabang', MasterCabangController::class);
+    Route::get('cabang/{id}/delete', [MasterCabangController::class, 'delete'])->name('cabang.delete');
 
-    Route::resource('desainer', DesainerController::class);
-    Route::get('desainer/{id}/delete', [DesainerController::class, 'delete'])->name('desainer.delete');
+    // Route::resource('desainer', MasterDesainerController::class);
+    // Route::get('desainer/{id}/delete', [MasterDesainerController::class, 'delete'])->name('desainer.delete');
 
-    Route::resource('jabatan', JabatanController::class);
-    Route::get('jabatan/{id}/delete', [JabatanController::class, 'delete'])->name('jabatan.delete');
-    Route::get('jabatan/{id}/akses', [JabatanController::class, 'akses'])->name('jabatan.akses');
-    Route::put('jabatan/{id}/akses/simpan', [JabatanController::class, 'aksesSimpan'])->name('jabatan.akses.simpan');
+    Route::resource('jabatan', MasterJabatanController::class);
+    Route::get('jabatan/{id}/delete', [MasterJabatanController::class, 'delete'])->name('jabatan.delete');
+    Route::get('jabatan/{id}/akses', [MasterJabatanController::class, 'akses'])->name('jabatan.akses');
+    Route::put('jabatan/{id}/akses/simpan', [MasterJabatanController::class, 'aksesSimpan'])->name('jabatan.akses.simpan');
 
-    Route::resource('karyawan', KaryawanController::class);
-    Route::get('karyawan/{id}/delete', [KaryawanController::class, 'delete'])->name('karyawan.delete');
+    Route::resource('karyawan', MasterKaryawanController::class);
+    Route::get('karyawan/{id}/delete', [MasterKaryawanController::class, 'delete'])->name('karyawan.delete');
 
-    Route::resource('menu', MenuController::class);
-    Route::get('menu/{id}/delete', [MenuController::class, 'delete'])->name('menu.delete');
+    Route::resource('menu', MasterMenuController::class);
+    Route::get('menu/{id}/delete', [MasterMenuController::class, 'delete'])->name('menu.delete');
 
     Route::resource('user', UserController::class);
     Route::get('user/{id}/delete', [UserController::class, 'delete'])->name('user.delete');
 
-    // cabang
+    // cabang situmpur
 
-    // situmpur
+    //cs
     Route::get('situmpur/cs', [SitumpurController::class, 'cs'])->name('situmpur.cs');
+    Route::get('situmpur/antrian/cs', [SitumpurController::class, 'antrianCs'])->name('situmpur.antrian.cs');
+    Route::get('situmpur/antrian/cs/nomor', [SitumpurController::class, 'antrianCsNomor'])->name('situmpur.antrian.cs.nomor');
+    Route::get('situmpur/antrian/cs/{nomor}/panggil', [SitumpurController::class, 'antrianCsPanggil'])->name('situmpur.antrian.cs.panggil');
+    Route::get('situmpur/antrian/cs/{nomor}/mulai', [SitumpurController::class, 'antrianCsMulai'])->name('situmpur.antrian.cs.mulai');
+    Route::get('situmpur/antrian/cs/{nomor}/selesai', [SitumpurController::class, 'antrianCsSelesai'])->name('situmpur.antrian.cs.selesai');
 
-    Route::get('antrian/cs', [AntrianController::class, 'cs'])->name('antrian.cs');
-    Route::get('antrian/cs/nomor', [AntrianController::class, 'csNomor'])->name('antrian.cs.nomor');
-    Route::get('antrian/cs/{nomor}/panggil', [AntrianController::class, 'csPanggil'])->name('antrian.cs.panggil');
-    Route::get('antrian/cs/{nomor}/mulai', [AntrianController::class, 'csMulai'])->name('antrian.cs.mulai');
-    Route::get('antrian/cs/{nomor}/selesai', [AntrianController::class, 'csSelesai'])->name('antrian.cs.selesai');
+    // desain 
+    Route::get('situmpur/antrian/desain', [SitumpurController::class, 'desain'])->name('situmpur.antrian.desain');
+    Route::get('situmpur/antrian/desain/{id}/on', [SitumpurController::class, 'desainOn'])->name('situmpur.antrian.desain.on');
+    Route::get('situmpur/antrian/desain/{id}/off', [SitumpurController::class, 'desainOff'])->name('situmpur.antrian.desain.off');
+    Route::get('situmpur/antrian/desain/nomor', [SitumpurController::class, 'desainNomor'])->name('situmpur.antrian.desain.nomor');
+    Route::get('situmpur/antrian/desain/{nomor}/panggil', [SitumpurController::class, 'desainPanggil'])->name('situmpur.antrian.desain.panggil');
+    Route::get('situmpur/antrian/desain/{nomor}/desain', [SitumpurController::class, 'desainUpdateDesain'])->name('situmpur.antrian.desain.updatedesain');
+    Route::get('situmpur/antrian/desain/{nomor}/edit', [SitumpurController::class, 'desainUpdateEdit'])->name('situmpur.antrian.desain.updateedit');
+    Route::get('situmpur/antrian/desain/{nomor}/mulai', [SitumpurController::class, 'desainMulai'])->name('situmpur.antrian.desain.mulai');
+    Route::get('situmpur/antrian/desain/{nomor}/selesai', [SitumpurController::class, 'desainSelesai'])->name('situmpur.antrian.desain.selesai');
 
-    Route::get('antrian/desainer', [AntrianController::class, 'desainer'])->name('antrian.desainer');
-    Route::get('antrian/desainer/{id}/on', [AntrianController::class, 'desainerOn'])->name('antrian.desainer.on');
-    Route::get('antrian/desainer/{id}/off', [AntrianController::class, 'desainerOff'])->name('antrian.desainer.off');
-    Route::get('antrian/desainer/nomor', [AntrianController::class, 'desainerNomor'])->name('antrian.desainer.nomor');
-    Route::get('antrian/desainer/{nomor}/panggil', [AntrianController::class, 'desainerPanggil'])->name('antrian.desainer.panggil');
-    Route::get('antrian/desainer/{nomor}/desain', [AntrianController::class, 'desainerUpdateDesain'])->name('antrian.desainer.updatedesain');
-    Route::get('antrian/desainer/{nomor}/edit', [AntrianController::class, 'desainerUpdateEdit'])->name('antrian.desainer.updateedit');
-    Route::get('antrian/desainer/{nomor}/mulai', [AntrianController::class, 'desainerMulai'])->name('antrian.desainer.mulai');
-    Route::get('antrian/desainer/{nomor}/selesai', [AntrianController::class, 'desainerSelesai'])->name('antrian.desainer.selesai');
+    // customer 
+    Route::get('situmpur/customer', [SitumpurController::class, 'customer'])->name('situmpur.customer');
 });
 
-Route::get('antrian/customer', [AntrianController::class, 'customer'])->name('antrian.customer');
-Route::post('antrian/customer/data', [AntrianController::class, 'customerData'])->name('antrian.customer.data');
-Route::post('antrian/customer/store', [AntrianController::class, 'customerStore'])->name('antrian.customer.store');
-Route::get('antrian/customer/nomor', [AntrianController::class, 'customerNomor'])->name('antrian.customer.nomor');
-Route::post('antrian/customer/sender', [AntrianController::class, 'customerSender'])->name('antrian.customer.sender');
-Route::get('antrian/customer/{id}/form', [AntrianController::class, 'customerForm'])->name('antrian.customer.form');
+Route::get('situmpur/antrian/customer', [SitumpurController::class, 'antrianCustomer'])->name('situmpur.antrian.customer');
+Route::post('situmpur/antrian/customer/search', [SitumpurController::class, 'antrianCustomerSearch'])->name('situmpur.antrian.customer.search');
+Route::post('situmpur/antrian/customer/store', [SitumpurController::class, 'antrianCustomerStore'])->name('situmpur.antrian.customer.store');
+Route::get('situmpur/antrian/customer/nomor', [SitumpurController::class, 'antrianCustomerNomor'])->name('situmpur.antrian.customer.nomor');
+Route::post('situmpur/antrian/customer/sender', [SitumpurController::class, 'antrianCustomerSender'])->name('situmpur.antrian.customer.sender');
+Route::get('situmpur/antrian/customer/{id}/form', [SitumpurController::class, 'antrianCustomerForm'])->name('situmpur.antrian.customer.form');
 
-Route::get('antrian/display', [AntrianController::class, 'display'])->name('antrian.display');
+Route::get('situmpur/antrian/display', [SitumpurController::class, 'antrianDisplay'])->name('situmpur.antrian.display');

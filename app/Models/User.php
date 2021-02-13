@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Models\Karyawan;
+use App\Models\MasterKaryawan;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -39,7 +39,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function karyawan() {
-        return $this->belongsTo(Karyawan::class);
+    public function masterKaryawan() {
+        return $this->belongsTo(MasterKaryawan::class);
     }
 }

@@ -49,17 +49,6 @@
 								@enderror
 								
 								<div class="form-group">
-									<label for="alamat">Alamat Karyawan</label>
-									<input type="text" name="alamat" class="form-control @error('alamat') is-invalid @enderror" id="alamat" placeholder="Masukkan alamat" required value="{{ $karyawan->alamat }}">
-								</div>
-
-								@error('alamat')
-									<span class="invalid-feedback" role="alert">
-										<strong>{{ $message }}</strong>
-									</span>
-								@enderror
-								
-								<div class="form-group">
 									<label for="email">Email Karyawan</label>
 									<input type="email" name="email" class="form-control @error('email') is-invalid @enderror" id="email" placeholder="Masukkan email" required value="{{ $karyawan->email }}">
 								</div>
@@ -82,17 +71,34 @@
 								@enderror
 								
 								<div class="form-group">
-									<label for="jabatan_id">Jabatan Karyawan</label>
-									<select name="jabatan_id" id="jabatan_id" class="form-control">
-										@foreach ($jabatans as $jabatan)
-												<option value="{{ $jabatan->id }}"
-													{{ $jabatan->id == $karyawan->jabatan_id ? 'selected' : ' ' }}
-													>{{ $jabatan->nama }}</option>
+									<label for="master_cabang_id">Cabang Karyawan</label>
+									<select name="master_cabang_id" id="master_cabang_id" class="form-control">
+										@foreach ($cabangs as $cabang)
+												<option value="{{ $cabang->id }}"
+													{{ $cabang->id == $karyawan->master_cabang_id ? 'selected' : ' ' }}
+													>{{ $cabang->nama_cabang }}</option>
 										@endforeach
 									</select>
 								</div>
 
-								@error('jabatan_id')
+								@error('master_cabang_id')
+									<span class="invalid-feedback" role="alert">
+										<strong>{{ $message }}</strong>
+									</span>
+								@enderror
+								
+								<div class="form-group">
+									<label for="master_jabatan_id">Jabatan Karyawan</label>
+									<select name="master_jabatan_id" id="master_jabatan_id" class="form-control">
+										@foreach ($jabatans as $jabatan)
+												<option value="{{ $jabatan->id }}"
+													{{ $jabatan->id == $karyawan->master_jabatan_id ? 'selected' : ' ' }}
+													>{{ $jabatan->nama_jabatan }}</option>
+										@endforeach
+									</select>
+								</div>
+
+								@error('master_jabatan_id')
 									<span class="invalid-feedback" role="alert">
 										<strong>{{ $message }}</strong>
 									</span>

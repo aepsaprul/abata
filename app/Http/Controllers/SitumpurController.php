@@ -7,14 +7,18 @@ use Illuminate\Http\Request;
 use App\Models\MasterCustomer;
 use App\Models\SitumpurAntrianSimpan;
 use App\Models\SitumpurAntrianCsNomor;
+use App\Events\SitumpurAntrianCustomerCs;
 use App\Models\SitumpurAntrianDesainNomor;
+use App\Events\SitumpurAntrianCustomerDesain;
+use App\Events\SitumpurAntrianCustomerDisplayCs;
+use App\Events\SitumpurAntrianCustomerDisplayDesain;
 
 class SitumpurController extends Controller
 {
     // customer 
     public function customer()
     {
-        $customers = MasterCustomer::where('cabang_id', '2')->get();
+        $customers = MasterCustomer::where('master_cabang_id', '2')->get();
         return view('situmpur.customer.index', ['customers' => $customers]);
     }
 
@@ -26,7 +30,7 @@ class SitumpurController extends Controller
     public function antrianCustomerSearch(Request $request)
     {
         $customers = MasterCustomer::where('telepon', 'like', '%' . $request->value . '%')
-            ->where('cabang_id', '2')
+            ->where('master_cabang_id', '2')
             ->limit(5)
             ->get();
 
@@ -38,17 +42,25 @@ class SitumpurController extends Controller
 
     public function antrianCustomerStore(Request $request)
     {
-        $data_customer = MasterCustomer::where('cabang_id', '2')
-            ->get();
-        if ($data_customer->telepon != $request->telepon) {
+        $data_customer = count(MasterCustomer::where('master_cabang_id', '2')->where('telepon', $request->telepon)->get());
+        if ($data_customer == 0) {
             $customers = new MasterCustomer;
             $customers->nama_customer = $request->nama_customer;
             $customers->telepon = $request->telepon;
-            $customers->cabang_id = '2';
+            $customers->master_cabang_id = '2';
             $customers->save();
         }
 
+        $nomor_antrian = $request->nomor_antrian;
+        $nama = $request->nama;
+        $telepon = $request->telepon;
+        $customer_filter_id = $request->customer_filter_id;
+        $antrian_total = $request->nomor_antrian;
+
         if ($request->customer_filter_id == '3') {
+
+            event(new SitumpurAntrianCustomerCs($nomor_antrian,$nama,$telepon,$customer_filter_id));
+            event(new SitumpurAntrianCustomerDisplayCs($antrian_total));
 
             $antrianNomors = new SitumpurAntrianCsNomor;
             
@@ -56,6 +68,9 @@ class SitumpurController extends Controller
             $antrianNomorSimpans->jabatan = "cs";
 
         } else {
+
+            event(new SitumpurAntrianCustomerDesain($nomor_antrian,$nama,$telepon,$customer_filter_id));
+            event(new SitumpurAntrianCustomerDisplayDesain($antrian_total));
 
             $antrianNomors = new SitumpurAntrianDesainNomor;
             
@@ -65,13 +80,13 @@ class SitumpurController extends Controller
         }
 
         $antrianNomors->nomor_antrian = $request->nomor_antrian;
-        $antrianNomors->nama = $request->nama;
+        $antrianNomors->nama_customer = $request->nama_customer;
         $antrianNomors->telepon = $request->telepon;
         $antrianNomors->customer_filter_id = $request->customer_filter_id;
         $antrianNomors->save();
         
         $antrianNomorSimpans->nomor_antrian = $request->nomor_antrian;
-        $antrianNomorSimpans->nama = $request->nama;
+        $antrianNomorSimpans->nama_customer = $request->nama_customer;
         $antrianNomorSimpans->telepon = $request->telepon;
         $antrianNomorSimpans->customer_filter_id = $request->customer_filter_id;
         $antrianNomorSimpans->save();
@@ -85,10 +100,10 @@ class SitumpurController extends Controller
     {
         if ($id == '3') {
             $nomors = SitumpurAntrianCsNomor::orderBy('id', 'desc')->first();
-            return view('antrian.customerFormCs', ['customer_filter_id' => $id, 'nomors' => $nomors]);
+            return view('situmpur.antrianCustomerFormCs', ['customer_filter_id' => $id, 'nomors' => $nomors]);
         } else {
             $nomors = SitumpurAntrianDesainNomor::orderBy('id', 'desc')->first();
-            return view('antrian.customerFormDesain', ['customer_filter_id' => $id, 'nomors' => $nomors]);
+            return view('situmpur.antrianCustomerFormDesain', ['customer_filter_id' => $id, 'nomors' => $nomors]);
         }
     }
     

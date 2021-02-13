@@ -15,7 +15,18 @@ class CreateSitumpurAntrianSimpansTable extends Migration
     {
         Schema::create('situmpur_antrian_simpans', function (Blueprint $table) {
             $table->id();
+            $table->integer('nomor_antrian')->nullable();
+            $table->string('nama_customer', 30)->nullable();
+            $table->string('telepon', 15)->nullable();
+            $table->integer('customer_filter_id')->nullable();
+            $table->string('jabatan', 20)->nullable();
+            $table->dateTime('mulai')->nullable();
+            $table->dateTime('selesai')->nullable();
+            $table->integer('created_by')->nullable();
+            $table->integer('updated_by')->nullable();
+            $table->integer('deleted_by')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

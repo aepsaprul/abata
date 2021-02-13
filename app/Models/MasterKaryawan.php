@@ -38,11 +38,11 @@ class MasterKaryawan extends Model
     ];
 
     public function masterCabang() {
-        return $this->belongsTo(MasterCabang::class, 'cabang_id');
+        return $this->belongsTo(MasterCabang::class);
     }
 
     public function masterJabatan() {
-        return $this->belongsTo(MasterJabatan::class, 'jabatan_id');
+        return $this->belongsTo(MasterJabatan::class);
     }
 
     public function user() {

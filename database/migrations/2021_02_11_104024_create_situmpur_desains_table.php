@@ -15,7 +15,13 @@ class CreateSitumpurDesainsTable extends Migration
     {
         Schema::create('situmpur_desains', function (Blueprint $table) {
             $table->id();
+            $table->integer('nomor')->nullable();
+            $table->string('status', 10)->nullable();
+            $table->integer('created_by')->nullable();
+            $table->integer('updated_by')->nullable();
+            $table->integer('deleted_by')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

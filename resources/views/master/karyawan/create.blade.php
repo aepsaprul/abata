@@ -46,13 +46,13 @@
 										<strong>{{ $message }}</strong>
 									</span>
 								@enderror
-								
+
 								<div class="form-group">
-									<label for="alamat">Alamat</label>
-									<input type="text" name="alamat" class="form-control @error('alamat') is-invalid @enderror" id="alamat" placeholder="Masukkan alamat" required autofocus value="{{ old('alamat') }}">
+									<label for="nama_panggilan">Nama Panggilan</label>
+									<input type="text" name="nama_panggilan" class="form-control @error('nama_panggilan') is-invalid @enderror" id="nama_panggilan" placeholder="Masukkan nama panggilan" required autofocus value="{{ old('nama_panggilan') }}">
 								</div>
 
-								@error('alamat')
+								@error('nama_panggilan')
 									<span class="invalid-feedback" role="alert">
 										<strong>{{ $message }}</strong>
 									</span>
@@ -81,10 +81,19 @@
 								@enderror
 								
 								<div class="form-group">
-									<label for="jabatan_id">Jabatan</label>
-									<select name="jabatan_id" id="jabatan_id" class="form-control">
+									<label for="master_cabang_id">Cabang</label>
+									<select name="master_cabang_id" id="master_cabang_id" class="form-control">
+										@foreach ($cabangs as $cabang)
+											<option value="{{ $cabang->id }}">{{ $cabang->nama_cabang }}</option>
+										@endforeach
+									</select>
+								</div>
+								
+								<div class="form-group">
+									<label for="master_jabatan_id">Jabatan</label>
+									<select name="master_jabatan_id" id="master_jabatan_id" class="form-control">
 										@foreach ($jabatans as $jabatan)
-											<option value="{{ $jabatan->id }}">{{ $jabatan->nama }}</option>
+											<option value="{{ $jabatan->id }}">{{ $jabatan->nama_jabatan }}</option>
 										@endforeach
 									</select>
 								</div>

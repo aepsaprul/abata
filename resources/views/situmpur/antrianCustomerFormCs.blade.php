@@ -97,7 +97,7 @@
 
 		function nomorAntrian() {
 			$.ajax({
-				url: '{{ URL::route('antrian.customer.nomor') }}',
+				url: '{{ URL::route('situmpur.antrian.customer.nomor') }}',
 				type: 'GET',
 				data: {
 					_token: CSRF_TOKEN
@@ -113,7 +113,7 @@
 			$('.telepon .telepon-data').empty();
 			var value = $(this).val();
 			$.ajax({
-				url: '{{ URL::route('antrian.customer.data') }}',
+				url: '{{ URL::route('situmpur.antrian.customer.search') }}',
 				type: 'POST',
 				data: {
 					_token: CSRF_TOKEN,
@@ -154,7 +154,7 @@
 			var telepon = $('#telepon').val();
 
 			$.ajax({
-				url: '{{ URL::route('antrian.customer.store') }}',
+				url: '{{ URL::route('situmpur.antrian.customer.store') }}',
 				type: 'POST',
 				data: {
 					_token: CSRF_TOKEN,
@@ -164,7 +164,7 @@
 					telepon: telepon
 				},
 				success: function(response) {
-					var url = "http://localhost/github/abata/public/antrian/customer";    
+					var url = "http://localhost/github/abata/public/situmpur/antrian/customer";    
 					$(location).attr('href',url);
 				}
 			});
@@ -177,7 +177,7 @@
 			var telepon = $('#telepon').val();
 
 			$.ajax({
-				url: '{{ URL::route('antrian.customer.sender') }}',
+				url: '{{ URL::route('situmpur.antrian.customer.sender') }}',
 				type: 'POST',
 				data: {
 					_token: CSRF_TOKEN,

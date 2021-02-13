@@ -18,13 +18,13 @@
     <img src="{{ asset('assets/dist/img/logo-bg-blue.png') }}" alt="">
   </div>
 	<div class="social-auth-links text-center mb-3">
-		<a href="{{ url('antrian/customer/1/form') }}" class="btn-siap btn btn-block btn-primary pt-3 pb-3 pr-5 pl-5" style="font-size: 2em; font-weight: bold;">
+		<a href="{{ url('situmpur/antrian/customer/1/form') }}" class="btn-siap btn btn-block btn-primary pt-3 pb-3 pr-5 pl-5" style="font-size: 2em; font-weight: bold;">
 			SIAP CETAK
 		</a>
-		<a href="{{ url('antrian/customer/2/form') }}" class="btn-desain btn btn-block btn-primary pt-3 pb-3 pr-5 pl-5" style="font-size: 2em; font-weight: bold;">
+		<a href="{{ url('situmpur/antrian/customer/2/form') }}" class="btn-desain btn btn-block btn-primary pt-3 pb-3 pr-5 pl-5" style="font-size: 2em; font-weight: bold;">
 			DESAIN / EDIT
 		</a>
-		<a href="{{ url('antrian/customer/3/form') }}" class="btn-konsultasi btn btn-block btn-primary pt-3 pb-3 pr-5 pl-5" style="font-size: 2em; font-weight: bold;">
+		<a href="{{ url('situmpur/antrian/customer/3/form') }}" class="btn-konsultasi btn btn-block btn-primary pt-3 pb-3 pr-5 pl-5" style="font-size: 2em; font-weight: bold;">
 			KONSULTASI
 		</a>
 	</div>

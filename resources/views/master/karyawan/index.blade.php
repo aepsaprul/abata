@@ -48,9 +48,10 @@
 								<thead>
 								<tr>
 									<th>No</th>
-									<th>Nama</th>
+									<th>Nama Lengkap</th>
 									<th>Telepon</th>
 									<th>Email</th>
+									<th>Cabang</th>
 									<th>Jabatan</th>
 									<th>#</th>
 								</tr>
@@ -63,7 +64,8 @@
 											<td>{{ $karyawan->nama_lengkap }}</td>
 											<td>{{ $karyawan->telepon }}</td>
 											<td>{{ $karyawan->email }}</td>
-											<td>{{ $karyawan->jabatan->nama }}</td>
+											<td>{{ $karyawan->masterCabang ? $karyawan->masterCabang->nama_cabang : '-' }}</td>
+											<td>{{ $karyawan->masterJabatan ? $karyawan->masterJabatan->nama_jabatan : '-' }}</td>
 											<td class="text-center">
 												<a href="{{ route('karyawan.edit', [$karyawan->id]) }}" class="btn btn-primary"><i class="fa fa-pencil-alt"></i></a> | <a href="{{ route('karyawan.delete', [$karyawan->id]) }}" class="btn btn-danger" onclick="return confirm('Yakin akan dihapus?')"><i class="fa fa-trash"></i></a>
 											</td>

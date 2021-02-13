@@ -58,7 +58,7 @@
 										
 										<tr>
 											<td>{{ $key + 1 }}</td>
-											<td>{{ $menu->title }}</td>
+											<td>{{ $menu->nama_menu }}</td>
 											<td>{{ $menu->link }}</td>
 											<td class="text-center">
 												<a href="{{ route('menu.edit', [$menu->id]) }}" class="btn btn-primary"><i class="fa fa-pencil-alt"></i></a> | <a href="{{ route('menu.delete', [$menu->id]) }}" class="btn btn-danger" onclick="return confirm('Yakin akan dihapus?')"><i class="fa fa-trash"></i></a>

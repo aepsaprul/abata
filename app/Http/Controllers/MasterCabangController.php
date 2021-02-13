@@ -39,11 +39,11 @@ class MasterCabangController extends Controller
     public function store(Request $request)
     {
         $cabangs = new MasterCabang;
-        $cabangs->nama = $request->nama;
+        $cabangs->nama_cabang = $request->nama_cabang;
         $cabangs->created_by = Auth::user()->id;
         $cabangs->save();
 
-        return redirect()->route('master.cabang.create')->with('status', 'Data cabang berhasil ditambah');
+        return redirect()->route('cabang.create')->with('status', 'Data cabang berhasil ditambah');
     }
 
     /**
@@ -80,11 +80,11 @@ class MasterCabangController extends Controller
     public function update(Request $request, $id)
     {
         $cabang = MasterCabang::find($id);
-        $cabang->nama = $request->nama;
+        $cabang->nama_cabang = $request->nama_cabang;
         $cabang->updated_by = Auth::user()->id;
         $cabang->save();
 
-        return redirect()->route('master.cabang.index')->with('status', 'Data cabang berhasil diperbaharui');
+        return redirect()->route('cabang.index')->with('status', 'Data cabang berhasil diperbaharui');
     }
 
     /**
@@ -107,6 +107,6 @@ class MasterCabangController extends Controller
 
 			$cabang->delete();
 
-			return redirect()->route('master.cabang.index')->with('status', 'Data cabang berhasil dihapus');
+			return redirect()->route('cabang.index')->with('status', 'Data cabang berhasil dihapus');
     }
 }

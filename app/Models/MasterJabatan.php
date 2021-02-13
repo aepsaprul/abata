@@ -19,6 +19,6 @@ class MasterJabatan extends Model
 
     public function masterKaryawan()
     {
-        return $this->hasMany(MasterKaryawan::class, 'jabatan_id');
+        return $this->belongsTo(MasterKaryawan::class);
     }
 }
