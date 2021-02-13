@@ -200,7 +200,7 @@
 
             @if (Auth::user()->roles == "guest")
                 
-              @if (in_array("8", json_decode(Auth::user()->load('masterKaryawan.masterJabatan')->masterKaryawan->masterJabatan->menu_akses)))
+              @if (in_array("1", json_decode(Auth::user()->load('masterKaryawan.masterJabatan')->masterKaryawan->masterJabatan->menu_akses)))
                 <li class="nav-item">
                   <a href="{{ url('/cabang') }}" class="nav-link">
                     <i class="nav-icon fas fa-copy"></i>
@@ -211,7 +211,7 @@
                 </li>
               @endif
               
-              @if (in_array("1", json_decode(Auth::user()->load('masterKaryawan.masterJabatan')->masterKaryawan->masterJabatan->menu_akses)))
+              @if (in_array("2", json_decode(Auth::user()->load('masterKaryawan.masterJabatan')->masterKaryawan->masterJabatan->menu_akses)))
                 <li class="nav-item">
                   <a href="{{ url('/customer') }}" class="nav-link">
                     <i class="nav-icon fas fa-copy"></i>
@@ -221,19 +221,8 @@
                   </a>
                 </li>
               @endif
-              
-              @if (in_array("16", json_decode(Auth::user()->load('masterKaryawan.masterJabatan')->masterKaryawan->masterJabatan->menu_akses)))
-                <li class="nav-item">
-                  <a href="{{ url('/desainer') }}" class="nav-link">
-                    <i class="nav-icon fas fa-copy"></i>
-                    <p>
-                      Desainer
-                    </p>
-                  </a>
-                </li>
-              @endif
 
-              @if (in_array("7", json_decode(Auth::user()->load('masterKaryawan.masterJabatan')->masterKaryawan->masterJabatan->menu_akses)))
+              @if (in_array("3", json_decode(Auth::user()->load('masterKaryawan.masterJabatan')->masterKaryawan->masterJabatan->menu_akses)))
                 <li class="nav-item">
                   <a href="{{ url('/jabatan') }}" class="nav-link">
                     <i class="nav-icon fas fa-copy"></i>
@@ -244,7 +233,7 @@
                 </li>              
               @endif
 
-              @if (in_array("5", json_decode(Auth::user()->load('masterKaryawan.masterJabatan')->masterKaryawan->masterJabatan->menu_akses)))
+              @if (in_array("4", json_decode(Auth::user()->load('masterKaryawan.masterJabatan')->masterKaryawan->masterJabatan->menu_akses)))
                 <li class="nav-item">
                   <a href="{{ url('/karyawan') }}" class="nav-link">
                     <i class="nav-icon fas fa-copy"></i>
@@ -255,7 +244,7 @@
                 </li>              
               @endif
 
-              @if (in_array("18", json_decode(Auth::user()->load('masterKaryawan.masterJabatan')->masterKaryawan->masterJabatan->menu_akses)))
+              @if (in_array("5", json_decode(Auth::user()->load('masterKaryawan.masterJabatan')->masterKaryawan->masterJabatan->menu_akses)))
                 <li class="nav-item">
                   <a href="{{ url('/menu') }}" class="nav-link">
                     <i class="nav-icon fas fa-copy"></i>
@@ -279,7 +268,7 @@
 
               @if (Auth::user()->load('masterKaryawan.masterCabang')->masterKaryawan->masterCabang->id == '2')
 
-                @if (in_array("19", json_decode(Auth::user()->load('masterKaryawan.masterJabatan')->masterKaryawan->masterJabatan->menu_akses)))
+                @if (in_array("7", json_decode(Auth::user()->load('masterKaryawan.masterJabatan')->masterKaryawan->masterJabatan->menu_akses)))
                   <li class="nav-header p-2 bg-secondary">Situmpur</li>
                   <li class="nav-header p-2">Master</li>
                   <li class="nav-item">
@@ -290,6 +279,9 @@
                       </p>
                     </a>
                   </li>
+                @endif
+
+                @if (in_array("8", json_decode(Auth::user()->load('masterKaryawan.masterJabatan')->masterKaryawan->masterJabatan->menu_akses)))
                   <li class="nav-item">
                     <a href="{{ url('/desainer') }}" class="nav-link">
                       <i class="nav-icon fas fa-copy"></i>
@@ -300,7 +292,7 @@
                   </li>
                 @endif
                 
-                @if (in_array("19", json_decode(Auth::user()->load('masterKaryawan.masterJabatan')->masterKaryawan->masterJabatan->menu_akses)))
+                @if (in_array("9", json_decode(Auth::user()->load('masterKaryawan.masterJabatan')->masterKaryawan->masterJabatan->menu_akses)))
                   <li class="nav-item">
                     <a href="{{ url('/antrian/customer') }}" class="nav-link">
                       <i class="nav-icon fas fa-copy"></i>
@@ -311,7 +303,7 @@
                   </li>              
                 @endif
   
-                @if (in_array("15", json_decode(Auth::user()->load('masterKaryawan.masterJabatan')->masterKaryawan->masterJabatan->menu_akses)))
+                @if (in_array("10", json_decode(Auth::user()->load('masterKaryawan.masterJabatan')->masterKaryawan->masterJabatan->menu_akses)))
                   <li class="nav-item">
                     <a href="{{ url('/antrian/cs') }}" class="nav-link">
                       <i class="nav-icon fas fa-copy"></i>
@@ -322,18 +314,18 @@
                   </li>              
                 @endif
   
-                @if (in_array("20", json_decode(Auth::user()->load('masterKaryawan.masterJabatan')->masterKaryawan->masterJabatan->menu_akses)))
+                @if (in_array("11", json_decode(Auth::user()->load('masterKaryawan.masterJabatan')->masterKaryawan->masterJabatan->menu_akses)))
                   <li class="nav-item">
                     <a href="{{ url('/antrian/desainer') }}" class="nav-link">
                       <i class="nav-icon fas fa-copy"></i>
                       <p>
-                        Desainer
+                        Desain
                       </p>
                     </a>
                   </li>              
                 @endif
   
-                @if (in_array("1", json_decode(Auth::user()->load('masterKaryawan.masterJabatan')->masterKaryawan->masterJabatan->menu_akses)))
+                @if (in_array("12", json_decode(Auth::user()->load('masterKaryawan.masterJabatan')->masterKaryawan->masterJabatan->menu_akses)))
                   <li class="nav-item">
                     <a href="{{ url('/antrian/display') }}" class="nav-link">
                       <i class="nav-icon fas fa-copy"></i>

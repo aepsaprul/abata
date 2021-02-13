@@ -64,7 +64,7 @@
 														<input type="checkbox" id="menu{{ $menu->id }}" name="menu[]" value="{{ $menu->id }}"
 														{{ in_array($menu->id, json_decode($jabatan->menu_akses)) ? "checked" : "" }}>
 														<label for="menu{{ $menu->id }}">
-															{{ $menu->title }}
+															{{ $menu->nama_menu }}
 														</label>
 													</div>
 												</td>

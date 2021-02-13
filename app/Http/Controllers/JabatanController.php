@@ -122,7 +122,7 @@ class JabatanController extends Controller
         $jabatan = Jabatan::find($id);
         $menus = Menu::get();
 
-        return view('jabatan.akses', ['jabatan' => $jabatan, 'menus' => $menus]);
+        return view('master.jabatan.akses', ['jabatan' => $jabatan, 'menus' => $menus]);
     }
 
     public function aksesSimpan(Request $request, $id)

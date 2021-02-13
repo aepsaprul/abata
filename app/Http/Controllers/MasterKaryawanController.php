@@ -66,7 +66,8 @@ class MasterKaryawanController extends Controller
         $user->name = $request->nama_lengkap;
         $user->email = $request->email;
         $user->password = \Hash::make('abataprinting');
-        $user->karyawan_id = $karyawans->id;
+        $user->master_karyawan_id = $karyawans->id;
+        $user->roles = "guest";
 
         if($request->file('foto')) {
             $file = $request->file('foto')->store('foto', 'public');
