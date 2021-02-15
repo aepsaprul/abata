@@ -14,6 +14,7 @@ use App\Models\SitumpurAntrianCsNomor;
 use App\Events\SitumpurAntrianCustomerCs;
 use App\Models\SitumpurAntrianDesainNomor;
 use App\Events\SitumpurAntrianCustomerDesain;
+use App\Events\SitumpurAntrianCsStatusDisplay;
 use App\Events\SitumpurAntrianCustomerDisplayCs;
 use App\Events\SitumpurAntrianDesainStatusDisplay;
 use App\Events\SitumpurAntrianCustomerDisplayDesain;
@@ -187,7 +188,9 @@ class SitumpurController extends Controller
 
     public function antrianCs()
     {
-        return view('situmpur.antrianCs');
+        $karyawan = MasterKaryawan::where('id', Auth::user()->master_karyawan_id)->with('situmpurCs')->first();
+
+        return view('situmpur.antrianCs', ['karyawan' => $karyawan]);
     }
 
     public function antrianCsNomor()
@@ -200,14 +203,40 @@ class SitumpurController extends Controller
         ]);
     }
 
-    public function antrianCsOn()
+    public function antrianCsOn(Request $request, $id)
     {
+        $idk = Auth::user()->master_karyawan_id;
+        $karyawan = MasterKaryawan::where('id', $idk)->with('situmpurCs')->first();
+        $cs_nomor = $karyawan->situmpurCs->nomor;
+        $status = "on";
+        $nama_cs = $karyawan->nama_panggilan;
 
+        event(new SitumpurAntrianCsStatusDisplay($cs_nomor, $status, $nama_cs));
+
+        $cs = SitumpurCs::find($id);
+        $cs->status = "on";
+        $cs->save();
+
+        $status_cs = MasterKaryawan::where('id', Auth::user()->master_karyawan_id)->with('situmpurCs')->first();
+        return redirect()->route('situmpur.antrian.cs', ['status_cs' => $status_cs]);
     }
 
-    public function antrianCsOff()
+    public function antrianCsOff(Request $request, $id)
     {
-        
+        $idk = Auth::user()->master_karyawan_id;
+        $karyawan = MasterKaryawan::where('id', $idk)->with('situmpurCs')->first();
+        $cs_nomor = $karyawan->situmpurCs->nomor;
+        $status = "off";
+        $nama_cs = "";
+
+        event(new SitumpurAntrianCsStatusDisplay($cs_nomor, $status, $nama_cs));
+
+        $cs = Situmpurcs::find($id);
+        $cs->status = "off";
+        $cs->save();
+
+        $status_cs = MasterKaryawan::where('id', Auth::user()->karyawan_id)->with('situmpurCs')->first();
+        return redirect()->route('situmpur.antrian.cs', ['status_cs' => $status_cs]);
     }
 
     public function antrianCsPanggil()

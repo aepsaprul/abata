@@ -65,6 +65,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('situmpur/cs/{id}/delete', [SitumpurController::class, 'csDelete'])->name('situmpur.cs.delete');
 
     Route::get('situmpur/antrian/cs', [SitumpurController::class, 'antrianCs'])->name('situmpur.antrian.cs');
+    Route::get('situmpur/antrian/cs/{id}/on', [SitumpurController::class, 'antrianCsOn'])->name('situmpur.antrian.cs.on');
+    Route::get('situmpur/antrian/cs/{id}/off', [SitumpurController::class, 'antrianCsOff'])->name('situmpur.antrian.cs.off');
     Route::get('situmpur/antrian/cs/nomor', [SitumpurController::class, 'antrianCsNomor'])->name('situmpur.antrian.cs.nomor');
     Route::get('situmpur/antrian/cs/{nomor}/panggil', [SitumpurController::class, 'antrianCsPanggil'])->name('situmpur.antrian.cs.panggil');
     Route::get('situmpur/antrian/cs/{nomor}/mulai', [SitumpurController::class, 'antrianCsMulai'])->name('situmpur.antrian.cs.mulai');

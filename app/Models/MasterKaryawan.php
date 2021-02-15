@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\User;
+use App\Models\SitumpurCs;
 use App\Models\MasterCabang;
 use App\Models\MasterJabatan;
 use App\Models\SitumpurDesain;
@@ -52,5 +53,9 @@ class MasterKaryawan extends Model
 
     public function situmpurDesain() {
         return $this->hasOne(SitumpurDesain::class);
+    }
+
+    public function situmpurCs() {
+        return $this->hasOne(SitumpurCs::class);
     }
 }

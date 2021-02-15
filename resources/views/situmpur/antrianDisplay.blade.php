@@ -24,7 +24,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 		var pusher = new Pusher('d461d5db057e89f9286f', {
 			cluster: 'ap2'
 		});
-		// customer ke cs display 
+		// customer ke  total cs display 
 		var channel = pusher.subscribe('customer-cs-display');
 		channel.bind('customer-cs-display-event', function(data) {
 
@@ -35,7 +35,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 			$('.antrian_total_cs').append(queryNomorAntrian);
 			
 		});
-		// customer ke desain display
+		// customer ke total desain display
 		var desain_channel = pusher.subscribe('customer-desain-display');
 		desain_channel.bind('customer-desain-display-event', function(data) {
 
@@ -46,7 +46,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 			$('.antrian_total_desain').append(queryNomorAntrian);
 			
 		});
-		// cs ke display 
+		// cs ke display ketika klik panggil
 		var cs_display = pusher.subscribe('cs-display');
 		cs_display.bind('cs-display-event', function(data) {
 
@@ -82,6 +82,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 			
 		});
 
+		// desain ke display ketika klik panggil 
 		var desain_display = pusher.subscribe('desain-display');
 		desain_display.bind('desain-display-event', function(data) {
 
@@ -150,6 +151,19 @@ scratch. This page gets rid of all links and provides the needed markup only.
 			
 		});	
 
+		// cs on / off 
+		var cs_status = pusher.subscribe('cs-status');
+		cs_status.bind('cs-status-event', function(data) {
+
+			if (data.status == "on") {
+				$(".desain .cs .card-footer p").append(data.nama_cs);
+			} else {
+				$(".desain .cs .card-footer p").empty();
+			}
+
+		});
+
+		// desain on / off 
 		var desain_status = pusher.subscribe('desain-status');
 		desain_status.bind('desain-status-event', function(data) {
 
@@ -246,6 +260,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 			text-align: center;
 			margin: 0;
 			padding: 0;
+			text-transform: uppercase;
 		}
 	</style>
 </head>

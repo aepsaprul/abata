@@ -121,44 +121,13 @@
 						<div class="row">
 							<div class="col-md-12">
 								<h3>HALAMAN CUSTOMER SERVICE</h3>
-								{{-- <div class="row">
-									<div class="col">
-										<div class="desain">
-											<p class="desain-title">Desain 1</p>
-											<p class="desain-nomor">4</p>
-										</div>
-									</div>
-									<div class="col">
-										<div class="desain">
-											<p class="desain-title">Desain 1</p>
-											<p class="desain-nomor">4</p>
-										</div>
-									</div>
-									<div class="col">
-										<div class="desain">
-											<p class="desain-title">Desain 1</p>
-											<p class="desain-nomor">4</p>
-										</div>
-									</div>
-									<div class="col">
-										<div class="desain">
-											<p class="desain-title">Desain 1</p>
-											<p class="desain-nomor">4</p>
-										</div>
-									</div>
-									<div class="col">
-										<div class="desain">
-											<p class="desain-title">Desain 1</p>
-											<p class="desain-nomor">4</p>
-										</div>
-									</div>
-									<div class="col">
-										<div class="desain">
-											<p class="desain-title">Desain 1</p>
-											<p class="desain-nomor">4</p>
-										</div>
-									</div>
-								</div> --}}
+								<p style="text-align: center;">
+									@if ($karyawan->situmpurCs->status == "off")
+										<a href="{{ url('situmpur/antrian/cs/' . $karyawan->situmpurCs->id . '/on') }}" class="btn btn-danger">Komputer OFF</a>
+									@else
+										<a href="{{ url('situmpur/antrian/cs/' . $karyawan->situmpurCs->id . '/off') }}" class="btn btn-success">Komputer ON</a>
+									@endif
+								</p>
 							</div>
 						</div>
 						<hr>
