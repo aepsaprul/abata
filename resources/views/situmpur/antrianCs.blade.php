@@ -191,7 +191,7 @@
 		function nomorAntrian(timestamp) {
 			$('.data-nomor').empty();
 			$.ajax({
-				url: '{{ URL::route('antrian.cs.nomor') }}',
+				url: '{{ URL::route('situmpur.antrian.cs.nomor') }}',
 				type: 'GET',
 				data: {
 					_token: CSRF_TOKEN

@@ -78,7 +78,7 @@
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-          <img src="{{ asset('../storage/app/public/' . Auth::user()->foto) }}" class="img-circle elevation-2" alt="User Image" style="width: 40px; height: 40px;">
+          <img src="{{ asset('../storage/app/public/' . Auth::user()->foto) }}" class="img-circle elevation-2" alt="User Image" style="width: 40px; height: 40px; object-fit:cover;">
         </div>
         <div class="info">
           <a href="#" class="d-block">{{ Auth::user()->name }}</a>
@@ -153,10 +153,18 @@
               </a>
             </li>
             <li class="nav-item">
-              <a href="{{ url('/desainer') }}" class="nav-link">
+              <a href="{{ url('/situmpur/desain') }}" class="nav-link">
                 <i class="nav-icon fas fa-copy"></i>
                 <p>
                   Desain
+                </p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="{{ url('situmpur/cs') }}" class="nav-link">
+                <i class="nav-icon fas fa-copy"></i>
+                <p>
+                  CS
                 </p>
               </a>
             </li>
@@ -178,7 +186,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a href="{{ url('/situmpur/antrian/desainer') }}" class="nav-link">
+              <a href="{{ url('/situmpur/antrian/desain') }}" class="nav-link">
                 <i class="nav-icon fas fa-copy"></i>
                 <p>
                   Desain
@@ -266,13 +274,14 @@
                 </li>              
               @endif
 
+              {{-- cabang situmpur  --}}
               @if (Auth::user()->load('masterKaryawan.masterCabang')->masterKaryawan->masterCabang->id == '2')
 
                 @if (in_array("7", json_decode(Auth::user()->load('masterKaryawan.masterJabatan')->masterKaryawan->masterJabatan->menu_akses)))
                   <li class="nav-header p-2 bg-secondary">Situmpur</li>
                   <li class="nav-header p-2">Master</li>
                   <li class="nav-item">
-                    <a href="{{ url('/antrian/customer') }}" class="nav-link">
+                    <a href="{{ url('/situmpur/customer') }}" class="nav-link">
                       <i class="nav-icon fas fa-copy"></i>
                       <p>
                         Customer
@@ -283,7 +292,7 @@
 
                 @if (in_array("8", json_decode(Auth::user()->load('masterKaryawan.masterJabatan')->masterKaryawan->masterJabatan->menu_akses)))
                   <li class="nav-item">
-                    <a href="{{ url('/desainer') }}" class="nav-link">
+                    <a href="{{ url('/situmpur/desain') }}" class="nav-link">
                       <i class="nav-icon fas fa-copy"></i>
                       <p>
                         Desain
@@ -291,10 +300,23 @@
                     </a>
                   </li>
                 @endif
+
+                @if (in_array("13", json_decode(Auth::user()->load('masterKaryawan.masterJabatan')->masterKaryawan->masterJabatan->menu_akses)))
+                  <li class="nav-item">
+                    <a href="{{ url('/situmpur/cs') }}" class="nav-link">
+                      <i class="nav-icon fas fa-copy"></i>
+                      <p>
+                        CS
+                      </p>
+                    </a>
+                  </li>
+                @endif
+                
+                <li class="nav-header p-2">Antrian</li>
                 
                 @if (in_array("9", json_decode(Auth::user()->load('masterKaryawan.masterJabatan')->masterKaryawan->masterJabatan->menu_akses)))
                   <li class="nav-item">
-                    <a href="{{ url('/antrian/customer') }}" class="nav-link">
+                    <a href="{{ url('/situmpur/antrian/customer') }}" class="nav-link">
                       <i class="nav-icon fas fa-copy"></i>
                       <p>
                         Customer
@@ -305,7 +327,7 @@
   
                 @if (in_array("10", json_decode(Auth::user()->load('masterKaryawan.masterJabatan')->masterKaryawan->masterJabatan->menu_akses)))
                   <li class="nav-item">
-                    <a href="{{ url('/antrian/cs') }}" class="nav-link">
+                    <a href="{{ url('/situmpur/antrian/cs') }}" class="nav-link">
                       <i class="nav-icon fas fa-copy"></i>
                       <p>
                         CS
@@ -316,7 +338,7 @@
   
                 @if (in_array("11", json_decode(Auth::user()->load('masterKaryawan.masterJabatan')->masterKaryawan->masterJabatan->menu_akses)))
                   <li class="nav-item">
-                    <a href="{{ url('/antrian/desainer') }}" class="nav-link">
+                    <a href="{{ url('/situmpur/antrian/desain') }}" class="nav-link">
                       <i class="nav-icon fas fa-copy"></i>
                       <p>
                         Desain
@@ -327,7 +349,7 @@
   
                 @if (in_array("12", json_decode(Auth::user()->load('masterKaryawan.masterJabatan')->masterKaryawan->masterJabatan->menu_akses)))
                   <li class="nav-item">
-                    <a href="{{ url('/antrian/display') }}" class="nav-link">
+                    <a href="{{ url('/situmpur/antrian/display') }}" class="nav-link">
                       <i class="nav-icon fas fa-copy"></i>
                       <p>
                         Display

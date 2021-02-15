@@ -155,37 +155,47 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 			if (data.desain_nomor == 1) {
 				if (data.status == "on") {
-					$(".desain .header-desain-satu").css("background-color", "#7CFC00");
+					// $(".desain .header-desain-satu").css("background-color", "#7CFC00");
+					$(".desain .desain-1 .card-footer p").append(data.nama_desain);
 				} else {
-					$(".desain .header-desain-satu").css("background-color", "#fbdd23");
+					// $(".desain .header-desain-satu").css("background-color", "#fbdd23");
+					$(".desain .desain-1 .card-footer p").empty();
 				}
 			}
 			if (data.desain_nomor == 2) {
 				if (data.status == "on") {
-					$(".desain .header-desain-dua").css("background-color", "#7CFC00");
+					// $(".desain .header-desain-dua").css("background-color", "#7CFC00");
+					$(".desain .desain-2 .card-footer p").append(data.nama_desain);
 				} else {
-					$(".desain .header-desain-dua").css("background-color", "#fbdd23");
+					// $(".desain .header-desain-dua").css("background-color", "#fbdd23");
+					$(".desain .desain-2 .card-footer p").empty();
 				}
 			}
 			if (data.desain_nomor == 3) {
 				if (data.status == "on") {
-					$(".desain .header-desain-tiga").css("background-color", "#7CFC00");
+					// $(".desain .header-desain-tiga").css("background-color", "#7CFC00");
+					$(".desain .desain-3 .card-footer p").append(data.nama_desain);
 				} else {
-					$(".desain .header-desain-tiga").css("background-color", "#fbdd23");
+					// $(".desain .header-desain-tiga").css("background-color", "#fbdd23");
+					$(".desain .desain-3 .card-footer p").empty();
 				}
 			}
 			if (data.desain_nomor == 4) {
 				if (data.status == "on") {
-					$(".desain .header-desain-empat").css("background-color", "#7CFC00");
+					// $(".desain .header-desain-empat").css("background-color", "#7CFC00");
+					$(".desain .desain-4 .card-footer p").append(data.nama_desain);
 				} else {
-					$(".desain .header-desain-empat").css("background-color", "#fbdd23");
+					// $(".desain .header-desain-empat").css("background-color", "#fbdd23");
+					$(".desain .desain-4 .card-footer p").empty();
 				}
 			}
 			if (data.desain_nomor == 5) {
 				if (data.status == "on") {
-					$(".desain .header-desain-lima").css("background-color", "#7CFC00");
+					// $(".desain .header-desain-lima").css("background-color", "#7CFC00");
+					$(".desain .desain-5 .card-footer p").append(data.nama_desain);
 				} else {
-					$(".desain .header-desain-lima").css("background-color", "#fbdd23");
+					// $(".desain .header-desain-lima").css("background-color", "#fbdd23");
+					$(".desain .desain-5 .card-footer p").empty();
 				}
 			}
 			
@@ -231,6 +241,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
 			font-family: 'arial';
 			font-weight: bold;
 			text-align: center;
+		}
+		.desain .card-footer p {
+			text-align: center;
+			margin: 0;
+			padding: 0;
 		}
 	</style>
 </head>
@@ -286,7 +301,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         </div>
 				<!-- /.row -->
 				<div class="row desain">
-					<div class="col-lg-2">
+					<div class="col-lg-2 cs">
 						<div class="card" style="height: 200px;">
               <div class="card-header header-cs">
                 <h5 class="title cs">CS</h5>
@@ -294,9 +309,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
               <div class="card-body">
                 <p class="number-cs">-</p>
 							</div>
+							<div class="card-footer footer">
+								<p></p>
+							</div>
             </div>
 					</div>
-					<div class="col-lg-2">
+					<div class="col-lg-2 desain-1">
 						<div class="card" style="height: 200px;">
               <div class="card-header header-desain-satu">
                 <h5 class="title desain-satu">Desain 1</h5>
@@ -304,9 +322,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
               <div class="card-body">
                 <p class="number-satu">-</p>
 							</div>
+							<div class="card-footer">
+								<p></p>
+							</div>
             </div>
 					</div>
-					<div class="col-lg-2">
+					<div class="col-lg-2 desain-2">
 						<div class="card" style="height: 200px;">
               <div class="card-header header-desain-dua">
                 <h5 class="title desain-dua">Desain 2</h5>
@@ -314,9 +335,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
               <div class="card-body">
                 <p class="number-dua">-</p>
 							</div>
+							<div class="card-footer">
+								<p></p>
+							</div>
             </div>
 					</div>
-					<div class="col-lg-2">
+					<div class="col-lg-2 desain-34">
 						<div class="card" style="height: 200px;">
               <div class="card-header header-desain-tiga">
                 <h5 class="title desain-tiga">Desain 3</h5>
@@ -324,9 +348,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
               <div class="card-body">
                 <p class="number-tiga">-</p>
 							</div>
+							<div class="card-footer">
+								<p></p>
+							</div>
             </div>
 					</div>
-					<div class="col-lg-2">
+					<div class="col-lg-2 desain-4">
 						<div class="card" style="height: 200px;">
               <div class="card-header header-desain-empat">
                 <h5 class="title desain-empat">Desain 4</h5>
@@ -334,15 +361,21 @@ scratch. This page gets rid of all links and provides the needed markup only.
               <div class="card-body">
                 <p class="number-empat">-</p>
 							</div>
+							<div class="card-footer">
+								<p></p>
+							</div>
             </div>
 					</div>
-					<div class="col-lg-2">
+					<div class="col-lg-2 desain-5">
 						<div class="card" style="height: 200px;">
               <div class="card-header header-desain-lima">
                 <h5 class="title desain-lima">Desain 5</h5>
               </div>
               <div class="card-body">
                 <p class="number-lima">-</p>
+							</div>
+							<div class="card-footer">
+								<p></p>
 							</div>
             </div>
 					</div>

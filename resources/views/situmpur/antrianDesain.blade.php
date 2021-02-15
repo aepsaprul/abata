@@ -136,13 +136,13 @@
 <body class="hold-transition">	
 	<section class="content">
 		<div class="container-fluid">
-			<h3>HALAMAN DESAINER {{ $status_desainer->nama_lengkap }}</h3>
+			<h3>HALAMAN DESAINER {{ $karyawan->nama_lengkap }}</h3>
 			<p style="text-align: center;">
-				{{-- {{dd($status_desainer->desainer->status)}} --}}
-				@if ($status_desainer->desainer->status == "off")
-					<a href="{{ url('antrian/desainer/' . $status_desainer->desainer->id . '/on') }}" class="btn btn-danger">Komputer OFF</a>
+				{{-- {{dd($karyawan)}} --}}
+				@if ($karyawan->situmpurDesain->status == "off")
+					<a href="{{ url('situmpur/antrian/desain/' . $karyawan->situmpurDesain->id . '/on') }}" class="btn btn-danger">Komputer OFF</a>
 				@else
-					<a href="{{ url('antrian/desainer/' . $status_desainer->desainer->id . '/off') }}" class="btn btn-success">Komputer ON</a>
+					<a href="{{ url('situmpur/antrian/desain/' . $karyawan->situmpurDesain->id . '/off') }}" class="btn btn-success">Komputer ON</a>
 				@endif
 			</p>
 			<hr>
@@ -179,7 +179,7 @@
 		function nomorAntrian(timestamp) {
 			$('.data-nomor').empty();
 			$.ajax({
-				url: '{{ URL::route('antrian.desainer.nomor') }}',
+				url: '{{ URL::route('situmpur.antrian.desain.nomor') }}',
 				type: 'GET',
 				data: {
 					_token: CSRF_TOKEN

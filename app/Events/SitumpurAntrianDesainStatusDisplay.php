@@ -16,16 +16,18 @@ class SitumpurAntrianDesainStatusDisplay implements ShouldBroadcast
 
     public $desain_nomor;
     public $status;
+    public $nama_desain;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct($desain_nomor,$status)
+    public function __construct($desain_nomor,$status,$nama_desain)
     {
         $this->desain_nomor = $desain_nomor;
         $this->status = $status;
+        $this->nama_desain = $nama_desain;
     }
 
     /**

@@ -58,6 +58,12 @@ Route::group(['middleware' => 'auth'], function () {
 
     //cs
     Route::get('situmpur/cs', [SitumpurController::class, 'cs'])->name('situmpur.cs');
+    Route::get('situmpur/cs/create', [SitumpurController::class, 'csCreate'])->name('situmpur.cs.create');
+    Route::post('situmpur/cs/store', [SitumpurController::class, 'csStore'])->name('situmpur.cs.store');
+    Route::get('situmpur/cs/{id}/edit', [SitumpurController::class, 'csEdit'])->name('situmpur.cs.edit');
+    Route::put('situmpur/cs/{id}/update', [SitumpurController::class, 'csUpdate'])->name('situmpur.cs.update');
+    Route::get('situmpur/cs/{id}/delete', [SitumpurController::class, 'csDelete'])->name('situmpur.cs.delete');
+
     Route::get('situmpur/antrian/cs', [SitumpurController::class, 'antrianCs'])->name('situmpur.antrian.cs');
     Route::get('situmpur/antrian/cs/nomor', [SitumpurController::class, 'antrianCsNomor'])->name('situmpur.antrian.cs.nomor');
     Route::get('situmpur/antrian/cs/{nomor}/panggil', [SitumpurController::class, 'antrianCsPanggil'])->name('situmpur.antrian.cs.panggil');
@@ -65,15 +71,22 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('situmpur/antrian/cs/{nomor}/selesai', [SitumpurController::class, 'antrianCsSelesai'])->name('situmpur.antrian.cs.selesai');
 
     // desain 
-    Route::get('situmpur/antrian/desain', [SitumpurController::class, 'desain'])->name('situmpur.antrian.desain');
-    Route::get('situmpur/antrian/desain/{id}/on', [SitumpurController::class, 'desainOn'])->name('situmpur.antrian.desain.on');
-    Route::get('situmpur/antrian/desain/{id}/off', [SitumpurController::class, 'desainOff'])->name('situmpur.antrian.desain.off');
-    Route::get('situmpur/antrian/desain/nomor', [SitumpurController::class, 'desainNomor'])->name('situmpur.antrian.desain.nomor');
-    Route::get('situmpur/antrian/desain/{nomor}/panggil', [SitumpurController::class, 'desainPanggil'])->name('situmpur.antrian.desain.panggil');
-    Route::get('situmpur/antrian/desain/{nomor}/desain', [SitumpurController::class, 'desainUpdateDesain'])->name('situmpur.antrian.desain.updatedesain');
-    Route::get('situmpur/antrian/desain/{nomor}/edit', [SitumpurController::class, 'desainUpdateEdit'])->name('situmpur.antrian.desain.updateedit');
-    Route::get('situmpur/antrian/desain/{nomor}/mulai', [SitumpurController::class, 'desainMulai'])->name('situmpur.antrian.desain.mulai');
-    Route::get('situmpur/antrian/desain/{nomor}/selesai', [SitumpurController::class, 'desainSelesai'])->name('situmpur.antrian.desain.selesai');
+    Route::get('situmpur/desain', [SitumpurController::class, 'desain'])->name('situmpur.desain');
+    Route::get('situmpur/desain/create', [SitumpurController::class, 'desainCreate'])->name('situmpur.desain.create');
+    Route::post('situmpur/desain/store', [SitumpurController::class, 'desainStore'])->name('situmpur.desain.store');
+    Route::get('situmpur/desain/{id}/edit', [SitumpurController::class, 'desainEdit'])->name('situmpur.desain.edit');
+    Route::put('situmpur/desain/{id}/update', [SitumpurController::class, 'desainUpdate'])->name('situmpur.desain.update');
+    Route::get('situmpur/desain/{id}/delete', [SitumpurController::class, 'desainDelete'])->name('situmpur.desain.delete');
+
+    Route::get('situmpur/antrian/desain', [SitumpurController::class, 'antrianDesain'])->name('situmpur.antrian.desain');
+    Route::get('situmpur/antrian/desain/{id}/on', [SitumpurController::class, 'antrianDesainOn'])->name('situmpur.antrian.desain.on');
+    Route::get('situmpur/antrian/desain/{id}/off', [SitumpurController::class, 'antrianDesainOff'])->name('situmpur.antrian.desain.off');
+    Route::get('situmpur/antrian/desain/nomor', [SitumpurController::class, 'antrianDesainNomor'])->name('situmpur.antrian.desain.nomor');
+    Route::get('situmpur/antrian/desain/{nomor}/panggil', [SitumpurController::class, 'antrianDesainPanggil'])->name('situmpur.antrian.desain.panggil');
+    Route::get('situmpur/antrian/desain/{nomor}/desain', [SitumpurController::class, 'antrianDesainUpdateDesain'])->name('situmpur.antrian.desain.updatedesain');
+    Route::get('situmpur/antrian/desain/{nomor}/edit', [SitumpurController::class, 'antrianDesainUpdateEdit'])->name('situmpur.antrian.desain.updateedit');
+    Route::get('situmpur/antrian/desain/{nomor}/mulai', [SitumpurController::class, 'antrianDesainMulai'])->name('situmpur.antrian.desain.mulai');
+    Route::get('situmpur/antrian/desain/{nomor}/selesai', [SitumpurController::class, 'antrianDesainSelesai'])->name('situmpur.antrian.desain.selesai');
 
     // customer 
     Route::get('situmpur/customer', [SitumpurController::class, 'customer'])->name('situmpur.customer');

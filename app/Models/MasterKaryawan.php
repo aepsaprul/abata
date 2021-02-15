@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\User;
 use App\Models\MasterCabang;
 use App\Models\MasterJabatan;
+use App\Models\SitumpurDesain;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -47,5 +48,9 @@ class MasterKaryawan extends Model
 
     public function user() {
         return $this->hasOne(User::class);
+    }
+
+    public function situmpurDesain() {
+        return $this->hasOne(SitumpurDesain::class);
     }
 }

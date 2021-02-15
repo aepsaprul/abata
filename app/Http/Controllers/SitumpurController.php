@@ -2,15 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\SitumpurCs;
 use Illuminate\Http\Request;
 use App\Models\MasterCustomer;
+use App\Models\MasterKaryawan;
+use App\Models\SitumpurDesain;
+use Illuminate\Support\Facades\Auth;
 use App\Models\SitumpurAntrianSimpan;
 use App\Models\SitumpurAntrianCsNomor;
 use App\Events\SitumpurAntrianCustomerCs;
 use App\Models\SitumpurAntrianDesainNomor;
 use App\Events\SitumpurAntrianCustomerDesain;
 use App\Events\SitumpurAntrianCustomerDisplayCs;
+use App\Events\SitumpurAntrianDesainStatusDisplay;
 use App\Events\SitumpurAntrianCustomerDisplayDesain;
 
 class SitumpurController extends Controller
@@ -129,40 +134,44 @@ class SitumpurController extends Controller
     {
         $cs = SitumpurCs::get();
 
-        return view('situmpur.cs', ['cs' => $cs]);
+        return view('situmpur.cs.index', ['cs' => $cs]);
     }
 
     public function csCreate()
     {
-        return view('situmpur.cs.create');
+        $karyawans = MasterKaryawan::where('master_cabang_id', '2')->where('master_jabatan_id', '4')->get();
+
+        return view('situmpur.cs.create', ['karyawans' => $karyawans]);
     }
 
     public function csStore(Request $request)
     {
         $cs = new SitumpurCs;
         $cs->nomor = $request->nomor;
-        $cs->karyawan_id = $request->karyawan_id;
+        $cs->master_karyawan_id = $request->master_karyawan_id;
         $cs->created_by = Auth::user()->id;
         $cs->save();
         
-        return redirect()->route('situmpur.cs.index')->with('status', 'Data CS berhasil ditambah');
+        return redirect()->route('situmpur.cs')->with('status', 'Data CS berhasil ditambah');
     }
 
     public function csEdit($id)
     {
         $cs = SitumpurCs::find($id);
-        return view('situmpur.cs.edit', ['cs' => $cs]);
+        $karyawans = MasterKaryawan::where('master_cabang_id', '2')->where('master_jabatan_id', '4')->get();
+
+        return view('situmpur.cs.edit', ['cs' => $cs, 'karyawans' => $karyawans]);
     }
 
     public function csUpdate(Request $request, $id)
     {
         $cs = SitumpurCs::find($id);
         $cs->nomor = $request->nomor;
-        $cs->karyawan_id = $request->karyawan_id;
+        $cs->master_karyawan_id = $request->master_karyawan_id;
         $cs->updated_by = Auth::user()->id;
         $cs->save();
 
-        return redirect()->route('situmpur.cs.index')->with('status', 'Data CS berhasil diubah');
+        return redirect()->route('situmpur.cs')->with('status', 'Data CS berhasil diubah');
     }
 
     public function csDelete(Request $request, $id)
@@ -173,7 +182,7 @@ class SitumpurController extends Controller
 
         $cs->delete();
 
-        return redirect()->route('situmpur.cs.index')->with('status', 'Data CS berhasil dihapus');
+        return redirect()->route('situmpur.cs')->with('status', 'Data CS berhasil dihapus');
     }
 
     public function antrianCs()
@@ -254,36 +263,39 @@ class SitumpurController extends Controller
 
     public function desainCreate()
     {
-        return view('situmpur.desain.create');
+        $karyawans = MasterKaryawan::where('master_cabang_id', '2')->where('master_jabatan_id', '5')->get();
+
+        return view('situmpur.desain.create', ['karyawans' => $karyawans]);
     }
 
     public function desainStore(Request $request)
     {
         $desains = new SitumpurDesain;
         $desains->nomor = $request->nomor;
-        $desains->karyawan_id = $request->karyawan_id;
+        $desains->master_karyawan_id = $request->master_karyawan_id;
         $desains->created_by = Auth::user()->id;
         $desains->save();
 
-        return redirect()->route('situmpur.desain.index')->with('status', 'Data desain berhasil ditambah');
+        return redirect()->route('situmpur.desain')->with('status', 'Data desain berhasil ditambah');
     }
 
     public function desainEdit($id)
     {
         $desain = SitumpurDesain::find($id);
+        $karyawas = MasterKaryawan::where('master_cabang_id', '2')->where('master_jabatan_id', '5')->get();
 
-        return redirect()->route('situmpur.desain.edit', ['desain' => $desain]);
+        return view('situmpur.desain.edit', ['desain' => $desain, 'karyawans' => $karyawas]);
     }
 
     public function desainUpdate(Request $request, $id)
     {
         $desain = SitumpurDesain::find($id);
         $desain->nomor = $request->nomor;
-        $desain->karyawan_id = $request->karyawan_id;
+        $desain->master_karyawan_id = $request->master_karyawan_id;
         $desain->updated_by = Auth::user()->id;
         $desain->save();
 
-        return redirect()->route('situmpur.desain.index')->with('status', 'Data berhasil diubah');
+        return redirect()->route('situmpur.desain')->with('status', 'Data berhasil diubah');
     }
 
     public function desainDelete(Request $request, $id)
@@ -293,12 +305,16 @@ class SitumpurController extends Controller
         $desain->save();
 
         $desain->delete();
+
+        return redirect()->route('situmpur.desain')->with('status', 'Data berhasil diubah');
     }
 
     public function antrianDesain()
     {
-        $status_desainer = MasterKaryawan::where('id', Auth::user()->karyawan_id)->with('desainer')->first();
-        return view('situmpur.antrianDesain', ['status_desainer' => $status_desainer]);
+        
+        $karyawan = MasterKaryawan::where('id', Auth::user()->master_karyawan_id)->with('situmpurDesain')->first();
+
+        return view('situmpur.antrianDesain', ['karyawan' => $karyawan]);
     }
 
     public function antrianDesainNomor()
@@ -313,36 +329,38 @@ class SitumpurController extends Controller
 
     public function antrianDesainOn(Request $request, $id)
     {
-        $idk = Auth::user()->karyawan_id;
-        $karyawan = MasterKaryawan::where('id', $idk)->with('desainer')->first();
-        $desain_nomor = $karyawan->desainer->title;
+        $idk = Auth::user()->master_karyawan_id;
+        $karyawan = MasterKaryawan::where('id', $idk)->with('situmpurDesain')->first();
+        $desain_nomor = $karyawan->situmpurDesain->nomor;
         $status = "on";
-        
-        event(new SitumpurDesainStatus($desain_nomor, $status));
+        $nama_desain = $karyawan->nama_panggilan;
+
+        event(new SitumpurAntrianDesainStatusDisplay($desain_nomor, $status, $nama_desain));
 
         $desainer = SitumpurDesain::find($id);
         $desainer->status = "on";
         $desainer->save();
 
-        $status_desainer = MasterKaryawan::where('id', Auth::user()->karyawan_id)->with('desainer')->first();
-        return redirect()->route('situmpur.antrianDesain', ['status_desainer' => $status_desainer]);
+        $status_desainer = MasterKaryawan::where('id', Auth::user()->karyawan_id)->with('situmpurDesain')->first();
+        return redirect()->route('situmpur.antrian.desain', ['status_desainer' => $status_desainer]);
     }
 
     public function antrianDesainOff(Request $request, $id)
     {
-        $idk = Auth::user()->karyawan_id;
-        $karyawan = MasterKaryawan::where('id', $idk)->with('desainer')->first();
-        $desain_nomor = $karyawan->desainer->title;
+        $idk = Auth::user()->master_karyawan_id;
+        $karyawan = MasterKaryawan::where('id', $idk)->with('situmpurDesain')->first();
+        $desain_nomor = $karyawan->situmpurDesain->nomor;
         $status = "off";
-        
-        event(new SitumpurDesainStatus($desain_nomor, $status));
+        $nama_desain = "";
 
-        $desainer = Desainer::find($id);
+        event(new SitumpurAntrianDesainStatusDisplay($desain_nomor, $status, $nama_desain));
+
+        $desainer = SitumpurDesain::find($id);
         $desainer->status = "off";
         $desainer->save();
 
-        $status_desainer = MasterKaryawan::where('id', Auth::user()->karyawan_id)->with('desainer')->first();
-        return redirect()->route('situmpur.antrianDesain', ['status_desainer' => $status_desainer]);
+        $status_desainer = MasterKaryawan::where('id', Auth::user()->karyawan_id)->with('situmpurDesain')->first();
+        return redirect()->route('situmpur.antrian.desain', ['status_desainer' => $status_desainer]);
     }
 
     public function antrianDesainPanggil($nomor)

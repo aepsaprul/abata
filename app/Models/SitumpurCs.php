@@ -14,11 +14,11 @@ class SitumpurCs extends Model
 
     protected $fillable = [
         'nomor',
-        'karyawa_id',
+        'master_karyawa_id',
         'status'
     ];
 
-    public function karyawan() {
-        return $this->belongsTo(MasterKaryawan::class, 'karyawan_id');
+    public function masterKaryawan() {
+        return $this->belongsTo(MasterKaryawan::class);
     }
 }
