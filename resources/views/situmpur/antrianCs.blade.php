@@ -171,8 +171,8 @@
 							"<div class=\"col-md-2\">" +
 								"<div class=\"nomor\">" +
 									"<p class=\"nomor-title\">Antrian</p>" +
-									"<p class=\"nomor-antrian\">" + value.nomor_antrian + "</p>" +
-									"<p class=\"nomor-nama\">" + value.nama + "</p>";
+									"<p class=\"nomor-antrian\">C " + value.nomor_antrian + "</p>" +
+									"<p class=\"nomor-nama\">" + value.nama_customer + "</p>";
 									// "<p class=\"nomor-filter\">" + value.customer_filter_id + "</p>";
 									if (value.status == 0) {
 										queryNomorAntrian += "<a href=\"cs/" + value.nomor_antrian + "/panggil\" class=\"btn btn-primary btn-block\">Panggil</a>";

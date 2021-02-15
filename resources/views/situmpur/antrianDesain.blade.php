@@ -28,7 +28,7 @@
 				var title_filter = "Desain / Edit";
 			}
 			var queryNomorAntrian = "" +
-				"<div class=\"col-md-1\">" +
+				"<div class=\"col-md-2\">" +
 					"<div class=\"nomor\">" +
 						"<p class=\"nomor-title\">Antrian</p>" +
 						"<p class=\"nomor-antrian\">" + data.nomor_antrian + "</p>" +
@@ -39,6 +39,11 @@
 				"</div>";
 		
 			$('.data-nomor').append(queryNomorAntrian);
+		});
+
+		var desain_display = pusher.subscribe('desain-display');
+		desain_display.bind('desain-display-event', function(data) {
+			location.reload();
 		});
 	</script>
 	
@@ -131,6 +136,10 @@
 		.data-nomor .nomor-nama {
 			height: 50px;
 		}
+		.data-nomor .nomor-desain {
+			text-align: center;
+			color: crimson;
+		}
 	</style>
 </head>
 <body class="hold-transition">	
@@ -185,6 +194,7 @@
 					_token: CSRF_TOKEN
 				},
 				success: function(response) {
+					console.log(response.data);
 					$.each(response.data, function(i, value) {
 						
 						if (value.customer_filter_id == 1) {
@@ -194,24 +204,25 @@
 						} else if (value.customer_filter_id == 5) {
 							var title_filter = "Edit";
 						} else {
-							var title_filter = "<a href=\"desainer/" + value.nomor_antrian + "/desain\">Desain</a> / <a href=\"desainer/" + value.nomor_antrian + "/edit\">Edit</a>";
+							var title_filter = "<a href=\"desain/" + value.nomor_antrian + "/desain\">Desain</a> / <a href=\"desain/" + value.nomor_antrian + "/edit\">Edit</a>";
 						}
 
 						var queryNomorAntrian = "" +
-							"<div class=\"col-md-1\">" +
+							"<div class=\"col-md-2\">" +
 								"<div class=\"nomor\">" +
 									"<p class=\"nomor-title\">Antrian</p>" +
-									"<p class=\"nomor-antrian\">" + value.nomor_antrian + "</p>" +
-									"<p class=\"nomor-nama\">" + value.nama + "</p>" +
-									"<p class=\"nomor-filter\">" + title_filter + "</p>";
+									"<p class=\"nomor-antrian\">D " + value.nomor_antrian + "</p>" +
+									"<p class=\"nomor-nama\">" + value.nama_customer + "</p>" +
+									"<p class=\"nomor-filter\">" + title_filter + "</p>" +
+									"<p class=\"nomor-desain\">" + value.master_karyawan.nama_panggilan + "</p>";
 									if (value.status == 0) {
-										queryNomorAntrian += "<a href=\"desainer/" + value.nomor_antrian + "/panggil\" class=\"btn btn-primary btn-block\">Panggil</a>";
+										queryNomorAntrian += "<a href=\"desain/" + value.nomor_antrian + "/panggil\" class=\"btn btn-primary btn-block\">Panggil</a>";
 									}
 									if (value.status == 1) {
-										queryNomorAntrian += "<a href=\"desainer/" + value.nomor_antrian + "/mulai\" class=\"btn btn-info btn-block\">Mulai</a>";
+										queryNomorAntrian += "<a href=\"desain/" + value.nomor_antrian + "/mulai\" class=\"btn btn-info btn-block\">Mulai</a>";
 									}
 									if (value.status == 2) {
-										queryNomorAntrian += "<a href=\"desainer/" + value.nomor_antrian + "/selesai\" class=\"btn btn-success btn-block\">Selesai</a>";
+										queryNomorAntrian += "<a href=\"desain/" + value.nomor_antrian + "/selesai\" class=\"btn btn-success btn-block\">Selesai</a>";
 									}								
 									queryNomorAntrian += "</div>";
 							"</div>";

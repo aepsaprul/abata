@@ -121,7 +121,7 @@
 				},
 				success: function(response) {
 					$.each(response.customers, function (i, value) {
-						var data_customers = "<li><button class=\"btn-data-customer\" data-value=\"" + value.telepon + " " + value.nama + "\">" + value.telepon + " | " + value.nama + "</button></li>";
+						var data_customers = "<li><button class=\"btn-data-customer\" data-value=\"" + value.telepon + " " + value.nama_customer + "\">" + value.telepon + " | " + value.nama_customer + "</button></li>";
 						$('.telepon .telepon-data').append(data_customers);
 					});
 					$('.telepon .telepon-data').css('display', 'block');
@@ -160,7 +160,7 @@
 					_token: CSRF_TOKEN,
 					customer_filter_id: customer_filter_id,
 					nomor_antrian: nomor_antrian,
-					nama: nama,
+					nama_customer: nama,
 					telepon: telepon
 				},
 				success: function(response) {
@@ -183,7 +183,7 @@
 					_token: CSRF_TOKEN,
 					nomor_antrian: nomor_antrian,
 					customer_filter_id: customer_filter_id,
-					nama: nama,
+					nama_customer: nama,
 					telepon: telepon
 				}
 			});

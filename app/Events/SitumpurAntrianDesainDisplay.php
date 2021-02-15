@@ -14,6 +14,7 @@ class SitumpurAntrianDesainDisplay implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
+    public $desain_nomor;
     public $antrian_nomor;
 
     /**
@@ -21,8 +22,9 @@ class SitumpurAntrianDesainDisplay implements ShouldBroadcast
      *
      * @return void
      */
-    public function __construct($antrian_nomor)
+    public function __construct($desain_nomor,$antrian_nomor)
     {
+        $this->desain_nomor = $desain_nomor;
         $this->antrian_nomor = $antrian_nomor;
     }
 

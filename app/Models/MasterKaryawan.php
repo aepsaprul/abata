@@ -8,6 +8,7 @@ use App\Models\MasterCabang;
 use App\Models\MasterJabatan;
 use App\Models\SitumpurDesain;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\SitumpurAntrianDesainNomor;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -57,5 +58,9 @@ class MasterKaryawan extends Model
 
     public function situmpurCs() {
         return $this->hasOne(SitumpurCs::class);
+    }
+
+    public function situmpurAntrianDesainNomor() {
+        return $this->hasMany(SitumpurAntrianDesainNomor::class);
     }
 }

@@ -11,8 +11,10 @@ use App\Models\SitumpurDesain;
 use Illuminate\Support\Facades\Auth;
 use App\Models\SitumpurAntrianSimpan;
 use App\Models\SitumpurAntrianCsNomor;
+use App\Events\SitumpurAntrianCsDisplay;
 use App\Events\SitumpurAntrianCustomerCs;
 use App\Models\SitumpurAntrianDesainNomor;
+use App\Events\SitumpurAntrianDesainDisplay;
 use App\Events\SitumpurAntrianCustomerDesain;
 use App\Events\SitumpurAntrianCsStatusDisplay;
 use App\Events\SitumpurAntrianCustomerDisplayCs;
@@ -58,7 +60,7 @@ class SitumpurController extends Controller
         }
 
         $nomor_antrian = $request->nomor_antrian;
-        $nama = $request->nama;
+        $nama = $request->nama_customer;
         $telepon = $request->telepon;
         $customer_filter_id = $request->customer_filter_id;
         $antrian_total = $request->nomor_antrian;
@@ -239,7 +241,7 @@ class SitumpurController extends Controller
         return redirect()->route('situmpur.antrian.cs', ['status_cs' => $status_cs]);
     }
 
-    public function antrianCsPanggil()
+    public function antrianCsPanggil($nomor)
     {
         $antrianNomor = SitumpurAntrianCsNomor::where('nomor_antrian', $nomor)->first();
         $antrianNomor->status = 1;
@@ -247,9 +249,9 @@ class SitumpurController extends Controller
 
         $antrian_nomor = $nomor;
 
-        event(new SitumpurCsDisplay($antrian_nomor));
+        event(new SitumpurAntrianCsDisplay($antrian_nomor));
 
-        return redirect()->route('situmpur.antrianCs');
+        return redirect()->route('situmpur.antrian.cs');
     }
 
     public function antrianCsMulai($nomor)
@@ -348,7 +350,7 @@ class SitumpurController extends Controller
 
     public function antrianDesainNomor()
     {
-        $nomors = SitumpurAntrianDesainNomor::where('status', '!=', '3')->get();
+        $nomors = SitumpurAntrianDesainNomor::where('status', '!=', '3')->with('masterKaryawan')->get();
 
         return response()->json([
             'success' => 'Success',
@@ -396,14 +398,18 @@ class SitumpurController extends Controller
     {
         $antrianNomor = SitumpurAntrianDesainNomor::where('nomor_antrian', $nomor)->first();
         $antrianNomor->status = 1;
+        $antrianNomor->master_karyawan_id = Auth::user()->master_karyawan_id;
         $antrianNomor->save();
 
+        $idk = Auth::user()->master_karyawan_id;
+        $karyawan = MasterKaryawan::where('id', $idk)->with('situmpurDesain')->first();
+        $desain_nomor = $karyawan->situmpurDesain->nomor;
         $antrian_nomor = $nomor;
 
-        event(new SitumpurDesainDisplay($antrian_nomor));
+        event(new SitumpurAntrianDesainDisplay($desain_nomor,$antrian_nomor));
 
         $status_desainer = MasterKaryawan::where('id', Auth::user()->karyawan_id)->with('desainer')->first();
-        return redirect()->route('situmpur.antrianDesain', ['status_desainer' => $status_desainer]);
+        return redirect()->route('situmpur.antrian.desain', ['status_desainer' => $status_desainer]);
     }
 
     public function antrianDesainUpdate(Request $request)

@@ -86,11 +86,30 @@ scratch. This page gets rid of all links and provides the needed markup only.
 		var desain_display = pusher.subscribe('desain-display');
 		desain_display.bind('desain-display-event', function(data) {
 
-			$('.antrian_desain').empty();
-			
-			var queryNomorAntrian = data.antrian_nomor;
-		
+			$('.antrian_desain').empty();			
+			var queryNomorAntrian = "D " + data.antrian_nomor;		
 			$('.antrian_desain').append(queryNomorAntrian);
+
+			if (data.desain_nomor == 1) {
+				$('.desain .number-satu').empty();			
+				var queryNomorAntrian = "D " + data.antrian_nomor;		
+				$('.desain .number-satu').append(queryNomorAntrian);
+			}
+			if (data.desain_nomor == 2) {
+				$('.desain .number-dua').empty();			
+				var queryNomorAntrian = "D " + data.antrian_nomor;		
+				$('.desain .number-dua').append(queryNomorAntrian);
+			}
+			if (data.desain_nomor == 3) {
+				$('.desain .number-tiga').empty();			
+				var queryNomorAntrian = "D " + data.antrian_nomor;		
+				$('.desain .number-tiga').append(queryNomorAntrian);
+			}
+			if (data.desain_nomor == 4) {
+				$('.desain .number-empat').empty();			
+				var queryNomorAntrian = "D " + data.antrian_nomor;		
+				$('.desain .number-empat').append(queryNomorAntrian);
+			}
 			
 		});
 		// update ketika desainer klik mulai 
