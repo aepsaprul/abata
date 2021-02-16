@@ -208,18 +208,19 @@
 						}
 
 						var queryNomorAntrian = "" +
-							"<div class=\"col-md-2\">" +
+							"<div class=\"col-md-2\" style=\"margin-top: 20px;\">" +
 								"<div class=\"nomor\">" +
 									"<p class=\"nomor-title\">Antrian</p>" +
 									"<p class=\"nomor-antrian\">D " + value.nomor_antrian + "</p>" +
 									"<p class=\"nomor-nama\">" + value.nama_customer + "</p>" +
-									"<p class=\"nomor-filter\">" + title_filter + "</p>" +
-									"<p class=\"nomor-desain\">" + value.master_karyawan.nama_panggilan + "</p>";
+									"<p class=\"nomor-filter\">" + title_filter + "</p>";
 									if (value.status == 0) {
 										queryNomorAntrian += "<a href=\"desain/" + value.nomor_antrian + "/panggil\" class=\"btn btn-primary btn-block\">Panggil</a>";
 									}
 									if (value.status == 1) {
-										queryNomorAntrian += "<a href=\"desain/" + value.nomor_antrian + "/mulai\" class=\"btn btn-info btn-block\">Mulai</a>";
+										queryNomorAntrian += "" +
+										"<p class=\"nomor-desain\">" + value.master_karyawan.nama_panggilan + "</p>" +
+									  "<a href=\"desain/" + value.nomor_antrian + "/mulai\" class=\"btn btn-info btn-block\">Mulai</a>";
 									}
 									if (value.status == 2) {
 										queryNomorAntrian += "<a href=\"desain/" + value.nomor_antrian + "/selesai\" class=\"btn btn-success btn-block\">Selesai</a>";

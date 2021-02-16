@@ -31,6 +31,23 @@
 			border: none;
 			background-color: aliceblue;
 		}
+
+		.nomor-antrian {
+			width: 800px;
+		}
+		.nomor-antrian .head-nomor {
+			margin-top: 50px;
+		}
+		.nomor-antrian p {
+			text-align: center;
+			font-size: 2em;
+			font-family: sans-serif;
+			text-transform: uppercase;
+		}
+		.nomor-antrian .nomor {
+			font-size: 250px;
+			font-weight: bold;
+		}
 		
 	</style>
 </head>
@@ -67,16 +84,17 @@
 			</form>
 		</div>
 	</div>
-	<div class="nomor-antrian">
-		<p style="text-align: center; text-transform: uppercase;">Nomor Antrian</p>
-		<p style="text-align: center;" class="nomor">C
-			@if (is_null($nomors))
-				{{ 0 + 1 }}
-			@else
-				{{ $nomors->nomor_antrian + 1 }}
-			@endif
-		</p>
-	</div>
+</div>
+<div class="nomor-antrian">
+	<p class="head-nomor">Nomor Antrian</p>
+	<p class="nomor">C
+		@if (is_null($nomors))
+			{{ 0 + 1 }}
+		@else
+			{{ $nomors->nomor_antrian + 1 }}
+		@endif
+	</p>
+	<p>CV. Abata Printing</p>
 </div>
 
 <!-- jQuery -->
@@ -121,7 +139,7 @@
 				},
 				success: function(response) {
 					$.each(response.customers, function (i, value) {
-						var data_customers = "<li><button class=\"btn-data-customer\" data-value=\"" + value.telepon + " " + value.nama_customer + "\">" + value.telepon + " | " + value.nama_customer + "</button></li>";
+						var data_customers = "<li><button class=\"btn-data-customer\" data-value=\"" + value.telepon + "-" + value.nama_customer + "\">" + value.telepon + " | " + value.nama_customer + "</button></li>";
 						$('.telepon .telepon-data').append(data_customers);
 					});
 					$('.telepon .telepon-data').css('display', 'block');
@@ -132,7 +150,7 @@
 		$('.telepon').on('click', '.btn-data-customer', function (e) {
 			e.preventDefault();
 			var a = $(this).attr('data-value');
-			var b = a.split(" ");
+			var b = a.split("-");
 			$("#telepon").val(b[0]);
 			$("#nama").val(b[1]);
 			$('.telepon .telepon-data').css('display', 'none');
@@ -146,7 +164,7 @@
 			$('.login-logo').hide();
 			$('.nomor-antrian').show();
 
-			// window.print();
+			window.print();
 
 			var nomor_antrian = $('#nomor_antrian').val();
 			var customer_filter_id = btnVal;
