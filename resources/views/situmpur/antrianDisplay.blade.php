@@ -74,11 +74,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
 		var cs_selesai_display = pusher.subscribe('cs-selesai-display');
 		cs_selesai_display.bind('cs-selesai-display-event', function(data) {
 
-			$('.antrian_cs_update').empty();
+			$('.desain .number-cs').empty();
 			
 			var keterangan = data.keterangan;
 		
-			$('.antrian_cs_update').append(keterangan);
+			$('.desain .number-cs').append(keterangan);
 			
 		});
 

@@ -34,7 +34,7 @@
 						"<p class=\"nomor-antrian\">" + data.nomor_antrian + "</p>" +
 						"<p class=\"nomor-nama\">" + data.nama + "</p>" +
 						"<p class=\"nomor-filter\">" + title_filter + "</p>" +
-						"<a href=\"desainer/" + data.nomor_antrian + "/panggil\" class=\"btn btn-primary btn-block\">Panggil</a>" +
+						"<a href=\"desain/" + data.nomor_antrian + "/panggil\" class=\"btn btn-primary btn-block\">Panggil</a>" +
 					"</div>" +
 				"</div>";
 		
