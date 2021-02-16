@@ -35,7 +35,7 @@
 		.nomor-antrian {
 			width: 800px;
 		}
-		.nomor-antrian .head-nomor {
+		.nomor-antrian .cv {
 			margin-top: 50px;
 		}
 		.nomor-antrian p {
@@ -86,6 +86,7 @@
 	</div>
 </div>
 <div class="nomor-antrian">
+	<p class="cv">CV. Abata Printing</p>
 	<p class="head-nomor">Nomor Antrian</p>
 	<p class="nomor">D
 		@if (is_null($nomors))
@@ -97,7 +98,7 @@
 	@if ($customer_filter_id == 1)
 		<p>Kirim file anda ke WA 081234567890 </p>			
 	@endif
-	<p>CV. Abata Printing</p>
+	<p class="sisa-antrian">Sisa Antrian <span>{{ $count_nomor_all - $count_nomor_panggil }}</span></p>
 </div>
 
 <!-- jQuery -->

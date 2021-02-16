@@ -112,10 +112,14 @@ class SitumpurController extends Controller
     {
         if ($id == '3') {
             $nomors = SitumpurAntrianCsNomor::orderBy('id', 'desc')->first();
-            return view('situmpur.antrianCustomerFormCs', ['customer_filter_id' => $id, 'nomors' => $nomors]);
+            $count_nomor_panggil = count(SitumpurAntrianCsNomor::where('status','!=', '0')->get());
+            $count_nomor_all = count(SitumpurAntrianCsNomor::get());
+            return view('situmpur.antrianCustomerFormCs', ['customer_filter_id' => $id, 'nomors' => $nomors, 'count_nomor_panggil' => $count_nomor_panggil, 'count_nomor_all' => $count_nomor_all]);
         } else {
             $nomors = SitumpurAntrianDesainNomor::orderBy('id', 'desc')->first();
-            return view('situmpur.antrianCustomerFormDesain', ['customer_filter_id' => $id, 'nomors' => $nomors]);
+            $count_nomor_panggil = count(SitumpurAntrianDesainNomor::where('status','!=', '0')->get());
+            $count_nomor_all = count(SitumpurAntrianDesainNomor::get());
+            return view('situmpur.antrianCustomerFormDesain', ['customer_filter_id' => $id, 'nomors' => $nomors, 'count_nomor_panggil' => $count_nomor_panggil, 'count_nomor_all' => $count_nomor_all]);
         }
     }
     

@@ -223,7 +223,9 @@
 									  "<a href=\"desain/" + value.nomor_antrian + "/mulai\" class=\"btn btn-info btn-block\">Mulai</a>";
 									}
 									if (value.status == 2) {
-										queryNomorAntrian += "<a href=\"desain/" + value.nomor_antrian + "/selesai\" class=\"btn btn-success btn-block\">Selesai</a>";
+										queryNomorAntrian += "" +
+										"<p class=\"nomor-desain\">" + value.master_karyawan.nama_panggilan + "</p>" +
+										"<a href=\"desain/" + value.nomor_antrian + "/selesai\" class=\"btn btn-success btn-block\">Selesai</a>";
 									}								
 									queryNomorAntrian += "</div>";
 							"</div>";
