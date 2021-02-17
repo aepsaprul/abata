@@ -292,6 +292,17 @@ class SitumpurController extends Controller
         return redirect()->route('situmpur.antrian.cs');
     }
 
+    public function antrianCsReset()
+    {
+        $cs_nomors = SitumpurAntrianCsNomor::where('status', '3');
+        $cs_nomors->delete();
+
+        $desain_nomors = SitumpurAntrianDesainNomor::where('status', '3');
+        $desain_nomors->delete();
+
+        return redirect()->route('situmpur.antrian.cs');
+    }
+
     // desain
     public function desain()
     {
@@ -422,7 +433,7 @@ class SitumpurController extends Controller
 
     public function antrianDesainUpdate(Request $request)
     {
-        if ($request->jenis == "desain") {
+        if ($request->nama_jenis == "desain") {
             $antrianNomor = SitumpurAntrianDesainNomor::where('nomor_antrian', $request->nomor)->first();
             $antrianNomor->customer_filter_id = 4;
             $antrianNomor->save();
@@ -440,8 +451,15 @@ class SitumpurController extends Controller
             $antrianNomorSimpan->save();
         }
 
-      $status_desainer = MasterKaryawan::where('id', Auth::user()->master_karyawan_id)->with('situmpurDesain')->first();
-      return redirect()->route('situmpur.antrianDesainer', ['status_desainer' => $status_desainer]);
+        $idk = Auth::user()->master_karyawan_id;
+        $karyawan = MasterKaryawan::where('id', $idk)->with('situmpurDesain')->first();
+        $desain_nomor = $karyawan->situmpurDesain->nomor;
+        $antrian_nomor = $request->nomor;
+
+        event(new SitumpurAntrianDesainDisplay($desain_nomor,$antrian_nomor));
+
+        $status_desainer = MasterKaryawan::where('id', Auth::user()->master_karyawan_id)->with('situmpurDesain')->first();
+        return redirect()->route('situmpur.antrian.desain', ['status_desainer' => $status_desainer]);
     }
 
     public function antrianDesainMulai($nomor)
@@ -450,6 +468,7 @@ class SitumpurController extends Controller
 
         $antrianNomor = SitumpurAntrianDesainNomor::where('nomor_antrian', $nomor)->first();
         $antrianNomor->status = 2;
+        $antrianNomor->master_karyawan_id = Auth::user()->master_karyawan_id;
         $antrianNomor->save();
 
         $idk = Auth::user()->master_karyawan_id;
@@ -466,7 +485,9 @@ class SitumpurController extends Controller
 
     public function antrianDesainSelesai($nomor)
     {
-        $antrianNomor = SitumpurAntrianSimpan::where('nomor_antrian', $nomor)->where('jabatan', 'desain')->update(['selesai' => Carbon::now()]);
+        $antrianNomor = SitumpurAntrianSimpan::where('nomor_antrian', $nomor)
+            ->where('jabatan', 'desain')
+            ->update(['selesai' => Carbon::now(), 'master_karyawan_id' => Auth::user()->master_karyawan_id]);
 
         $antrianNomor = SitumpurAntrianDesainNomor::where('nomor_antrian', $nomor)->first();
         $antrianNomor->status = 3;

@@ -45,6 +45,14 @@
 		desain_display.bind('desain-display-event', function(data) {
 			location.reload();
 		});
+		var desain_mulai_display = pusher.subscribe('desain-mulai-display');
+		desain_mulai_display.bind('desain-mulai-display-event', function(data) {
+			location.reload();
+		});
+		var desain_selesai_display = pusher.subscribe('desain-selesai-display');
+		desain_selesai_display.bind('desain-selesai-display-event', function(data) {
+			location.reload();
+		});	
 	</script>
 	
 	<style>
@@ -204,7 +212,7 @@
 						} else if (value.customer_filter_id == 5) {
 							var title_filter = "Edit";
 						} else {
-							var title_filter = "<a href=\"desain/" + value.nomor_antrian + "/desain\">Desain</a> / <a href=\"desain/" + value.nomor_antrian + "/edit\">Edit</a>";
+							var title_filter = "<a href=\"desain/" + value.nomor_antrian + "/jenis/desain\">Desain</a> / <a href=\"desain/" + value.nomor_antrian + "/jenis/edit\">Edit</a>";
 						}
 
 						var queryNomorAntrian = "" +
@@ -218,9 +226,13 @@
 										queryNomorAntrian += "<a href=\"desain/" + value.nomor_antrian + "/panggil\" class=\"btn btn-primary btn-block\">Panggil</a>";
 									}
 									if (value.status == 1) {
-										queryNomorAntrian += "" +
-										"<p class=\"nomor-desain\">" + value.master_karyawan.nama_panggilan + "</p>" +
-									  "<a href=\"desain/" + value.nomor_antrian + "/mulai\" class=\"btn btn-info btn-block\">Mulai</a>";
+										if (value.customer_filter_id == 2) {
+											// kosong
+										} else {
+											queryNomorAntrian += "" +
+											"<p class=\"nomor-desain\">" + value.master_karyawan.nama_panggilan + "</p>" +
+											"<a href=\"desain/" + value.nomor_antrian + "/mulai\" class=\"btn btn-info btn-block\">Mulai</a>";
+										}
 									}
 									if (value.status == 2) {
 										queryNomorAntrian += "" +

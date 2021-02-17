@@ -43,6 +43,12 @@
 		body {
 			font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 		}
+
+		.btn-reset {
+			position: fixed;
+			right: 30px;
+		}
+		
 		.layer-1 {
 			margin-top: 30px;
 			margin-bottom: 30px;
@@ -120,6 +126,7 @@
 					<div class="layer-1">
 						<div class="row">
 							<div class="col-md-12">
+								<a href="{{ url('situmpur/antrian/cs/reset') }}" class="btn btn-danger btn-reset" onclick="return confirm('Yakin akan melakukan reset?')">Reset Nomor Antrian</a>
 								<h3>HALAMAN CUSTOMER SERVICE</h3>
 								<p style="text-align: center;">
 									@if ($karyawan->situmpurCs->status == "off")
