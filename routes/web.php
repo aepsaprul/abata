@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AntrianController;
 use App\Http\Controllers\SitumpurController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\MasterMenuController;
 use App\Http\Controllers\MasterCabangController;
 use App\Http\Controllers\MasterJabatanController;
@@ -31,6 +32,8 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::group(['middleware' => 'auth'], function () {
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
     Route::resource('customer', MasterCustomerController::class);
     Route::get('customer/{id}/delete', [MasterCustomerController::class, 'delete'])->name('customer.delete');
 

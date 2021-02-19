@@ -91,8 +91,16 @@
 
           {{-- administrator  --}}
           @if (Auth::user()->roles == "administrator")
+            <li class="nav-item">
+              <a href="{{ url('/dashboard') }}" class="nav-link">
+                <i class="nav-icon fas fa-copy"></i>
+                <p>
+                  Dashboard
+                </p>
+              </a>
+            </li>
           
-            <li class="nav-header bg-secondary">Master</li>
+            <li class="nav-header p-2 bg-secondary">Master</li>
             <li class="nav-item">
               <a href="{{ url('/cabang') }}" class="nav-link">
                 <i class="nav-icon fas fa-copy"></i>
