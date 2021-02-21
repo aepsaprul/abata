@@ -67,7 +67,7 @@
 						<input type="hidden" class="form-control" id="nomor_antrian" value="@if (is_null($nomors)){{ 0 + 1 }}@else{{ $nomors->nomor_antrian + 1 }}@endif" disabled>
 					</div>
 					<div class="form-group">
-						<input type="text" class="form-control" id="telepon" autocomplete="off" required placeholder="Masukkan nomor telepon">
+						<input type="tel" class="form-control" id="telepon" autocomplete="off" required placeholder="Masukkan nomor telepon">
 						<div class="telepon">
 							<ul class="telepon-data">
 								{{-- data  --}}

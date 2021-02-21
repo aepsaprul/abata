@@ -25,18 +25,62 @@
 	<!-- Main content -->
 	<section class="content">
 		<div class="container-fluid">
-			<div class="col-lg-3 col-6">
-				<!-- small box -->
-				<div class="small-box bg-info">
-					<div class="inner">
-						<h3>{{ $jmlPengunjungHariIni }}</h3>
+			<div class="row">
+				<div class="col-lg-3 col-6">
+					<!-- small box -->
+					<div class="small-box bg-info">
+						<div class="inner">
+							<h3>{{ $jmlPengunjungHariIni }}</h3>
 
-						<p>Situmpur Visitor</p>
+							<p>Situmpur Visitor</p>
+						</div>
+						<div class="icon">
+							<i class="fas fa-user-friends"></i>
+						</div>
+						<a href="#" class="small-box-footer">Selengkapnya <i class="fas fa-arrow-circle-right"></i></a>
 					</div>
-					<div class="icon">
-						<i class="fas fa-user-friends"></i>
+				</div>
+				<div class="col-lg-3 col-6">
+					<!-- small box -->
+					<div class="small-box bg-warning">
+						<div class="inner">
+							<h3>{{ $jmlPengunjungHariIni }}</h3>
+
+							<p>Dukuh Waluh Visitor</p>
+						</div>
+						<div class="icon">
+							<i class="fas fa-user-friends"></i>
+						</div>
+						<a href="#" class="small-box-footer">Selengkapnya <i class="fas fa-arrow-circle-right"></i></a>
 					</div>
-					<a href="#" class="small-box-footer">Selengkapnya <i class="fas fa-arrow-circle-right"></i></a>
+				</div>
+				<div class="col-lg-3 col-6">
+					<!-- small box -->
+					<div class="small-box bg-info">
+						<div class="inner">
+							<h3>{{ $jmlPengunjungHariIni }}</h3>
+
+							<p>Purbalingga Visitor</p>
+						</div>
+						<div class="icon">
+							<i class="fas fa-user-friends"></i>
+						</div>
+						<a href="#" class="small-box-footer">Selengkapnya <i class="fas fa-arrow-circle-right"></i></a>
+					</div>
+				</div>
+				<div class="col-lg-3 col-6">
+					<!-- small box -->
+					<div class="small-box bg-warning">
+						<div class="inner">
+							<h3>{{ $jmlPengunjungHariIni }}</h3>
+
+							<p>Cilacap Visitor</p>
+						</div>
+						<div class="icon">
+							<i class="fas fa-user-friends"></i>
+						</div>
+						<a href="#" class="small-box-footer">Selengkapnya <i class="fas fa-arrow-circle-right"></i></a>
+					</div>
 				</div>
 			</div>
 		</div><!-- /.container-fluid -->

@@ -4,6 +4,7 @@ use App\Events\CustomerCs;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AntrianController;
+use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\SitumpurController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\MasterMenuController;
@@ -33,6 +34,8 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+    Route::get('/laporan/pengunjung', [LaporanController::class, 'pengunjung'])->name('laporan.pengunjung');
 
     Route::resource('customer', MasterCustomerController::class);
     Route::get('customer/{id}/delete', [MasterCustomerController::class, 'delete'])->name('customer.delete');
