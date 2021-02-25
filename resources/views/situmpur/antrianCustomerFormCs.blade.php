@@ -101,24 +101,6 @@
 		var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
 		var btnVal = $('#customer_filter_id').val();
 
-		$('.nomor-antrian').hide();
-
-		// nomorAntrian();
-
-		function nomorAntrian() {
-			$.ajax({
-				url: '{{ URL::route('situmpur.antrian.customer.nomor') }}',
-				type: 'GET',
-				data: {
-					_token: CSRF_TOKEN
-				},
-				success: function(response) {
-					var jumlahQuery = response.nomors.length;
-					$('.nomor-antrian .nomor').append(jumlahQuery + 1);
-				}
-			});
-		}
-
 		$("#telepon").on("keyup", function() {
 			$('.telepon .telepon-data').empty();
 			var value = $(this).val();

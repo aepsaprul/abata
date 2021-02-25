@@ -67,6 +67,9 @@
 						<input type="hidden" class="form-control" id="nomor_antrian" value="@if (is_null($nomors)){{ 0 + 1 }}@else{{ $nomors->nomor_antrian + 1 }}@endif" disabled>
 					</div>
 					<div class="form-group">
+						<input type="hidden" class="form-control" id="sisa_antrian" value="{{ $count_nomor_all - $count_nomor_panggil }}" disabled>
+					</div>
+					<div class="form-group">
 						<input type="tel" class="form-control" id="telepon" autocomplete="off" required placeholder="Masukkan nomor telepon">
 						<div class="telepon">
 							<ul class="telepon-data">
@@ -85,21 +88,6 @@
 		</div>
 	</div>
 </div>
-<div class="nomor-antrian">
-	<p class="cv">CV. Abata Printing</p>
-	<p class="head-nomor">Nomor Antrian</p>
-	<p class="nomor">D
-		@if (is_null($nomors))
-			{{ 0 + 1 }}
-		@else
-			{{ $nomors->nomor_antrian + 1 }}
-		@endif
-	</p>
-	@if ($customer_filter_id == 1)
-		<p>Kirim file anda ke WA 081234567890 </p>			
-	@endif
-	<p class="sisa-antrian">Sisa Antrian <span>{{ $count_nomor_all - $count_nomor_panggil }}</span></p>
-</div>
 
 <!-- jQuery -->
 <script src="{{ asset('assets/plugins/jquery/jquery.min.js') }}"></script>
@@ -112,24 +100,6 @@
 	$(document).ready(function() {
 		var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
 		var btnVal = $('#customer_filter_id').val();
-
-		$('.nomor-antrian').hide();
-
-		// nomorAntrian();
-
-		function nomorAntrian() {
-			$.ajax({
-				url: '{{ URL::route('situmpur.antrian.customer.nomor') }}',
-				type: 'GET',
-				data: {
-					_token: CSRF_TOKEN
-				},
-				success: function(response) {
-					var jumlahQuery = response.nomors.length;
-					$('.nomor-antrian .nomor').append(jumlahQuery + 1);
-				}
-			});
-		}
 
 		$("#telepon").on("keyup", function() {
 			$('.telepon .telepon-data').empty();
@@ -163,13 +133,6 @@
 		$('.form-customer').on('submit', function(e) {
 			e.preventDefault();
 
-			$('.form-customer').hide();
-			$('.social-auth-links').hide();
-			$('.login-logo').hide();
-			$('.nomor-antrian').show();
-
-			window.print();
-
 			var nomor_antrian = $('#nomor_antrian').val();
 			var customer_filter_id = btnVal;
 			var nama = $('#nama').val();
@@ -193,24 +156,19 @@
 			});
 		});
 
-		// $('.form-customer').on('submit', function(e) {
-		// 	var nomor_antrian = $('#nomor_antrian').val();
-		// 	var customer_filter_id = btnVal;
-		// 	var nama = $('#nama').val();
-		// 	var telepon = $('#telepon').val();
+		$('.form-customer').on('submit', function(e) {
+			var nomor_antrian = "D " + $('#nomor_antrian').val();
+			var sisa_antrian = $('#sisa_antrian').val();
 
-		// 	$.ajax({
-		// 		url: '{{ URL::route('situmpur.antrian.customer.sender') }}',
-		// 		type: 'POST',
-		// 		data: {
-		// 			_token: CSRF_TOKEN,
-		// 			nomor_antrian: nomor_antrian,
-		// 			customer_filter_id: customer_filter_id,
-		// 			nama_customer: nama,
-		// 			telepon: telepon
-		// 		}
-		// 	});
-		// });
+			$.ajax({
+				url: 'http://localhost/test/escpos/vendor/mike42/escpos-php/example/barcode.php',
+				type: 'POST',
+				data: {
+					nomor_antrian: nomor_antrian,
+					sisa_antrian: sisa_antrian
+				}
+			});
+		});
 	});
 </script>
 
