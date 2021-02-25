@@ -24,7 +24,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $menus = Menu::get();
-        return view('home', ['menus' => $menus]);
+        return view('home');
     }
 }

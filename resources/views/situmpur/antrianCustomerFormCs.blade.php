@@ -67,6 +67,9 @@
 						<input type="hidden" class="form-control" id="nomor_antrian" value="@if (is_null($nomors)){{ 0 + 1 }}@else{{ $nomors->nomor_antrian + 1 }}@endif" disabled>
 					</div>
 					<div class="form-group">
+						<input type="hidden" class="form-control" id="sisa_antrian" value="{{ $count_nomor_all - $count_nomor_panggil }}" disabled>
+					</div>
+					<div class="form-group">
 						<input type="tel" class="form-control" id="telepon" autocomplete="off" required placeholder="Masukkan nomor telepon">
 						<div class="telepon">
 							<ul class="telepon-data">
@@ -84,18 +87,6 @@
 			</form>
 		</div>
 	</div>
-</div>
-<div class="nomor-antrian">
-	<p class="cv">CV. Abata Printing</p>
-	<p class="head-nomor">Nomor Antrian</p>
-	<p class="nomor">C
-		@if (is_null($nomors))
-			{{ 0 + 1 }}
-		@else
-			{{ $nomors->nomor_antrian + 1 }}
-		@endif
-	</p>
-	<p class="sisa-antrian">Sisa Antrian <span>{{ $count_nomor_all - $count_nomor_panggil }}</span></p>
 </div>
 
 <!-- jQuery -->
@@ -160,13 +151,6 @@
 		$('.form-customer').on('submit', function(e) {
 			e.preventDefault();
 
-			$('.form-customer').hide();
-			$('.social-auth-links').hide();
-			$('.login-logo').hide();
-			$('.nomor-antrian').show();
-
-			window.print();
-
 			var nomor_antrian = $('#nomor_antrian').val();
 			var customer_filter_id = btnVal;
 			var nama = $('#nama').val();
@@ -190,20 +174,15 @@
 		});
 
 		$('.form-customer').on('submit', function(e) {
-			var nomor_antrian = $('#nomor_antrian').val();
-			var customer_filter_id = btnVal;
-			var nama = $('#nama').val();
-			var telepon = $('#telepon').val();
+			var nomor_antrian = "C " + $('#nomor_antrian').val();
+			var sisa_antrian = $('#sisa_antrian').val();
 
 			$.ajax({
-				url: '{{ URL::route('situmpur.antrian.customer.sender') }}',
+				url: 'http://localhost/test/escpos/vendor/mike42/escpos-php/example/barcode.php',
 				type: 'POST',
 				data: {
-					_token: CSRF_TOKEN,
 					nomor_antrian: nomor_antrian,
-					customer_filter_id: customer_filter_id,
-					nama_customer: nama,
-					telepon: telepon
+					sisa_antrian: sisa_antrian
 				}
 			});
 		});

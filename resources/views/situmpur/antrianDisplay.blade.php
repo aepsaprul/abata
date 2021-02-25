@@ -258,6 +258,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
 			font-weight: bold;
 		}
 
+		.desain .col-lg-2 .card {
+			height: 250px;
+		}
 		.desain .card-header {
 			background-color: #fbdd23;
 			text-align: center;
@@ -301,13 +304,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <div class="row cs">
           <div class="col-lg-8">
             <div class="card">
-                <iframe width="100%" height="500px" src="https://www.youtube.com/embed/KFEI6xyhYpI?playlist=KFEI6xyhYpI&loop=1">
+                <iframe width="100%" height="640px" src="https://www.youtube.com/embed/KFEI6xyhYpI?playlist=KFEI6xyhYpI&loop=1">
 								</iframe>
             </div>
           </div>
           <!-- /.col-md-6 -->
-          <div class="col-lg-4" style="height: 500px;">
-            <div class="card" style="height: 240px;">
+          <div class="col-lg-4" style="height: 640px;">
+            <div class="card" style="height: 310px;">
               <div class="card-header">
                 <h5 class="title">Nomor Antrian</h5>
               </div>
@@ -319,7 +322,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 							</div>
             </div>
 
-            <div class="card" style="height: 240px;">
+            <div class="card" style="height: 310px;">
               <div class="card-header">
                 <h5 class="title">Nomor Antrian</h5>
               </div>
@@ -336,7 +339,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 				<!-- /.row -->
 				<div class="row desain">
 					<div class="col-lg-2 cs">
-						<div class="card" style="height: 200px;">
+						<div class="card">
               <div class="card-header header-cs">
                 <h5 class="title cs">CS</h5>
               </div>
@@ -349,7 +352,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </div>
 					</div>
 					<div class="col-lg-2 desain-1">
-						<div class="card" style="height: 200px;">
+						<div class="card">
               <div class="card-header header-desain-satu">
                 <h5 class="title desain-satu">Desain 1</h5>
               </div>
@@ -362,7 +365,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </div>
 					</div>
 					<div class="col-lg-2 desain-2">
-						<div class="card" style="height: 200px;">
+						<div class="card">
               <div class="card-header header-desain-dua">
                 <h5 class="title desain-dua">Desain 2</h5>
               </div>
@@ -375,7 +378,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </div>
 					</div>
 					<div class="col-lg-2 desain-34">
-						<div class="card" style="height: 200px;">
+						<div class="card">
               <div class="card-header header-desain-tiga">
                 <h5 class="title desain-tiga">Desain 3</h5>
               </div>
@@ -388,7 +391,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </div>
 					</div>
 					<div class="col-lg-2 desain-4">
-						<div class="card" style="height: 200px;">
+						<div class="card">
               <div class="card-header header-desain-empat">
                 <h5 class="title desain-empat">Desain 4</h5>
               </div>
@@ -401,7 +404,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </div>
 					</div>
 					<div class="col-lg-2 desain-5">
-						<div class="card" style="height: 200px;">
+						<div class="card">
               <div class="card-header header-desain-lima">
                 <h5 class="title desain-lima">Desain 5</h5>
               </div>
