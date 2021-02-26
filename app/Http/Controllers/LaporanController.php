@@ -3,14 +3,20 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\SitumpurAntrianSimpan;
+use App\Models\AntrianPengunjung;
 
 class LaporanController extends Controller
 {
     public function pengunjung()
     {
-        $visitors = SitumpurAntrianSimpan::get();
+        return view('laporan.pengunjung');
+    }
+    public function pengunjungData()
+    {
+        $visitors = AntrianPengunjung::get();
 
-        return view('laporan.pengunjung', ['visitors' => $visitors]);
+        return response()->json([
+            'visitors' => $visitors
+        ]);
     }
 }

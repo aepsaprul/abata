@@ -44,17 +44,21 @@
     <section class="content">
       <div class="container-fluid">
         <div class="row">
-          <div class="col-md-2">
+          <div class="col-md-3">
 						<!-- Date -->
 						<div class="form-group">
-							<label>Date:</label>
-								<div class="input-group date" id="reservationdate" data-target-input="nearest">
-										<input type="text" class="form-control datetimepicker-input" data-target="#reservationdate"/>
-										<div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
-												<div class="input-group-text"><i class="fa fa-calendar"></i></div>
-										</div>
-								</div>
-						</div>
+              <label>Date range:</label>
+
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">
+                    <i class="far fa-calendar-alt"></i>
+                  </span>
+                </div>
+                <input type="text" class="form-control float-right" id="reservation">
+              </div>
+              <!-- /.input group -->
+            </div>
           </div>
           <!-- /.col (right) -->
         </div>
@@ -78,29 +82,8 @@
 										<th>Jenis</th>
 									</tr>
 									</thead>
-									<tbody>
-										@foreach ($visitors as $key => $visitor)
-											
-											<tr>
-												<td>{{ $key + 1 }}</td>
-												<td>{{ $visitor->nama_customer }}</td>
-												<td>{{ $visitor->telepon }}</td>
-												<td>
-                          @if ($visitor->customer_filter_id == "1")
-                            File Siap
-                          @elseif ($visitor->customer_filter_id == "2")
-                            Desain / Edit
-                          @elseif ($visitor->customer_filter_id == "3")
-                            Konsultasi
-                          @elseif ($visitor->customer_filter_id == "4")
-                            Desain
-                          @elseif ($visitor->customer_filter_id == "5")
-                            Edit
-                          @endif
-                        </td>
-											</tr>
-										
-										@endforeach
+									<tbody id="data-pengunjung">
+										{{-- data visitor  --}}
 									</tbody>
 								</table>
 							</div>
@@ -135,6 +118,38 @@
     $('#reservationdate').datetimepicker({
         format: 'L'
     });
+    //Date range picker
+    $('#reservationdate').datetimepicker({
+        format: 'L'
+    });
+    //Date range picker
+    $('#reservation').daterangepicker()
+    //Date range picker with time picker
+    $('#reservationtime').daterangepicker({
+      timePicker: true,
+      timePickerIncrement: 30,
+      locale: {
+        format: 'MM/DD/YYYY hh:mm A'
+      }
+    })
+    //Date range as a button
+    $('#daterange-btn').daterangepicker(
+      {
+        ranges   : {
+          'Today'       : [moment(), moment()],
+          'Yesterday'   : [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+          'Last 7 Days' : [moment().subtract(6, 'days'), moment()],
+          'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+          'This Month'  : [moment().startOf('month'), moment().endOf('month')],
+          'Last Month'  : [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+        },
+        startDate: moment().subtract(29, 'days'),
+        endDate  : moment()
+      },
+      function (start, end) {
+        $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'))
+      }
+    )
 
   })
 </script>
@@ -160,6 +175,29 @@
       "autoWidth": false,
       "responsive": true,
     });
+  });
+</script>
+
+<script>
+  $(document).ready(function() {
+
+    var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+    
+    function dataPengunjung() {
+      $('#data-pengunjung').empty();
+
+      $.ajax({
+        url: '{{ URL::route('laporan.pengunjung.data') }}',
+        type: 'GET',
+        data: {
+          _token: CSRF_TOKEN
+        },
+        success: function(response) {
+          console.log(response);
+        }
+      });
+    }
+
   });
 </script>
 

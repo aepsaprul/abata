@@ -36,15 +36,13 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     Route::get('/laporan/pengunjung', [LaporanController::class, 'pengunjung'])->name('laporan.pengunjung');
+    Route::get('/laporan/pengunjung/data', [LaporanController::class, 'pengunjungData'])->name('laporan.pengunjung.data');
 
     Route::resource('customer', MasterCustomerController::class);
     Route::get('customer/{id}/delete', [MasterCustomerController::class, 'delete'])->name('customer.delete');
 
     Route::resource('cabang', MasterCabangController::class);
     Route::get('cabang/{id}/delete', [MasterCabangController::class, 'delete'])->name('cabang.delete');
-
-    // Route::resource('desainer', MasterDesainerController::class);
-    // Route::get('desainer/{id}/delete', [MasterDesainerController::class, 'delete'])->name('desainer.delete');
 
     Route::resource('jabatan', MasterJabatanController::class);
     Route::get('jabatan/{id}/delete', [MasterJabatanController::class, 'delete'])->name('jabatan.delete');
