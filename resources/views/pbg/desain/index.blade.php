@@ -17,12 +17,12 @@
 		<div class="container-fluid">
 			<div class="row mb-2">
 				<div class="col-sm-6">
-					<h1>Data CS</h1>
+					<h1>Data Desainer</h1>
 				</div>
 				<div class="col-sm-6">
 					<ol class="breadcrumb float-sm-right">
 						<li class="breadcrumb-item"><a href="#">Home</a></li>
-						<li class="breadcrumb-item active">CS</li>
+						<li class="breadcrumb-item active">Desainer</li>
 					</ol>
 				</div>
 			</div>
@@ -40,7 +40,7 @@
 					@endif
 					<div class="card">
 						<div class="card-header">
-							<h3 class="card-title"><a href="{{ route('cabang.create') }}" class="btn btn-primary"><i class="fa fa-plus"></i></a></h3>
+							<h3 class="card-title"><a href="{{ route('situmpur.desain.create') }}" class="btn btn-primary"><i class="fa fa-plus"></i></a></h3>
 						</div>
 						<!-- /.card-header -->
 						<div class="card-body">
@@ -48,18 +48,20 @@
 								<thead>
 								<tr>
 									<th>No</th>
-									<th>Nama Cabang</th>
+									<th>Nomor Desain</th>
+									<th>Nama</th>
 									<th>#</th>
 								</tr>
 								</thead>
 								<tbody>
-									@foreach ($cabangs as $key => $cabang)
+									@foreach ($desains as $key => $desain)
 										
 										<tr>
 											<td>{{ $key + 1 }}</td>
-											<td>{{ $cabang->nama }}</td>
+											<td>Desain {{ $desain->nomor }}</td>
+											<td>{{ $desain->masterKaryawan ? $desain->masterKaryawan->nama_lengkap : '-' }}</td>
 											<td class="text-center">
-												<a href="{{ route('cabang.edit', [$cabang->id]) }}" class="btn btn-primary"><i class="fa fa-pencil-alt"></i></a> | <a href="{{ route('cabang.delete', [$cabang->id]) }}" class="btn btn-danger" onclick="return confirm('Yakin akan dihapus?')"><i class="fa fa-trash"></i></a>
+												<a href="{{ route('situmpur.desain.edit', [$desain->id]) }}" class="btn btn-primary"><i class="fa fa-pencil-alt"></i></a> | <a href="{{ route('situmpur.desain.delete', [$desain->id]) }}" class="btn btn-danger" onclick="return confirm('Yakin akan dihapus?')"><i class="fa fa-trash"></i></a>
 											</td>
 										</tr>
 									
