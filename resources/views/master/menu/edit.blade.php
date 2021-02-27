@@ -49,6 +49,26 @@
 								@enderror
 
 								<div class="form-group">
+									<div class="form-group">
+										<label for="level_menu">Level Menu</label>
+										<select id="level_menu" class="form-control" name="level_menu">
+											<option value="main_menu" {{ $menu->level_menu == "main_menu" ? "selected" : "" }}>Main Menu</option>
+											<option value="sub_menu" {{ $menu->level_menu == "sub_menu" ? "selected" : "" }}>Sub Menu</option>
+										</select>
+									</div>
+								</div>
+
+								<div class="form-group" id="form_root_menu" style="display: none;">
+									<label for="root_menu">Root Menu</label>
+									<select id="root_menu" class="form-control" name="root_menu">
+										<option value="">--Pilih Root Menu--</option>
+										@foreach ($root_menus as $root_menu)
+												<option value="{{ $root_menu->id }}" {{ $root_menu->id == $menu->root_menu ? "selected" : "" }}>{{ $root_menu->nama_menu }}</option>
+										@endforeach
+									</select>
+								</div>
+
+								<div class="form-group">
 									<label for="link">Link</label>
 									<input type="text" name="link" class="form-control @error('link') is-invalid @enderror" id="link" placeholder="Masukkan Link" required value="{{ $menu->link }}">
 								</div>
@@ -87,6 +107,24 @@
 <script type="text/javascript">
 $(document).ready(function () {
   bsCustomFileInput.init();
+
+	var level_menu = $('#level_menu').val();
+
+	if (level_menu == "sub_menu") {
+		$('#form_root_menu').css('display', 'block');
+	} else {
+		$('#form_root_menu').css('display', 'none');
+	}
+
+	$('#level_menu').on('change', function() {
+		var level_menu_change = $('#level_menu').val();
+
+		if (level_menu_change == "sub_menu") {
+			$('#form_root_menu').css('display', 'block');
+		} else {
+			$('#form_root_menu').css('display', 'none');
+		}
+	})
 });
 </script>
 

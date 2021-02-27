@@ -47,24 +47,22 @@
 							<table id="example1" class="table table-bordered table-striped">
 								<thead>
 								<tr>
-									<th>No</th>
-									<th>Title</th>
+									<th>Nama</th>
+									<th>Level</th>
 									<th>Link</th>
 									<th>#</th>
 								</tr>
 								</thead>
 								<tbody>
-									@foreach ($menus as $key => $menu)
-										
+									@foreach ($menus as $key => $menu)										
 										<tr>
-											<td>{{ $key + 1 }}</td>
 											<td>{{ $menu->nama_menu }}</td>
+											<td>{{ $menu->level_menu }}</td>
 											<td>{{ $menu->link }}</td>
 											<td class="text-center">
 												<a href="{{ route('menu.edit', [$menu->id]) }}" class="btn btn-primary"><i class="fa fa-pencil-alt"></i></a> | <a href="{{ route('menu.delete', [$menu->id]) }}" class="btn btn-danger" onclick="return confirm('Yakin akan dihapus?')"><i class="fa fa-trash"></i></a>
 											</td>
-										</tr>
-									
+										</tr>									
 									@endforeach
 								</tbody>
 							</table>

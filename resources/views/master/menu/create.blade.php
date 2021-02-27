@@ -48,6 +48,26 @@
 								@enderror
 
 								<div class="form-group">
+									<div class="form-group">
+										<label for="level_menu">Level Menu</label>
+										<select id="level_menu" class="form-control" name="level_menu">
+											<option value="main_menu">Main Menu</option>
+											<option value="sub_menu">Sub Menu</option>
+										</select>
+									</div>
+								</div>
+
+								<div class="form-group" id="form_root_menu" style="display: none;">
+									<label for="root_menu">Root Menu</label>
+									<select id="root_menu" class="form-control" name="root_menu">
+										<option value="">--Pilih Root Menu--</option>
+										@foreach ($root_menus as $root_menu)
+												<option value="{{ $root_menu->id }}">{{ $root_menu->nama_menu }}</option>
+										@endforeach
+									</select>
+								</div>
+
+								<div class="form-group">
 									<label for="link">Link</label>
 									<input type="text" name="link" class="form-control @error('link') is-invalid @enderror" id="link" placeholder="Masukkan Link" required value="{{ old('link') }}">
 								</div>
@@ -86,6 +106,16 @@
 <script type="text/javascript">
 $(document).ready(function () {
   bsCustomFileInput.init();
+
+	$('#level_menu').on('change', function() {
+		var a = $('#level_menu').val();
+
+		if (a == "sub_menu") {
+			$('#form_root_menu').css('display', 'block');
+		} else {
+			$('#form_root_menu').css('display', 'none');
+		}
+	})
 });
 </script>
 

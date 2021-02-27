@@ -13,6 +13,8 @@ class MasterMenu extends Model
 
     protected $fillable = [
         'nama_menu',
+        'level_menu',
+        'root_menu',
         'link'
     ];
 }

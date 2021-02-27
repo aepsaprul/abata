@@ -27,7 +27,9 @@ class MasterMenuController extends Controller
      */
     public function create()
     {
-        return view('master.menu.create');
+        $root_menus = MasterMenu::where('level_menu', 'main_menu')->get();
+
+        return view('master.menu.create', ['root_menus' => $root_menus]);
     }
 
     /**
@@ -40,6 +42,8 @@ class MasterMenuController extends Controller
     {
         $menus = new MasterMenu;
         $menus->nama_menu = $request->nama_menu;
+        $menus->level_menu = $request->level_menu;
+        $menus->root_menu = $request->root_menu;
         $menus->link = $request->link;
         $menus->created_by = Auth::user()->id;
         $menus->save();
@@ -67,8 +71,9 @@ class MasterMenuController extends Controller
     public function edit($id)
     {
         $menu = MasterMenu::findOrFail($id);
+        $root_menus = MasterMenu::where('level_menu', 'main_menu')->get();
         
-        return view('master.menu.edit', ['menu' => $menu]);
+        return view('master.menu.edit', ['menu' => $menu, 'root_menus' => $root_menus]);
     }
 
     /**
@@ -82,6 +87,8 @@ class MasterMenuController extends Controller
     {
         $menu = MasterMenu::find($id);
         $menu->nama_menu = $request->nama_menu;
+        $menu->level_menu = $request->level_menu;
+        $menu->root_menu = $request->root_menu;
         $menu->link = $request->link;
         $menu->updated_by = Auth::user()->id;
         $menu->save();
