@@ -38,11 +38,22 @@
 							@csrf
 							<div class="card-body">
 								<div class="form-group">
-									<label for="nama_lengkap">nama_lengkap Karyawan</label>
+									<label for="nama_lengkap">Nama Lengkap Karyawan</label>
 									<input type="text" name="nama_lengkap" class="form-control @error('nama_lengkap') is-invalid @enderror" id="nama_lengkap" placeholder="Masukkan nama_lengkap" required value="{{ $karyawan->nama_lengkap }}">
 								</div>
 
 								@error('nama_lengkap')
+									<span class="invalid-feedback" role="alert">
+										<strong>{{ $message }}</strong>
+									</span>
+								@enderror
+
+								<div class="form-group">
+									<label for="nama_panggilan">Nama Panggilan Karyawan</label>
+									<input type="text" name="nama_panggilan" class="form-control @error('nama_panggilan') is-invalid @enderror" id="nama_panggilan" placeholder="Masukkan nama lengkap" required value="{{ $karyawan->nama_panggilan }}">
+								</div>
+
+								@error('nama_panggilan')
 									<span class="invalid-feedback" role="alert">
 										<strong>{{ $message }}</strong>
 									</span>

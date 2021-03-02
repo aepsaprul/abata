@@ -116,6 +116,7 @@ class MasterKaryawanController extends Controller
     {
         $karyawan = MasterKaryawan::find($id);
         $karyawan->nama_lengkap = $request->nama_lengkap;
+        $karyawan->nama_panggilan = $request->nama_panggilan;
         $karyawan->email = $request->email;
         $karyawan->telepon = $request->telepon;
         $karyawan->master_cabang_id = $request->master_cabang_id;
@@ -131,6 +132,11 @@ class MasterKaryawanController extends Controller
         }
 
         $karyawan->save();
+
+        $user = User::where('master_karyawan_id', $id)->first();
+        $user->name = $request->nama_panggilan;
+        $user->email = $request->email;
+        $user->save();
 
         return redirect()->route('karyawan.index')->with('status', 'Data karyawan berhasil diubah');
     }

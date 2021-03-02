@@ -13,7 +13,7 @@ class LaporanController extends Controller
     }
     public function pengunjungData()
     {
-        $visitors = AntrianPengunjung::get();
+        $visitors = AntrianPengunjung::where('status', '1')->get();
 
         return response()->json([
             'visitors' => $visitors

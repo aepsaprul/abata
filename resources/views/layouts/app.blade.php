@@ -54,7 +54,7 @@
       <li class="nav-item dropdown">
         <a class="nav-link" data-toggle="dropdown" href="#">
           <i class="far fa-bell"></i>
-          <span class="badge badge-warning navbar-badge">15</span>
+          <span class="badge badge-warning navbar-badge"></span>
         </a>
       </li>
       <li class="nav-item">
@@ -437,6 +437,19 @@
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
 <script>
   $.widget.bridge('uibutton', $.ui.button)
+
+  function convertDateTimeDBtoIndo(string) {
+      bulanIndo = ['', 'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September' , 'Oktober', 'November', 'Desember'];
+    
+      date = string.split(" ")[0];
+      time = string.split(" ")[1];
+    
+        tanggal = date.split("-")[2];
+        bulan = date.split("-")[1];
+        tahun = date.split("-")[0];
+    
+        return tanggal + " " + bulanIndo[Math.abs(bulan)] + " " + tahun;
+    }
 </script>
 <!-- Bootstrap 4 -->
 <script src="{{ asset('assets/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>

@@ -12,6 +12,12 @@
 <link rel="stylesheet" href="{{ asset('assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
 
+<style>
+  table thead tr th {
+    text-align: center;
+  }
+</style>
+
 @endsection
 		
 
@@ -61,6 +67,20 @@
             </div>
           </div>
           <!-- /.col (right) -->
+          <div class="col-md-3">
+            <div class="form-group">
+              <label>Cabang:</label>
+
+              <select name="" id="" class="form-control">
+                <option value="1">Semua Cabang</option>
+                <option value="1">Situmpur</option>
+                <option value="1">HR</option>
+                <option value="1">DKW</option>
+                <option value="1">Purbalingga</option>
+                <option value="1">Cilacap</option>
+              </select>
+            </div>
+          </div>
         </div>
         <!-- /.row -->
 
@@ -80,6 +100,7 @@
 										<th>Nama</th>
 										<th>Telepon</th>
 										<th>Jenis</th>
+										<th>Tanggal</th>
 									</tr>
 									</thead>
 									<tbody id="data-pengunjung">
@@ -123,13 +144,19 @@
         format: 'L'
     });
     //Date range picker
-    $('#reservation').daterangepicker()
+    $('#reservation').daterangepicker({
+      timePicker: true,
+      timePickerIncrement: 30,
+      locale: {
+        format: 'DD/MM/YYYY'
+      }
+    })
     //Date range picker with time picker
     $('#reservationtime').daterangepicker({
       timePicker: true,
       timePickerIncrement: 30,
       locale: {
-        format: 'MM/DD/YYYY hh:mm A'
+        format: 'DD/MM/YYYY hh:mm A'
       }
     })
     //Date range as a button
@@ -182,6 +209,8 @@
   $(document).ready(function() {
 
     var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+
+    dataPengunjung();
     
     function dataPengunjung() {
       $('#data-pengunjung').empty();
@@ -193,10 +222,40 @@
           _token: CSRF_TOKEN
         },
         success: function(response) {
-          console.log(response);
+          $.each(response.visitors, function(i, value) {
+
+            var created_at = value.created_at;
+            var created_at_replace = created_at.replace(/T|.000000Z/g, " ");
+            var tgl = new Date(created_at_replace);
+            var hari = tgl.getDate(); 
+            var bulan = tgl.getMonth();
+
+            if (value.customer_filter_id == '1') {
+              var customer_filter_id = "File Siap";
+            } else if (value.customer_filter_id == '2') {
+              var customer_filter_id = "Desain / Edit";
+            } else if (value.customer_filter_id == '3') {
+              var customer_filter_id = "Konsultasi";
+            } else if (value.customer_filter_id == '4') {
+              var customer_filter_id = "Desain";
+            } else if (value.customer_filter_id == '5') {
+              var customer_filter_id = "Desain";
+            }
+
+            var dataPengunjungs = "<tr><td>" + (i + 1) + "</td><td>" + value.nama_customer + "</td><td>" + value.telepon + "</td><td>" + customer_filter_id + "</td><td>" + convertDateTimeDBtoIndo(created_at_replace) + "</td></tr>";
+
+            $('#data-pengunjung').append(dataPengunjungs);
+          })
         }
       });
     }
+
+    $('.applyBtn').on('click', function() {
+      var start = $('#reservation').data('daterangepicker').startDate.format('D M YYYY');
+      var end = $('#reservation').data('daterangepicker').endDate.format('D M YYYY');
+      console.log(start + " ---- " + end);
+      // console.log(startDate.format('D MMMM YYYY') + ' - ' + endDate.format('D MMMM YYYY'));
+    });
 
   });
 </script>

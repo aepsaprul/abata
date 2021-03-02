@@ -50,26 +50,35 @@
 								<table id="example1" class="table table-bordered table-striped">
 									<thead>
 									<tr>
-										<th>No</th>
-										<th>Nama Menu</th>
+										<th>Main Menu</th>
+										<th>Sub Menu</th>
 									</tr>
 									</thead>
 									<tbody>
-										@foreach ($menus as $key => $menu)
+										@foreach ($main_menus as $key => $menu)
 											
 											<tr>
-												<td>{{ $key + 1 }}</td>
 												<td>
-													<div class="icheck-primary d-inline">
-														<input type="checkbox" id="menu{{ $menu->id }}" name="menu[]" value="{{ $menu->id }}"
-														{{ in_array($menu->id, json_decode($jabatan->menu_akses)) ? "checked" : "" }}>
-														<label for="menu{{ $menu->id }}">
-															{{ $menu->nama_menu }}
-														</label>
-													</div>
+													{{ $menu->nama_menu }}
+												</td>
+												<td>
+													@foreach ($sub_menus as $sub_menu)
+													<ul style="list-style: none;">
+														@if ($sub_menu->root_menu == $menu->id)														
+																<li>
+																	<div class="icheck-primary d-inline">
+																		<input type="checkbox" id="menu{{ $sub_menu->id }}" name="menu[]" value="{{ $sub_menu->id }}"
+																		{{ in_array($sub_menu->id, json_decode($jabatan->menu_akses)) ? "checked" : "" }}>
+																		<label for="menu{{ $sub_menu->id }}">
+																			{{ $sub_menu->nama_menu }}
+																		</label>
+																	</div>
+																</li>														
+														@endif
+													</ul>
+													@endforeach
 												</td>
 											</tr>
-										
 										@endforeach
 									</tbody>
 								</table>

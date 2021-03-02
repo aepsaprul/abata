@@ -57,7 +57,7 @@
 									@foreach ($menus as $key => $menu)										
 										<tr>
 											<td>{{ $menu->nama_menu }}</td>
-											<td>{{ $menu->level_menu }}</td>
+											<td><span class="badge bg-{{ $menu->level_menu == "main_menu" ? "success" : "danger"}}"> {{ $menu->level_menu }} </span></td>
 											<td>{{ $menu->link }}</td>
 											<td class="text-center">
 												<a href="{{ route('menu.edit', [$menu->id]) }}" class="btn btn-primary"><i class="fa fa-pencil-alt"></i></a> | <a href="{{ route('menu.delete', [$menu->id]) }}" class="btn btn-danger" onclick="return confirm('Yakin akan dihapus?')"><i class="fa fa-trash"></i></a>

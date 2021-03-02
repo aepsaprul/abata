@@ -6,6 +6,15 @@
 <link rel="stylesheet" href="{{ asset('assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
 
+<style>
+	table thead tr th {
+		text-align: center;
+	}
+	.nomor {
+		text-align: center;
+	}
+</style>
+
 @endsection
 
 @section('content')
@@ -60,7 +69,7 @@
 									@foreach ($karyawans as $key => $karyawan)
 										
 										<tr>
-											<td>{{ $key + 1 }}</td>
+											<td class="nomor">{{ $key + 1 }}</td>
 											<td>{{ $karyawan->nama_lengkap }}</td>
 											<td>{{ $karyawan->telepon }}</td>
 											<td>{{ $karyawan->email }}</td>

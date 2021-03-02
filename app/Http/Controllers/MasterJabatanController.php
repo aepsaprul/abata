@@ -114,9 +114,10 @@ class MasterJabatanController extends Controller
     public function akses(Request $request, $id)
     {
         $jabatan = MasterJabatan::find($id);
-        $menus = MasterMenu::get();
+        $main_menus = MasterMenu::where('level_menu', 'main_menu')->get();
+        $sub_menus = MasterMenu::where('level_menu', 'sub_menu')->get();
 
-        return view('master.jabatan.akses', ['jabatan' => $jabatan, 'menus' => $menus]);
+        return view('master.jabatan.akses', ['jabatan' => $jabatan, 'main_menus' => $main_menus, 'sub_menus' => $sub_menus]);
     }
 
     public function aksesSimpan(Request $request, $id)

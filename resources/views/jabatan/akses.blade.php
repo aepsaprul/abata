@@ -55,16 +55,16 @@
 									</tr>
 									</thead>
 									<tbody>
-										@foreach ($menus as $key => $menu)
+										@foreach ($main_menus as $key => $main_menu)
 											
 											<tr>
 												<td>{{ $key + 1 }}</td>
 												<td>
 													<div class="icheck-primary d-inline">
-														<input type="checkbox" id="menu{{ $menu->id }}" name="menu[]" value="{{ $menu->id }}"
-														{{ in_array($menu->id, json_decode($jabatan->menu_akses)) ? "checked" : "" }}>
-														<label for="menu{{ $menu->id }}">
-															{{ $menu->title }}
+														<input type="checkbox" id="main_menu{{ $main_menu->id }}" name="main_menu[]" value="{{ $main_menu->id }}"
+														{{ in_array($main_menu->id, json_decode($jabatan->main_menu_akses)) ? "checked" : "" }}>
+														<label for="main_menu{{ $main_menu->id }}">
+															{{ $main_menu->title }}
 														</label>
 													</div>
 												</td>
