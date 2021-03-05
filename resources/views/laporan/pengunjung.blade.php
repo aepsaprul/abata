@@ -12,6 +12,10 @@
 <link rel="stylesheet" href="{{ asset('assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
 
+<!-- DataTables -->
+<link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.6.1/css/buttons.dataTables.min.css">
+
+
 <style>
   table thead tr th {
     text-align: center;
@@ -71,13 +75,13 @@
             <div class="form-group">
               <label>Cabang:</label>
 
-              <select name="" id="" class="form-control">
-                <option value="1">Semua Cabang</option>
-                <option value="1">Situmpur</option>
-                <option value="1">HR</option>
-                <option value="1">DKW</option>
-                <option value="1">Purbalingga</option>
-                <option value="1">Cilacap</option>
+              <select data-column="5" name="" id="" class="form-control filter-cabang">
+                <option value="">Semua Cabang</option>
+                <option value="2">Situmpur</option>
+                <option value="3">HR</option>
+                <option value="4">DKW</option>
+                <option value="5">Purbalingga</option>
+                <option value="6">Cilacap</option>
               </select>
             </div>
           </div>
@@ -93,18 +97,19 @@
 						@endif
 						<div class="card">
 							<div class="card-body">
-								<table id="example1" class="table table-bordered table-striped">
+								<table id="datatable" class="table table-bordered table-striped">
 									<thead>
 									<tr>
 										<th>No</th>
 										<th>Nama</th>
 										<th>Telepon</th>
-										<th>Jenis</th>
+										<th>Jenis Cetak</th>
+										<th>Nama Desain / CS</th>
 										<th>Tanggal</th>
+										<th>Cabang</th>
 									</tr>
 									</thead>
 									<tbody id="data-pengunjung">
-										{{-- data visitor  --}}
 									</tbody>
 								</table>
 							</div>
@@ -132,6 +137,7 @@
 <script src="{{ asset('assets/plugins/daterangepicker/daterangepicker.js') }}"></script>
 <!-- Tempusdominus Bootstrap 4 -->
 <script src="{{ asset('assets/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js') }}"></script>
+
 <!-- Page script -->
 <script>
   $(function () {
@@ -187,20 +193,89 @@
 <script src="{{ asset('assets/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
 <script src="{{ asset('assets/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
 
+
+
+<!-- DataTables -->
+<script src="https://cdn.datatables.net/buttons/1.6.1/js/dataTables.buttons.min.js"> </script>
+<script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.colVis.min.js"> </script>
+
+<script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.html5.min.js"> </script>
+<script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.print.min.js"> </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"> </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"> </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"> </script>
+
 <script>
-  $(function () {
-    $("#example1").DataTable({
-      "responsive": true,
-      "autoWidth": false,
-    });
-    $('#example2').DataTable({
-      "paging": true,
-      "lengthChange": false,
-      "searching": false,
-      "ordering": true,
-      "info": true,
-      "autoWidth": false,
-      "responsive": true,
+  $(document).ready(function(){
+    var table = $('#datatable').DataTable({
+      pageLength: 25,
+      processing: true,
+      serverSide: true,
+      dom: '<"html5buttons">Bfrtip',
+      
+      buttons : [
+                  {extend:'csv'},
+                  {extend: 'pdf', title:'Contoh File PDF Datatables'},
+                  {extend: 'excel', title: 'Contoh File Excel Datatables'},
+                  {extend:'print',title: 'Contoh Print Datatables'},
+      ],
+      ajax: "{{ route ('laporan.pengunjung.data') }}",
+      columns: [
+          {"data":"id"},
+          {"data":"nama_customer"},
+          {"data":"telepon"},
+          {"data":"customer_filter_id",
+            render: function (data, type, row) {
+              if (data == 1) {
+                return 'File siap';
+              } else if (data == 2) {
+                return 'Desain / Edit';
+              } else if (data == 3) {
+                return 'Konsultasi CS';
+              } else if (data == 4) {
+                return 'Desain';
+              } else if (data == 5) {
+                return 'Edit';
+              }
+            }
+          },
+          {"data":"nama_karyawan"},
+          {"data":"tanggal",
+            render: function (data, type, row) {
+              return convertDateTimeDBtoIndo(data);
+            }
+          },
+          {"data":"master_cabang_id",
+            render: function (data, type, row) {
+              if (data == 2) {
+                return 'Situmpur';
+              } else if (data == 3) {
+                return 'HR';
+              } else if (data == 4) {
+                return 'DKW';
+              } else if (data == 5) {
+                return 'Purbalingga';
+              } else if (data == 6) {
+                return 'Cilacap';
+              }
+            }
+          },
+      ],
+      columnDefs : [{
+          render : function (data,type,row){
+              return data + ' - ' + row['telepon'] + ''; 
+          },
+          "targets" : 1
+          },
+          {"visible": false, "targets" : 2}
+      ],
+    });    
+
+    //filter Berdasarkan cabang
+    $('.filter-cabang').change(function () {
+        table.column( $(this).data('column'))
+        .search( $(this).val() )
+        .draw();
     });
   });
 </script>
@@ -210,45 +285,45 @@
 
     var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
 
-    dataPengunjung();
+    // dataPengunjung();
     
-    function dataPengunjung() {
-      $('#data-pengunjung').empty();
+    // function dataPengunjung() {
+    //   $('#data-pengunjung').empty();
 
-      $.ajax({
-        url: '{{ URL::route('laporan.pengunjung.data') }}',
-        type: 'GET',
-        data: {
-          _token: CSRF_TOKEN
-        },
-        success: function(response) {
-          $.each(response.visitors, function(i, value) {
+    //   $.ajax({
+    //     url: '{{ URL::route('laporan.pengunjung.data') }}',
+    //     type: 'GET',
+    //     data: {
+    //       _token: CSRF_TOKEN
+    //     },
+    //     success: function(response) {
+    //       $.each(response.visitors, function(i, value) {
 
-            var created_at = value.created_at;
-            var created_at_replace = created_at.replace(/T|.000000Z/g, " ");
-            var tgl = new Date(created_at_replace);
-            var hari = tgl.getDate(); 
-            var bulan = tgl.getMonth();
+    //         var created_at = value.created_at;
+    //         var created_at_replace = created_at.replace(/T|.000000Z/g, " ");
+    //         var tgl = new Date(created_at_replace);
+    //         var hari = tgl.getDate(); 
+    //         var bulan = tgl.getMonth();
 
-            if (value.customer_filter_id == '1') {
-              var customer_filter_id = "File Siap";
-            } else if (value.customer_filter_id == '2') {
-              var customer_filter_id = "Desain / Edit";
-            } else if (value.customer_filter_id == '3') {
-              var customer_filter_id = "Konsultasi";
-            } else if (value.customer_filter_id == '4') {
-              var customer_filter_id = "Desain";
-            } else if (value.customer_filter_id == '5') {
-              var customer_filter_id = "Desain";
-            }
+    //         if (value.customer_filter_id == '1') {
+    //           var customer_filter_id = "File Siap";
+    //         } else if (value.customer_filter_id == '2') {
+    //           var customer_filter_id = "Desain / Edit";
+    //         } else if (value.customer_filter_id == '3') {
+    //           var customer_filter_id = "Konsultasi CS";
+    //         } else if (value.customer_filter_id == '4') {
+    //           var customer_filter_id = "Desain";
+    //         } else if (value.customer_filter_id == '5') {
+    //           var customer_filter_id = "Desain";
+    //         }
 
-            var dataPengunjungs = "<tr><td>" + (i + 1) + "</td><td>" + value.nama_customer + "</td><td>" + value.telepon + "</td><td>" + customer_filter_id + "</td><td>" + convertDateTimeDBtoIndo(created_at_replace) + "</td></tr>";
+    //         var dataPengunjungs = "<tr><td>" + (i + 1) + "</td><td>" + value.nama_customer + "</td><td>" + value.telepon + "</td><td>" + customer_filter_id + "</td><td>" + convertDateTimeDBtoIndo(created_at_replace) + "</td></tr>";
 
-            $('#data-pengunjung').append(dataPengunjungs);
-          })
-        }
-      });
-    }
+    //         $('#data-pengunjung').append(dataPengunjungs);
+    //       })
+    //     }
+    //   });
+    // }
 
     $('.applyBtn').on('click', function() {
       var start = $('#reservation').data('daterangepicker').startDate.format('D M YYYY');
