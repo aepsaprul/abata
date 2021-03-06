@@ -261,14 +261,14 @@
             }
           },
       ],
-      columnDefs : [{
-          render : function (data,type,row){
-              return data + ' - ' + row['telepon'] + ''; 
-          },
-          "targets" : 1
-          },
-          {"visible": false, "targets" : 2}
-      ],
+      // columnDefs : [{
+      //     render : function (data,type,row){
+      //         return data + ' - ' + row['telepon'] + ''; 
+      //     },
+      //     "targets" : 1
+      //     },
+      //     {"visible": false, "targets" : 2}
+      // ],
     });    
 
     //filter Berdasarkan cabang
