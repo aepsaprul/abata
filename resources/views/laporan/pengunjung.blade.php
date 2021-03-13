@@ -211,7 +211,7 @@
       pageLength: 25,
       processing: true,
       serverSide: true,
-      dom: '<"html5buttons">Bfrtip',
+      dom: '<"html5buttons">Blfrtip',
       
       buttons : [
                   {extend:'csv'},
