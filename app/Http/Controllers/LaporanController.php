@@ -13,7 +13,7 @@ class LaporanController extends Controller
     }
     public function pengunjungData()
     {
-        $antrianPengungjung = AntrianPengunjung::where('status', 1)->with('masterKaryawan')->get();
+        $antrianPengungjung = AntrianPengunjung::where('status', '!=', 0)->with('masterKaryawan')->get();
         $mapAntrian = $antrianPengungjung->map(function ($item, $key) {
             return [
                 'id' => $key + 1,
