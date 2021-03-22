@@ -20,6 +20,10 @@
   table thead tr th {
     text-align: center;
   }
+
+  .nomor-tabel {
+    text-align: center;
+  }
 </style>
 
 @endsection
@@ -75,7 +79,7 @@
             <div class="form-group">
               <label>Cabang:</label>
 
-              <select data-column="5" name="" id="" class="form-control filter-cabang">
+              <select data-column="6" name="" id="" class="form-control filter-cabang">
                 <option value="">Semua Cabang</option>
                 <option value="2">Situmpur</option>
                 <option value="3">HR</option>
@@ -176,7 +180,7 @@
           'This Month'  : [moment().startOf('month'), moment().endOf('month')],
           'Last Month'  : [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
         },
-        startDate: moment().subtract(29, 'days'),
+        startDate: moment().subtract(6, 'days'),
         endDate  : moment()
       },
       function (start, end) {
@@ -207,6 +211,7 @@
 
 <script>
   $(document).ready(function(){
+
     var table = $('#datatable').DataTable({
       pageLength: 25,
       processing: true,
@@ -221,7 +226,11 @@
       ],
       ajax: "{{ route ('laporan.pengunjung.data') }}",
       columns: [
-          {"data":"id"},
+          {"data": null, className: "nomor-tabel", 
+            render: function (data, type, row, meta) {
+              return meta.row + meta.settings._iDisplayStart + 1;
+            }
+          },
           {"data":"nama_customer"},
           {"data":"telepon"},
           {"data":"customer_filter_id",
@@ -261,15 +270,7 @@
             }
           },
       ],
-      // columnDefs : [{
-      //     render : function (data,type,row){
-      //         return data + ' - ' + row['telepon'] + ''; 
-      //     },
-      //     "targets" : 1
-      //     },
-      //     {"visible": false, "targets" : 2}
-      // ],
-    });    
+    }); 
 
     //filter Berdasarkan cabang
     $('.filter-cabang').change(function () {
@@ -285,51 +286,24 @@
 
     var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
 
-    // dataPengunjung();
-    
-    // function dataPengunjung() {
-    //   $('#data-pengunjung').empty();
-
-    //   $.ajax({
-    //     url: '{{ URL::route('laporan.pengunjung.data') }}',
-    //     type: 'GET',
-    //     data: {
-    //       _token: CSRF_TOKEN
-    //     },
-    //     success: function(response) {
-    //       $.each(response.visitors, function(i, value) {
-
-    //         var created_at = value.created_at;
-    //         var created_at_replace = created_at.replace(/T|.000000Z/g, " ");
-    //         var tgl = new Date(created_at_replace);
-    //         var hari = tgl.getDate(); 
-    //         var bulan = tgl.getMonth();
-
-    //         if (value.customer_filter_id == '1') {
-    //           var customer_filter_id = "File Siap";
-    //         } else if (value.customer_filter_id == '2') {
-    //           var customer_filter_id = "Desain / Edit";
-    //         } else if (value.customer_filter_id == '3') {
-    //           var customer_filter_id = "Konsultasi CS";
-    //         } else if (value.customer_filter_id == '4') {
-    //           var customer_filter_id = "Desain";
-    //         } else if (value.customer_filter_id == '5') {
-    //           var customer_filter_id = "Desain";
-    //         }
-
-    //         var dataPengunjungs = "<tr><td>" + (i + 1) + "</td><td>" + value.nama_customer + "</td><td>" + value.telepon + "</td><td>" + customer_filter_id + "</td><td>" + convertDateTimeDBtoIndo(created_at_replace) + "</td></tr>";
-
-    //         $('#data-pengunjung').append(dataPengunjungs);
-    //       })
-    //     }
-    //   });
-    // }
-
     $('.applyBtn').on('click', function() {
-      var start = $('#reservation').data('daterangepicker').startDate.format('D M YYYY');
-      var end = $('#reservation').data('daterangepicker').endDate.format('D M YYYY');
+      var start = $('#reservation').data('daterangepicker').startDate.format('YYYY-MM-DD');
+      var end = $('#reservation').data('daterangepicker').endDate.format('YYYY-MM-DD');
       console.log(start + " ---- " + end);
       // console.log(startDate.format('D MMMM YYYY') + ' - ' + endDate.format('D MMMM YYYY'));
+
+      $.ajax({
+        url: '{{ URL::route('laporan.pengunjung.rangetgl') }}',
+        type: 'POST',
+        data: {
+          _token: CSRF_TOKEN,
+          startDate: start,
+          endDate: end
+        },
+        success: function(response) {
+          console.log(response);
+        }
+      })
     });
 
   });

@@ -448,7 +448,8 @@
         bulan = date.split("-")[1];
         tahun = date.split("-")[0];
     
-        return tanggal + " " + bulanIndo[Math.abs(bulan)] + " " + tahun;
+        // return tanggal + " " + bulanIndo[Math.abs(bulan)] + " " + tahun;
+        return tahun+"/"+bulan+"/"+tanggal;
     }
 </script>
 <!-- Bootstrap 4 -->

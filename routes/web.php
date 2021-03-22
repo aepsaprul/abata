@@ -37,6 +37,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/laporan/pengunjung', [LaporanController::class, 'pengunjung'])->name('laporan.pengunjung');
     Route::get('/laporan/pengunjung/data', [LaporanController::class, 'pengunjungData'])->name('laporan.pengunjung.data');
+    Route::post('/laporan/pengunjung/rangetgl', [LaporanController::class, 'pengunjungRangeTgl'])->name('laporan.pengunjung.rangetgl');
 
     Route::resource('customer', MasterCustomerController::class);
     Route::get('customer/{id}/delete', [MasterCustomerController::class, 'delete'])->name('customer.delete');
