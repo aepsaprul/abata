@@ -2,19 +2,12 @@
 @extends('layouts.app')
 
 @section('style')
-
-<!-- daterange picker -->
-<link rel="stylesheet" href="{{ asset('assets/plugins/daterangepicker/daterangepicker.css') }}">
-<!-- Tempusdominus Bbootstrap 4 -->
-<link rel="stylesheet" href="{{ asset('assets/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css') }}">
+<link href="https://cdn.datatables.net/datetime/1.0.2/css/dataTables.dateTime.min.css" rel="stylesheet">
 
 <!-- DataTables -->
-<link rel="stylesheet" href="{{ asset('assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
-<link rel="stylesheet" href="{{ asset('assets/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
-
-<!-- DataTables -->
-<link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.6.1/css/buttons.dataTables.min.css">
-
+<link href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css" rel="stylesheet">
+<link href="https://cdn.datatables.net/datetime/1.0.2/css/dataTables.dateTime.min.css" rel="stylesheet">
+<link href="https://cdn.datatables.net/buttons/1.7.0/css/buttons.dataTables.min.css" rel="stylesheet">
 
 <style>
   table thead tr th {
@@ -56,75 +49,127 @@
 
     <!-- Main content -->
     <section class="content">
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col-md-3">
-						<!-- Date -->
-						<div class="form-group">
-              <label>Date range:</label>
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-md-2">
+					<!-- Date -->
+					<div class="form-group">
+						<label>Tgl Awal:</label>
 
-              <div class="input-group">
-                <div class="input-group-prepend">
-                  <span class="input-group-text">
-                    <i class="far fa-calendar-alt"></i>
-                  </span>
-                </div>
-                <input type="text" class="form-control float-right" id="reservation">
-              </div>
-              <!-- /.input group -->
-            </div>
-          </div>
-          <!-- /.col (right) -->
-          <div class="col-md-3">
-            <div class="form-group">
-              <label>Cabang:</label>
-
-              <select data-column="6" name="" id="" class="form-control filter-cabang">
-                <option value="">Semua Cabang</option>
-                <option value="2">Situmpur</option>
-                <option value="3">HR</option>
-                <option value="4">DKW</option>
-                <option value="5">Purbalingga</option>
-                <option value="6">Cilacap</option>
-              </select>
-            </div>
-          </div>
-        </div>
-        <!-- /.row -->
-
-				<div class="row">
-					<div class="col-12">
-						@if(session('status'))
-							<div class="alert alert-success">
-									{{session('status')}}
+						<div class="input-group">
+							<div class="input-group-prepend">
+							<span class="input-group-text">
+								<i class="far fa-calendar-alt"></i>
+							</span>
 							</div>
-						@endif
-						<div class="card">
-							<div class="card-body">
-								<table id="datatable" class="table table-bordered table-striped">
-									<thead>
-									<tr>
-										<th>No</th>
-										<th>Nama</th>
-										<th>Telepon</th>
-										<th>Jenis Cetak</th>
-										<th>Nama Desain / CS</th>
-										<th>Tanggal</th>
-										<th>Cabang</th>
-									</tr>
-									</thead>
-									<tbody id="data-pengunjung">
-									</tbody>
-								</table>
-							</div>
-							<!-- /.card-body -->
+							<input type="text" id="min" class="form-control float-right" name="min">
 						</div>
-						<!-- /.card -->
+						<!-- /.input group -->
 					</div>
-					<!-- /.col -->
 				</div>
-				<!-- /.row -->
-      </div><!-- /.container-fluid -->
+				<div class="col-md-2">
+					<!-- Date -->
+					<div class="form-group">
+						<label>Tgl Akhir:</label>
+
+						<div class="input-group">
+							<div class="input-group-prepend">
+							<span class="input-group-text">
+								<i class="far fa-calendar-alt"></i>
+							</span>
+							</div>
+							<input type="text" id="max" class="form-control float-right" name="max">
+						</div>
+						<!-- /.input group -->
+					</div>
+				</div>
+				<div class="col-md-3">
+					<div class="form-group">
+						<label>Cabang:</label>
+
+						<select data-column="6" name="" id="" class="form-control filter-cabang">
+							<option value="">Semua Cabang</option>
+							<option value="2">Situmpur</option>
+							<option value="3">HR</option>
+							<option value="4">DKW</option>
+							<option value="Abata Purbalingga">Purbalingga</option>
+							<option value="6">Cilacap</option>
+						</select>
+					</div>
+				</div>
+			</div>
+			<!-- /.row -->
+
+			<div class="row">
+				<div class="col-12">
+					@if(session('status'))
+						<div class="alert alert-success">
+							{{session('status')}}
+						</div>
+					@endif
+					<div class="card">
+						<div class="card-body">
+							<table id="example" class="table table-bordered table-striped">
+								<thead>
+								<tr>
+									<th>No</th>
+									<th>Nama</th>
+									<th>Telepon</th>
+									<th>Jenis Cetak</th>
+									<th>Nama Desain / CS</th>
+									<th>Tanggal</th>
+									<th>Cabang</th>
+									<th>Kecepatan</th>
+								</tr>
+								</thead>
+								<tbody>
+									@foreach ($pengunjungs as $key => $pengunjung)
+										<tr>
+											<td class="text-center">{{ $key + 1 }}</td>
+											<td class="text-left">{{ $pengunjung->nama_customer }}</td>
+											<td class="text-right">{{ $pengunjung->telepon }}</td>
+											<td class="text-center">
+												@if ($pengunjung->customer_filter_id == 1)
+													File Siap
+												@elseif($pengunjung->customer_filter_id == 2)
+													Desain / Edit
+												@elseif($pengunjung->customer_filter_id == 3)
+													Konsultasi CS
+												@elseif($pengunjung->customer_filter_id == 4)
+													Desain
+												@elseif($pengunjung->customer_filter_id == 5)
+													Edit
+												@endif
+											</td>
+											<td>{{ $pengunjung->masterKaryawan->nama_lengkap }}</td>
+											<td class="text-center">{{ $pengunjung->tanggal }}</td>
+											<td class="text-center">{{ $pengunjung->masterCabang->nama_cabang }}</td>
+											<td class="text-right">
+												@php
+													$waktuawal  = date_create($pengunjung->mulai); //waktu di setting
+													$waktuakhir = date_create($pengunjung->selesai); //2019-02-21 09:35 waktu sekarang
+													$diff  = date_diff($waktuawal, $waktuakhir);
+
+													if ($diff->h == 0) {
+															echo $diff->i . " menit " . $diff->s . " detik";      
+													} else {
+															echo $diff->h . " jam " . $diff->i . " menit " . $diff->s . " detik";
+													}
+												@endphp
+											</td>
+										</tr>
+									@endforeach
+								</tbody>
+							</table>
+						</div>
+						<!-- /.card-body -->
+					</div>
+					<!-- /.card -->
+				</div>
+				<!-- /.col -->
+			</div>
+			<!-- /.row -->
+		</div><!-- /.container-fluid -->
     </section>
     <!-- /.content -->
   </div>
@@ -135,178 +180,72 @@
 
 @section('script')
 
-<!-- InputMask -->
-<script src="{{ asset('assets/plugins/moment/moment.min.js') }}"></script>
-<!-- date-range-picker -->
-<script src="{{ asset('assets/plugins/daterangepicker/daterangepicker.js') }}"></script>
-<!-- Tempusdominus Bootstrap 4 -->
-<script src="{{ asset('assets/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js') }}"></script>
-
-<!-- Page script -->
-<script>
-  $(function () {
-    //Date range picker
-    $('#reservationdate').datetimepicker({
-        format: 'L'
-    });
-    //Date range picker
-    $('#reservationdate').datetimepicker({
-        format: 'L'
-    });
-    //Date range picker
-    $('#reservation').daterangepicker({
-      timePicker: true,
-      timePickerIncrement: 30,
-      locale: {
-        format: 'DD/MM/YYYY'
-      }
-    })
-    //Date range picker with time picker
-    $('#reservationtime').daterangepicker({
-      timePicker: true,
-      timePickerIncrement: 30,
-      locale: {
-        format: 'DD/MM/YYYY hh:mm A'
-      }
-    })
-    //Date range as a button
-    $('#daterange-btn').daterangepicker(
-      {
-        ranges   : {
-          'Today'       : [moment(), moment()],
-          'Yesterday'   : [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-          'Last 7 Days' : [moment().subtract(6, 'days'), moment()],
-          'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-          'This Month'  : [moment().startOf('month'), moment().endOf('month')],
-          'Last Month'  : [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
-        },
-        startDate: moment().subtract(6, 'days'),
-        endDate  : moment()
-      },
-      function (start, end) {
-        $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'))
-      }
-    )
-
-  })
-</script>
-
 <!-- DataTables -->
-<script src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
-<script src="{{ asset('assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
-<script src="{{ asset('assets/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
-<script src="{{ asset('assets/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+<script src="https://cdn.datatables.net/datetime/1.0.2/js/dataTables.dateTime.min.js"></script>
 
-
-
-<!-- DataTables -->
-<script src="https://cdn.datatables.net/buttons/1.6.1/js/dataTables.buttons.min.js"> </script>
-<script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.colVis.min.js"> </script>
-
-<script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.html5.min.js"> </script>
-<script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.print.min.js"> </script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"> </script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"> </script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"> </script>
+<script src="https://cdn.datatables.net/buttons/1.7.0/js/dataTables.buttons.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.7.0/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.7.0/js/buttons.print.min.js"></script>
 
 <script>
-  $(document).ready(function(){
-
-    var table = $('#datatable').DataTable({
-      pageLength: 25,
-      processing: true,
-      serverSide: true,
-      dom: '<"html5buttons">Blfrtip',
-      
-      buttons : [
-                  {extend:'csv'},
-                  {extend: 'pdf', title:'Contoh File PDF Datatables'},
-                  {extend: 'excel', title: 'Contoh File Excel Datatables'},
-                  {extend:'print',title: 'Contoh Print Datatables'},
-      ],
-      ajax: "{{ route ('laporan.pengunjung.data') }}",
-      columns: [
-          {"data": null, className: "nomor-tabel", 
-            render: function (data, type, row, meta) {
-              return meta.row + meta.settings._iDisplayStart + 1;
-            }
-          },
-          {"data":"nama_customer"},
-          {"data":"telepon"},
-          {"data":"customer_filter_id",
-            render: function (data, type, row) {
-              if (data == 1) {
-                return 'File siap';
-              } else if (data == 2) {
-                return 'Desain / Edit';
-              } else if (data == 3) {
-                return 'Konsultasi CS';
-              } else if (data == 4) {
-                return 'Desain';
-              } else if (data == 5) {
-                return 'Edit';
-              }
-            }
-          },
-          {"data":"nama_karyawan"},
-          {"data":"tanggal",
-            render: function (data, type, row) {
-              return convertDateTimeDBtoIndo(data);
-            }
-          },
-          {"data":"master_cabang_id",
-            render: function (data, type, row) {
-              if (data == 2) {
-                return 'Situmpur';
-              } else if (data == 3) {
-                return 'HR';
-              } else if (data == 4) {
-                return 'DKW';
-              } else if (data == 5) {
-                return 'Purbalingga';
-              } else if (data == 6) {
-                return 'Cilacap';
-              }
-            }
-          },
-      ],
-    }); 
-
-    //filter Berdasarkan cabang
-    $('.filter-cabang').change(function () {
-        table.column( $(this).data('column'))
-        .search( $(this).val() )
-        .draw();
-    });
-  });
-</script>
-
-<script>
-  $(document).ready(function() {
-
-    var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
-
-    $('.applyBtn').on('click', function() {
-      var start = $('#reservation').data('daterangepicker').startDate.format('YYYY-MM-DD');
-      var end = $('#reservation').data('daterangepicker').endDate.format('YYYY-MM-DD');
-      console.log(start + " ---- " + end);
-      // console.log(startDate.format('D MMMM YYYY') + ' - ' + endDate.format('D MMMM YYYY'));
-
-      $.ajax({
-        url: '{{ URL::route('laporan.pengunjung.rangetgl') }}',
-        type: 'POST',
-        data: {
-          _token: CSRF_TOKEN,
-          startDate: start,
-          endDate: end
-        },
-        success: function(response) {
-          console.log(response);
-        }
-      })
-    });
-
-  });
+	$(document).ready(function() {
+		var minDate, maxDate;
+ 
+		// Custom filtering function which will search data in column four between two values
+		$.fn.dataTable.ext.search.push(
+				function( settings, data, dataIndex ) {
+						var min = minDate.val();
+						var max = maxDate.val();
+						var date = new Date( data[5] );
+			
+						if (
+								( min === null && max === null ) ||
+								( min === null && date <= max ) ||
+								( min <= date   && max === null ) ||
+								( min <= date   && date <= max )
+						) {
+								return true;
+						}
+						return false;
+				}
+		);
+	
+		$(document).ready(function() {
+				// Create date inputs
+				minDate = new DateTime($('#min'), {
+						format: 'MMMM Do YYYY'
+				});
+				maxDate = new DateTime($('#max'), {
+						format: 'MMMM Do YYYY'
+				});
+			
+				// DataTables initialisation
+				var table = $('#example').DataTable({
+						dom: 'Bfrtip',
+						buttons: [
+								'excel', 'pdf', 'print'
+						]
+				});
+			
+				// Refilter the table
+				$('#min, #max').on('change', function () {
+						table.draw();
+				});
+				
+				//  filter cabang 
+				$('.filter-cabang').change(function () {
+						table.column( $(this).data('column'))
+						.search( $(this).val() )
+						.draw();
+					});
+		});
+	});
 </script>
 
 @endsection
