@@ -6,7 +6,6 @@
         <link rel="shortcut icon" href="{{ asset('assets/img/logo-daun.png') }}" type="image/x-icon">
 
         <title>Abata</title>
-
         
         <!-- bootstrap -->
         <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">

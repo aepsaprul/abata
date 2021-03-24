@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\MasterMenu;
+use App\Models\JabatanMenu;
 use Illuminate\Http\Request;
 use App\Models\MasterJabatan;
 use Illuminate\Support\Facades\Auth;
@@ -114,18 +115,40 @@ class MasterJabatanController extends Controller
     public function akses(Request $request, $id)
     {
         $jabatan = MasterJabatan::find($id);
+        $jabatanMenu = JabatanMenu::where('master_jabatan_id', $id)
+            ->with('masterJabatan')
+            ->get();
         $main_menus = MasterMenu::where('level_menu', 'main_menu')->get();
         $sub_menus = MasterMenu::where('level_menu', 'sub_menu')->get();
 
-        return view('master.jabatan.akses', ['jabatan' => $jabatan, 'main_menus' => $main_menus, 'sub_menus' => $sub_menus]);
+        return view('master.jabatan.akses', ['jabatan' => $jabatan, 'jabatanMenu' => $jabatanMenu, 'main_menus' => $main_menus, 'sub_menus' => $sub_menus]);
     }
 
     public function aksesSimpan(Request $request, $id)
     {
-        $save_menu_akses = MasterJabatan::find($id);
-        $save_menu_akses->menu_akses = json_encode($request->menu);
-        $save_menu_akses->save();
 
-        return redirect()->route('jabatan.akses', [$save_menu_akses->id]);
+        $jabatanMenus = JabatanMenu::where('master_jabatan_id', $id)->get();
+        
+        if (count($jabatanMenus) == 0) {
+            
+            foreach ($request->menu as $key => $menu) {
+                $jabatanMenuCreate = new JabatanMenu;
+                $jabatanMenuCreate->master_jabatan_id = $id;
+                $jabatanMenuCreate->master_menu_id = $menu;
+                $jabatanMenuCreate->save();
+            }
+        } else {
+            $jabatanMenuHapus = JabatanMenu::where('master_jabatan_id', $request->id);
+            $jabatanMenuHapus->delete();
+
+            foreach ($request->menu as $key => $menu) {
+                $jabatanMenuCreate = new JabatanMenu;
+                $jabatanMenuCreate->master_jabatan_id = $id;
+                $jabatanMenuCreate->master_menu_id = $menu;
+                $jabatanMenuCreate->save();
+            }
+        }
+
+        return redirect()->route('jabatan.akses', [$id]);
     }
 }

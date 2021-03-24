@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\JabatanMenu;
 use App\Models\MasterKaryawan;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -20,5 +21,10 @@ class MasterJabatan extends Model
     public function masterKaryawan()
     {
         return $this->belongsTo(MasterKaryawan::class);
+    }
+
+    public function jabatanMenu()
+    {
+        return $this->hasMany(JabatanMenu::class);
     }
 }

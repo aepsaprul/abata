@@ -20,7 +20,7 @@
 		<div class="container-fluid">
 			<div class="row mb-2">
 				<div class="col-sm-6">
-					<h1>Menu Akses {{ $jabatan->nama }}</h1>
+					<h1>Menu Akses {{ $jabatan->nama_jabatan }}</h1>
 				</div>
 				<div class="col-sm-6">
 					<ol class="breadcrumb float-sm-right">
@@ -68,7 +68,13 @@
 																<li>
 																	<div class="icheck-primary d-inline">
 																		<input type="checkbox" id="menu{{ $sub_menu->id }}" name="menu[]" value="{{ $sub_menu->id }}"
-																		{{ in_array($sub_menu->id, json_decode($jabatan->menu_akses)) ? "checked" : "" }}>
+																		{{-- {{ in_array($sub_menu->id, json_decode($jabatan->menu_akses)) ? "checked" : "" }} --}}
+																		@foreach ($jabatanMenu as $jabatanMenune)
+																				@if ($jabatanMenune->master_menu_id == $sub_menu->id)
+																						{{ 'checked' }}
+																				@endif
+																		@endforeach
+																		>
 																		<label for="menu{{ $sub_menu->id }}">
 																			{{ $sub_menu->nama_menu }}
 																		</label>
