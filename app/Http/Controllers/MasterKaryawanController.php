@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\MasterMenu;
+use App\Models\KaryawanMenu;
 use App\Models\MasterCabang;
 use Illuminate\Http\Request;
 use App\Models\MasterJabatan;
@@ -161,5 +163,45 @@ class MasterKaryawanController extends Controller
         $karyawan->delete();
 
         return redirect()->route('karyawan.index')->with('status', 'Data karyawan berhasil dihapus');
+    }
+
+    public function akses(Request $request, $id)
+    {
+        $karyawan = MasterKaryawan::find($id);
+        $karyawanMenu = KaryawanMenu::where('master_karyawan_id', $id)
+            ->with('masterKaryawan')
+            ->get();
+        $main_menus = MasterMenu::where('level_menu', 'main_menu')->get();
+        $sub_menus = MasterMenu::where('level_menu', 'sub_menu')->get();
+
+        return view('master.karyawan.akses', ['karyawan' => $karyawan, 'karyawanMenu' => $karyawanMenu, 'main_menus' => $main_menus, 'sub_menus' => $sub_menus]);
+    }
+
+    public function aksesSimpan(Request $request, $id)
+    {
+
+        $karyawanMenus = KaryawanMenu::where('master_karyawan_id', $id)->get();
+        
+        if (count($karyawanMenus) == 0) {
+            
+            foreach ($request->menu as $key => $menu) {
+                $karyawanMenuCreate = new KaryawanMenu;
+                $karyawanMenuCreate->master_karyawan_id = $id;
+                $karyawanMenuCreate->master_menu_id = $menu;
+                $karyawanMenuCreate->save();
+            }
+        } else {
+            $karyawanMenuHapus = KaryawanMenu::where('master_karyawan_id', $request->id);
+            $karyawanMenuHapus->delete();
+
+            foreach ($request->menu as $key => $menu) {
+                $karyawanMenuCreate = new KaryawanMenu;
+                $karyawanMenuCreate->master_karyawan_id = $id;
+                $karyawanMenuCreate->master_menu_id = $menu;
+                $karyawanMenuCreate->save();
+            }
+        }
+
+        return redirect()->route('karyawan.akses', [$id]);
     }
 }

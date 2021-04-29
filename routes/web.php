@@ -9,6 +9,7 @@ use App\Http\Controllers\SitumpurController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\MasterMenuController;
 use App\Http\Controllers\MasterCabangController;
+use App\Http\Controllers\MasterDivisiController;
 use App\Http\Controllers\MasterJabatanController;
 use App\Http\Controllers\MasterCustomerController;
 use App\Http\Controllers\MasterKaryawanController;
@@ -45,6 +46,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('cabang', MasterCabangController::class);
     Route::get('cabang/{id}/delete', [MasterCabangController::class, 'delete'])->name('cabang.delete');
 
+    Route::resource('divisi', MasterDivisiController::class);
+    Route::get('divisi/{id}/delete', [MasterDivisiController::class, 'delete'])->name('divisi.delete');
+
     Route::resource('jabatan', MasterJabatanController::class);
     Route::get('jabatan/{id}/delete', [MasterJabatanController::class, 'delete'])->name('jabatan.delete');
     Route::get('jabatan/{id}/akses', [MasterJabatanController::class, 'akses'])->name('jabatan.akses');
@@ -52,6 +56,8 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::resource('karyawan', MasterKaryawanController::class);
     Route::get('karyawan/{id}/delete', [MasterKaryawanController::class, 'delete'])->name('karyawan.delete');
+    Route::get('karyawan/{id}/akses', [MasterKaryawanController::class, 'akses'])->name('karyawan.akses');
+    Route::put('karyawan/{id}/akses/simpan', [MasterKaryawanController::class, 'aksesSimpan'])->name('karyawan.akses.simpan');
 
     Route::resource('menu', MasterMenuController::class);
     Route::get('menu/{id}/delete', [MasterMenuController::class, 'delete'])->name('menu.delete');
